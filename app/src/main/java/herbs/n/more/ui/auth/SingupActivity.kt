@@ -7,10 +7,8 @@ import androidx.lifecycle.ViewModelProviders
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.ActivitySignupBindingImpl
-import herbs.n.more.ui.home.MainActivity
 import herbs.n.more.util.hide
 import herbs.n.more.util.show
-import herbs.n.more.util.snackbar
 import herbs.n.more.util.toast
 import kotlinx.android.synthetic.main.activity_login.*
 import org.kodein.di.KodeinAware

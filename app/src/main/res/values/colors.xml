@@ -3,4 +3,17 @@
     <color name="colorPrimary">#448602</color>
     <color name="colorPrimaryDark">#4D7A20</color>
     <color name="colorAccent">#448602</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhite40">#66FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlack20">#33000000</color>
+
+    <color name="face_blue">#15b2ff</color>
+    <color name="facebook_blue">#1515b2ff</color>
+    <color name="google">#fe3b53</color>
+    <color name="google_red">#15fe3b53</color>
+
+    <color name="colorInputText">#C0C8B8</color>
+    <color name="colorMenu">#69874C</color>
 </resources>

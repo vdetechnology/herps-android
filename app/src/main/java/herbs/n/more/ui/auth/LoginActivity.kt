@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.ActivityLoginBinding
-import herbs.n.more.ui.home.MainActivity
+import herbs.n.more.ui.MainActivity
 import herbs.n.more.util.hide
 import herbs.n.more.util.show
 import herbs.n.more.util.snackbar

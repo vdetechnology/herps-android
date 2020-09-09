@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">Herbs&amp;More</string>
+
+    <!-- Onboarding-->
+    <string name="title1">Đảm bảo xuất xứ</string>
+    <string name="description1">Nguồn gốc xuất xứ đúng như trên bao bì và công bố sản phẩm, bồi thường 500% giá trị đơn hàng cho nếu không đúng xuất xứ.</string>
+    <string name="title2">Cam kết chất lượng</string>
+    <string name="description2">Cam kết chất lượng như công bố, bồi thường 200% giá trị đơn hàng cho sản phẩm không đạt hay kém chất lượng.</string>
+    <string name="title3">Phục vụ tận tâm</string>
+    <string name="description3">Chúng tôi mong muốn lắng nghe chia sẽ về tình trạng sức khỏe, nhu cầu của Quí khách hàng &amp; sẵn sàng phục vụ bằng cả tấm lòng.</string>
+
+    <!-- Login-->
+    <string name="s_select_all">Select all</string>
+    <string name="promotion">Promotion</string>
+    <string name="lb_welcome_back">Welcome back!</string>
+    <string name="lb_please_log_in">Please log in to your account</string>
+    <string name="lb_username">Your email or Phone Number</string>
+    <string name="lb_password">Password</string>
+    <string name="lb_login_reset_password">Forgot password?</string>
+    <string name="lb_continued_as_guest">Continued as a guest</string>
+    <string name="lb_or_login_with">Or login with</string>
+    <string name="lb_sign_up">Sign up</string>
+    <string name="lb_footer_login">Don\'t have an account?</string>
+    <string name="lb_log_in">Log in</string>
+
+    <!-- Login-->
+    <string name="menu_home">Home</string>
+    <string name="menu_category">Category</string>
+    <string name="menu_saved">Saved</string>
+    <string name="menu_profile">Profile</string>
 </resources>
