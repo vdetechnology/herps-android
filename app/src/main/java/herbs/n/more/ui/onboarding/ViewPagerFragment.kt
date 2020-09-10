@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import herbs.n.more.R
 import herbs.n.more.ui.MainActivity
+import herbs.n.more.ui.adapter.ViewPagerAdapter
 import herbs.n.more.ui.onboarding.screens.FirstScreen
 import herbs.n.more.ui.onboarding.screens.SecondScreen
 import herbs.n.more.ui.onboarding.screens.ThirdScreen

@@ -15,9 +15,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val main: MainActivity = activity as MainActivity
-        main.bottomBar.visibility = View.VISIBLE
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 

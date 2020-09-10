@@ -81,4 +81,10 @@ dependencies {
     //SmoothBottomBar
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.6'
 
+    //BannerViewPager
+    implementation 'com.github.zhpanvip:BannerViewPager:3.1.6'
+
+    //Animation loading
+    implementation 'com.airbnb.android:lottie:2.2.5'
+    implementation 'com.daimajia.androidanimations:library:2.3@aar'
 }
