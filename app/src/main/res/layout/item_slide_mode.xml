@@ -3,12 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <herbs.n.more.util.CornerImageView
         android:id="@+id/banner_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/description1"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/guide0"/>
+        android:contentDescription="@string/title1"
+        android:scaleType="centerCrop" />
 
 </RelativeLayout>

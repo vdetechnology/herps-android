@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
@@ -29,11 +30,13 @@ class WelcomeActivity : AppCompatActivity() {
     private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
     protected var mDrawableList: MutableList<Int> = ArrayList()
 
+    private var tit : Array<String?> = arrayOfNulls(3)
     private var des : Array<String?> = arrayOfNulls(3)
 
     private val data: List<CustomBean>
         get() {
             val list = ArrayList<CustomBean>()
+            tit = arrayOf(resources.getString(R.string.title1), resources.getString(R.string.title2), resources.getString(R.string.title3))
             des = arrayOf(resources.getString(R.string.description1), resources.getString(R.string.description2), resources.getString(R.string.description3))
             for (i in 0..2) {
                 val drawable = resources.getIdentifier("guide$i", "mipmap", packageName)
@@ -42,6 +45,7 @@ class WelcomeActivity : AppCompatActivity() {
             for (i in mDrawableList.indices) {
                 val customBean = CustomBean()
                 customBean.imageRes = mDrawableList[i]
+                customBean.imageTitle = tit[i]
                 customBean.imageDescription = des[i]
                 list.add(customBean)
             }
@@ -99,18 +103,10 @@ class WelcomeActivity : AppCompatActivity() {
 
     private fun updateUI(position: Int) {
         tv_describe?.text = des[position]
-        val translationAnim = ObjectAnimator.ofFloat(tv_describe, "translationX", -120f, 0f)
-        translationAnim.apply {
-            duration = ANIMATION_DURATION.toLong()
-            interpolator = DecelerateInterpolator()
-        }
-        val alphaAnimator = ObjectAnimator.ofFloat(tv_describe, "alpha", 0f, 1f)
-        alphaAnimator.apply {
-            duration = ANIMATION_DURATION.toLong()
-        }
-        val animatorSet = AnimatorSet()
-        animatorSet.playTogether(translationAnim, alphaAnimator)
-        animatorSet.start()
+        tv_title?.text = tit[position]
+
+        setAnimation(tv_describe)
+        setAnimation(tv_title)
 
         if (position == mViewPager.data.size - 1 && btn_start?.visibility == View.GONE) {
             btn_start?.visibility = View.VISIBLE
@@ -125,6 +121,21 @@ class WelcomeActivity : AppCompatActivity() {
                 .ofFloat(btn_next, "alpha", 0f, 1f)
                 .setDuration(ANIMATION_DURATION.toLong()).start()
         }
+    }
+
+    private fun setAnimation(textView: TextView){
+        val translationAnim = ObjectAnimator.ofFloat(textView, "translationX", -120f, 0f)
+        translationAnim.apply {
+            duration = ANIMATION_DURATION.toLong()
+            interpolator = DecelerateInterpolator()
+        }
+        val alphaAnimator = ObjectAnimator.ofFloat(textView, "alpha", 0f, 1f)
+        alphaAnimator.apply {
+            duration = ANIMATION_DURATION.toLong()
+        }
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(translationAnim, alphaAnimator)
+        animatorSet.start()
     }
 
     companion object {

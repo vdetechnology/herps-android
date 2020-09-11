@@ -16,5 +16,6 @@
 
     <color name="colorInputText">#C0C8B8</color>
     <color name="colorMenu">#69874C</color>
+    <color name="colorIndicator">#CEE6B7</color>
     <color name="white_alpha_75">#BFFFFFFF</color>
 </resources>
