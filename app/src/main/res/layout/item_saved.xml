@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_100"
+    android:layout_marginBottom="@dimen/dp_15"
+    android:background="@drawable/bg_saved_item">
+
+    <ImageView
+        android:id="@+id/iv_product"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
+        android:padding="@dimen/dp_15"
+        android:src="@mipmap/item" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/context_button"
+        android:layout_toRightOf="@id/iv_product"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:maxLines="1"
+            android:text="Sức khỏe gan Neo SILY-VITA"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/dp_16" />
+
+        <TextView
+            android:id="@+id/tv_category_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:maxLines="1"
+            android:text="Thực phẩm chức năng"
+            android:textColor="@color/text_sub_color"
+            android:textSize="@dimen/dp_13" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:fontFamily="@font/roboto_medium"
+            android:maxLines="1"
+            android:text="295.000đ"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/dp_18" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/context_button"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="@dimen/dp_35"
+            android:layout_height="@dimen/dp_35"
+            android:background="@drawable/bg_button_add"
+            android:padding="@dimen/dp_10"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_add_to_cart"
+            android:tint="@color/colorWhite" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="@dimen/dp_35"
+            android:layout_height="@dimen/dp_35"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/bg_button_bin"
+            android:padding="@dimen/dp_10"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_bin"
+            android:tint="@color/icon_color" />
+    </LinearLayout>
+</RelativeLayout>

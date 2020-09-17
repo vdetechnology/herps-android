@@ -30,16 +30,16 @@ class WelcomeActivity : AppCompatActivity() {
     private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
     protected var mDrawableList: MutableList<Int> = ArrayList()
 
-    private var tit : Array<String?> = arrayOfNulls(3)
-    private var des : Array<String?> = arrayOfNulls(3)
+    private var tit : Array<String?> = arrayOfNulls(4)
+    private var des : Array<String?> = arrayOfNulls(4)
 
     private val data: List<CustomBean>
         get() {
             val list = ArrayList<CustomBean>()
-            tit = arrayOf(resources.getString(R.string.title1), resources.getString(R.string.title2), resources.getString(R.string.title3))
-            des = arrayOf(resources.getString(R.string.description1), resources.getString(R.string.description2), resources.getString(R.string.description3))
-            for (i in 0..2) {
-                val drawable = resources.getIdentifier("guide$i", "mipmap", packageName)
+            tit = arrayOf(resources.getString(R.string.title0), resources.getString(R.string.title1), resources.getString(R.string.title2), resources.getString(R.string.title3))
+            des = arrayOf(resources.getString(R.string.description0), resources.getString(R.string.description1), resources.getString(R.string.description2), resources.getString(R.string.description3))
+            for (i in 0..3) {
+                val drawable = resources.getIdentifier("intro_slide_$i", "mipmap", packageName)
                 mDrawableList.add(drawable)
             }
             for (i in mDrawableList.indices) {
@@ -64,11 +64,11 @@ class WelcomeActivity : AppCompatActivity() {
         mViewPager = findViewById(R.id.viewpager)
         mViewPager.apply {
             setCanLoop(false)
-            setPageTransformer(PageTransformerFactory.createPageTransformer(TransformerStyle.ACCORDION))
-            setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_100).toInt())
+            setPageTransformer(PageTransformerFactory.createPageTransformer(TransformerStyle.SCALE_IN))
+            setIndicatorMargin(0, 0, 0, resources.getDimension(R.dimen.dp_130).toInt())
             setIndicatorSliderGap(resources.getDimension(R.dimen.dp_10).toInt())
             setIndicatorSlideMode(IndicatorSlideMode.WORM)
-            setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_3).toInt(), resources.getDimension(R.dimen.dp_4).toInt())
+            setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_5).toInt(), resources.getDimension(R.dimen.dp_5).toInt())
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     BannerUtils.log("position:$position")
@@ -81,8 +81,8 @@ class WelcomeActivity : AppCompatActivity() {
                     //goToMain()
                 }
             }
-            setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.colorWhite),
-                    ContextCompat.getColor(this@WelcomeActivity, R.color.white_alpha_75))
+            setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.colorIndicatorInActive),
+                    ContextCompat.getColor(this@WelcomeActivity, R.color.colorPrimary))
         }.create(data)
     }
 

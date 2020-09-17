@@ -11,7 +11,7 @@
         android:layout_width="@dimen/dp_300"
         android:layout_height="@dimen/dp_300"
         android:layout_marginTop="@dimen/dp_100"
-        android:src="@mipmap/quality"
+        android:src="@drawable/logo_herbs"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

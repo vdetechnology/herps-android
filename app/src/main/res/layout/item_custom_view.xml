@@ -9,6 +9,6 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/description1"
         android:scaleType="centerCrop"
-        android:src="@mipmap/guide0"/>
+        android:src="@mipmap/intro_slide_0"/>
 
 </RelativeLayout>

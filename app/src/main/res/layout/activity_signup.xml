@@ -28,7 +28,7 @@
                 android:layout_height="130dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:background="@mipmap/logo" />
+                android:background="@drawable/logo_herbs" />
 
             <LinearLayout
                 android:id="@+id/linearLayout2"

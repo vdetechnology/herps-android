@@ -16,7 +16,7 @@
             android:layout_height="@dimen/dp_100"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/logo"/>
+            android:src="@drawable/logo_herbs"/>
 
         <TextView
             android:layout_marginTop="10dp"

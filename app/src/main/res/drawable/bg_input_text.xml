@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <gradient android:startColor="@color/colorInputText"
-        android:endColor="@color/colorInputText"/>
-    <corners android:radius="@dimen/dp_20" />
-    <stroke android:width="2px" android:color="@color/colorInputText" />
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <solid android:color="@color/colorInputText" />
+    <corners android:radius="10dp" />
 </shape>

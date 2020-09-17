@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.PageStyle
+import com.zhpan.indicator.IndicatorView
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import herbs.n.more.R
 import herbs.n.more.ui.adapter.ImageResourceAdapter
@@ -18,6 +18,7 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     private var mViewPager: BannerViewPager<Int, ImageResourceViewHolder>? = null
+    private lateinit var mIndicatorView : IndicatorView
     protected var mPictureList: MutableList<Int> = ArrayList()
 
     override fun onCreateView(
@@ -31,16 +32,20 @@ class HomeFragment : Fragment() {
 
     private fun setupViewPager(view: View) {
         mViewPager = view?.findViewById(R.id.banner_view)
+        mIndicatorView = view?.findViewById(R.id.indicator_view)
+        mIndicatorView.setVisibility(View.VISIBLE)
         mViewPager?.apply {
-            setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_10))
-            setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_8))
+            setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_0))
+            setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_30))
             setPageStyle(PageStyle.MULTI_PAGE_SCALE)
-            setIndicatorSlideMode(IndicatorSlideMode.SCALE)
-            setIndicatorSliderColor(resources.getColor(R.color.colorIndicator), resources.getColor(R.color.colorMenu))
-            setIndicatorSliderRadius(resources.getDimensionPixelOffset(R.dimen.dp_4), resources.getDimensionPixelOffset(R.dimen.dp_5))
+            setIndicatorVisibility(View.GONE)
+            setIndicatorSlideMode(IndicatorSlideMode.WORM)
+            setIndicatorSliderColor(resources.getColor(R.color.colorIndicatorInActive), resources.getColor(R.color.colorPrimary))
+            setIndicatorSliderRadius(resources.getDimensionPixelOffset(R.dimen.dp_4), resources.getDimensionPixelOffset(R.dimen.dp_4))
+            setIndicatorView(mIndicatorView)
             setLifecycleRegistry(getLifecycle())
             setOnPageClickListener{ position: Int -> pageClick(position) }
-            adapter = ImageResourceAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_8))
+            adapter = ImageResourceAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_20))
             setInterval(5000);
         }?.create(getPicList(3))
     }

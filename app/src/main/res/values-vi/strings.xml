@@ -2,13 +2,20 @@
     <string name="app_name">Herbs &amp; More</string>
 
     <!-- Onboarding-->
+    <string name="title0">Herbs ® (Thảo Dược Cao Cấp)</string>
+    <string name="description0">Là hệ thống phân phối thảo dược, thực phẩm chức năng, dinh dưỡng,
+        sản phẩm hữu cơ. Herbs &amp; More ® trực thuộc Công ty Cổ phần Phân phối Thông minh Cổng
+        Việt(Vietgate.ae) có trụ sở chính tại Dubai, UAE &amp; chi nhánh tại Tp.HCM.</string>
     <string name="title1">Đảm bảo xuất xứ</string>
-    <string name="description1">Nguồn gốc xuất xứ đúng như trên bao bì và công bố sản phẩm, bồi thường 500% giá trị đơn hàng cho nếu không đúng xuất xứ.</string>
+    <string name="description1">Nguồn gốc xuất xứ đúng như trên bao bì và công bố sản phẩm,
+        bồi thường 500% giá trị đơn hàng cho nếu không đúng xuất xứ.</string>
     <string name="title2">Cam kết chất lượng</string>
-    <string name="description2">Cam kết chất lượng như công bố, bồi thường 200% giá trị đơn hàng cho sản phẩm không đạt hay kém chất lượng.</string>
+    <string name="description2">Cam kết chất lượng như công bố, bồi thường 200% giá trị đơn hàng
+        cho sản phẩm không đạt hay kém chất lượng.</string>
     <string name="title3">Phục vụ tận tâm</string>
-    <string name="description3">Chúng tôi mong muốn lắng nghe chia sẽ về tình trạng sức khỏe, nhu cầu của Quí khách hàng &amp; sẵn sàng phục vụ bằng cả tấm lòng.</string>
-    <string name="start_now">Bắt đầu</string>
+    <string name="description3">Chúng tôi mong muốn lắng nghe chia sẽ về tình trạng sức khỏe, nhu
+        cầu của quý khách hàng &amp; sẵn sàng phục vụ bằng cả tấm lòng.</string>
+    <string name="start_now">Bắt đầu ngay</string>
     <string name="skip">Bỏ qua</string>
     <string name="next">Tiếp</string>
 
@@ -26,10 +33,29 @@
     <string name="lb_footer_login">Bạn chưa có tài khoản?</string>
     <string name="lb_log_in">Đăng nhập</string>
 
-    <!-- Login-->
+    <!-- Menu-->
     <string name="menu_home">Trang chủ</string>
     <string name="menu_category">Danh mục</string>
     <string name="menu_saved">Lưu trữ</string>
+    <string name="menu_notification">Thông báo</string>
     <string name="menu_profile">Cá nhân</string>
+
+    <!-- Home-->
+    <string name="title_morning">Chào buổi sáng!</string>
+    <string name="say_hi">Xin chào,</string>
+    <string name="best_selling">Sản phẩm bán chạy</string>
+
+    <!-- Category-->
+    <string name="search_hint">Tìm kiếm...</string>
+    <string name="recent_searches">Lịch sử tìm kiếm</string>
+    <string name="lable_category">Danh mục</string>
+
+    <!-- Category-->
+    <string name="profile_name">Họ tên</string>
+    <string name="profile_phone">Số điện thoại</string>
+    <string name="profile_email">Email</string>
+    <string name="my_purchases">Thanh toán của tôi</string>
+    <string name="address_book">Địa chỉ</string>
+    <string name="sign_out">Đăng xuất</string>
 
 </resources>

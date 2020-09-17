@@ -1,41 +1,86 @@
 package herbs.n.more.ui
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.View
-import androidx.core.view.isVisible
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
 import herbs.n.more.R
-import kotlinx.android.synthetic.main.activity_main.*
+import herbs.n.more.databinding.ActivityMainBinding
+import herbs.n.more.ui.adapter.MainPagerAdapter
+import herbs.n.more.ui.category.CategoryFragment
+import herbs.n.more.ui.home.HomeFragment
+import herbs.n.more.ui.notification.NotificationFragment
+import herbs.n.more.ui.profile.ProfileFragment
+import herbs.n.more.ui.saved.SavedFragment
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    private lateinit var navController: NavController
+class MainActivity : AppCompatActivity() {
+
+    private var bind: ActivityMainBinding? = null
+    private val adapter: MainPagerAdapter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        navController = findNavController(R.id.fragment)
-        setupActionBarWithNavController(navController)
+        bind = DataBindingUtil.setContentView(this, R.layout.activity_main)
         supportActionBar?.hide()
+        initView()
+        initData()
+        initEvent()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_bottom,menu)
-        bottomBar.setupWithNavController(menu!!,navController)
-        return true
+    /**
+     * change BottomNavigationViewEx style
+     */
+    private fun initView() {
+        bind?.bottomBar?.enableItemShiftingMode(false)
+        bind?.bottomBar?.enableAnimation(true)
+        bind?.bottomBar?.enableShiftingMode(false)
+        bind?.bottomBar?.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_transparent))
+        bind?.bottomBar?.setTextSize(11f)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        navController.navigateUp()
-        return true
+    /**
+     * create fragments
+     */
+    private fun initData() {
+        val fragmentList = arrayListOf<Fragment>(
+            HomeFragment(),
+            CategoryFragment(),
+            SavedFragment(),
+            NotificationFragment(),
+            ProfileFragment()
+        )
+
+        var adapter = MainPagerAdapter(supportFragmentManager,fragmentList)
+
+        bind?.vpMain?.setAdapter(adapter)
+
+        // binding with ViewPager
+        bind?.bottomBar?.setupWithViewPager(bind!!.vpMain)
     }
 
-    private fun onBoardingFinished(): Boolean{
-        val sharedPref = this.getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
-        return sharedPref.getBoolean("Finished", false)
+    /**
+     * set listeners
+     */
+    private fun initEvent() {
+        // set listener to do something then item selected
+        bind?.bottomBar?.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.homeFragment -> {
+                }
+                R.id.categoryFragment -> {
+                }
+                R.id.savedFragment -> {
+                }
+                R.id.profileFragment -> {
+                }
+            }
+            true
+        }
     }
+
 }

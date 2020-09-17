@@ -7,4 +7,29 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ColorMainTextRegular15" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/utm_avo</item>
+        <item name="android:textSize">@dimen/sp_15</item>
+    </style>
+
+    <style name="ColorMainTextBold15" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/utm_avo_bold</item>
+        <item name="android:textSize">@dimen/sp_15</item>
+    </style>
+
+    <style name="ColorMainTextBold20" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/utm_avo_bold</item>
+        <item name="android:textSize">@dimen/sp_20</item>
+    </style>
+
+
 </resources>
