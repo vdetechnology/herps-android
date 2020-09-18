@@ -1,15 +1,12 @@
 package herbs.n.more.ui.viewholder;
 
-import android.animation.ObjectAnimator;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import com.zhpan.bannerview.BaseViewHolder;
 
 import herbs.n.more.R;
-import herbs.n.more.ui.bean.CustomBean;
+import herbs.n.more.util.bean.CustomBean;
 
 public class CustomPageViewHolder extends BaseViewHolder<CustomBean> {
 

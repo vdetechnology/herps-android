@@ -1,4 +1,4 @@
-package herbs.n.more.ui.bean
+package herbs.n.more.util.bean
 
 class CustomBean {
 

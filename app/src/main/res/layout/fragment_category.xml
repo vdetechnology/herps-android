@@ -23,11 +23,12 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dp_36"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginStart="@dimen/dp_8"
-                app:srcCompat="@drawable/ic_food_search_store" />
+                app:srcCompat="@drawable/ic_search"
+                android:padding="@dimen/dp_7"/>
 
             <EditText
                 android:id="@+id/txtSearch"

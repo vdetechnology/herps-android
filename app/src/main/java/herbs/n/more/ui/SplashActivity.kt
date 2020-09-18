@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import herbs.n.more.R
-import herbs.n.more.ui.onboarding.WelcomeActivity
 
 class SplashActivity: AppCompatActivity(R.layout.activity_splash) {
 
@@ -27,7 +26,7 @@ class SplashActivity: AppCompatActivity(R.layout.activity_splash) {
 
         Handler().postDelayed({ // This method will be executed once the timer is over
             // Start your app main activity
-            startActivity(Intent(this@SplashActivity, WelcomeActivity::class.java))
+            startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
             finish()
         }, SPLASH_TIME_OUT.toLong())
     }

@@ -3,7 +3,7 @@ package herbs.n.more.ui.adapter
 import android.view.View
 import com.zhpan.bannerview.BaseBannerAdapter
 import herbs.n.more.R
-import herbs.n.more.ui.bean.CustomBean
+import herbs.n.more.util.bean.CustomBean
 import herbs.n.more.ui.viewholder.CustomPageViewHolder
 
 

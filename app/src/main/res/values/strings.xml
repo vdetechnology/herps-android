@@ -36,9 +36,9 @@
     <!-- Menu-->
     <string name="menu_home">Home</string>
     <string name="menu_category">Category</string>
-    <string name="menu_saved">Saved</string>
+    <string name="menu_saved">Favorite</string>
     <string name="menu_notification">Notification</string>
-    <string name="menu_profile">Profile</string>
+    <string name="menu_profile">Account</string>
 
     <!-- Home-->
     <string name="title_morning">Good morning!</string>

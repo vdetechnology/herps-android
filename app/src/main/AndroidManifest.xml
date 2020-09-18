@@ -28,7 +28,7 @@
         </activity>
         <activity android:name=".ui.MainActivity">
         </activity>
-        <activity android:name=".ui.onboarding.WelcomeActivity">
+        <activity android:name=".ui.IntroActivity">
         </activity>
         <activity android:name=".ui.auth.LoginActivity">
         </activity>

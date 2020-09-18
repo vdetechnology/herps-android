@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_item"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_10">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_5"
+            card_view:cardCornerRadius="@dimen/dp_10"
+            card_view:cardElevation="5dp">
+
+            <ImageView
+                android:id="@+id/iv_product_image"
+                android:layout_width="@dimen/dp_75"
+                android:layout_height="@dimen/dp_75"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/product" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/dp_5"
+            card_view:cardCornerRadius="@dimen/dp_5"
+            card_view:cardElevation="5dp">
+
+            <ImageButton
+                android:id="@+id/bt_like"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:background="@color/colorWhite"
+                android:padding="@dimen/dp_6"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_like" />
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_product_name"
+        style="@style/TextNameProductRegular10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="Hộp quà tặng nhân sâm hoa kỳ" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.willy.ratingbar.ScaleRatingBar
+            android:id="@+id/simpleRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srb_clearRatingEnabled="true"
+            app:srb_clickable="true"
+            app:srb_drawableEmpty="@drawable/ic_star"
+            app:srb_drawableFilled="@drawable/ic_star_filled"
+            app:srb_isIndicator="false"
+            app:srb_minimumStars="1"
+            app:srb_numStars="5"
+            app:srb_rating="4.7"
+            app:srb_scrollable="true"
+            app:srb_starHeight="@dimen/dp_10"
+            app:srb_starPadding="@dimen/dp_1"
+            app:srb_starWidth="@dimen/dp_10"
+            app:srb_stepSize="0.1" />
+
+        <TextView
+            android:id="@+id/tv_number_rating"
+            style="@style/TextSubRegular10"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:fontFamily="@font/roboto_regular"
+            android:text="(12 Nhận xét)" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_price_sale"
+                style="@style/TextSubRegular10"
+                android:fontFamily="@font/roboto_regular"
+                android:text="599.000đ" />
+
+            <View
+                android:layout_width="@dimen/dp_43"
+                android:layout_height="@dimen/dp_1"
+                android:layout_centerVertical="true"
+                android:background="@color/text_sub_color" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_percent_sale"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_12"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:background="@drawable/bg_percent_sale"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:text="-60%"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_6" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_price"
+        style="@style/TextSubRegular10"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:fontFamily="@font/roboto_medium"
+        android:text="999.000đ"
+        android:textSize="@dimen/sp_12" />
+</LinearLayout>

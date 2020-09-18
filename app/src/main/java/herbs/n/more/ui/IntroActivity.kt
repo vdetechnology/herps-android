@@ -1,4 +1,4 @@
-package herbs.n.more.ui.onboarding
+package herbs.n.more.ui
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -14,18 +14,15 @@ import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.utils.BannerUtils
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import herbs.n.more.R
-import herbs.n.more.ui.MainActivity
 import herbs.n.more.ui.adapter.WelcomeAdapter
-import herbs.n.more.ui.bean.CustomBean
-import herbs.n.more.ui.transform.PageTransformerFactory
+import herbs.n.more.util.bean.CustomBean
+import herbs.n.more.util.transform.PageTransformerFactory
 import herbs.n.more.ui.viewholder.CustomPageViewHolder
-import herbs.n.more.ui.transform.TransformerStyle
+import herbs.n.more.util.transform.TransformerStyle
 import kotlinx.android.synthetic.main.activity_welcome.*
-import kotlinx.android.synthetic.main.fragment_first_screen.view.*
-import java.util.*
 import kotlin.collections.ArrayList
 
-class WelcomeActivity : AppCompatActivity() {
+class IntroActivity : AppCompatActivity() {
 
     private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
     protected var mDrawableList: MutableList<Int> = ArrayList()
@@ -81,8 +78,8 @@ class WelcomeActivity : AppCompatActivity() {
                     //goToMain()
                 }
             }
-            setIndicatorSliderColor(ContextCompat.getColor(this@WelcomeActivity, R.color.colorIndicatorInActive),
-                    ContextCompat.getColor(this@WelcomeActivity, R.color.colorPrimary))
+            setIndicatorSliderColor(ContextCompat.getColor(this@IntroActivity, R.color.colorIndicatorInActive),
+                    ContextCompat.getColor(this@IntroActivity, R.color.colorPrimary))
         }.create(data)
     }
 

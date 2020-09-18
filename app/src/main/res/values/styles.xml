@@ -31,5 +31,56 @@
         <item name="android:textSize">@dimen/sp_20</item>
     </style>
 
+    <style name="TextNameProductRegular10" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/utm_avo</item>
+        <item name="android:textSize">@dimen/sp_10</item>
+    </style>
+
+    <style name="TextSubRegular10" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_sub_color</item>
+        <item name="android:fontFamily">@font/utm_avo</item>
+        <item name="android:textSize">@dimen/sp_10</item>
+    </style>
+
+    <style name="Button.With.Text" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">@dimen/dp_150</item>
+        <item name="android:layout_height">@dimen/dp_45</item>
+        <item name="icon">@drawable/ic_saved</item>
+        <item name="iconTint">@color/colorGray</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:insetTop">@dimen/dp_0</item>
+        <item name="android:insetBottom">@dimen/dp_0</item>
+        <item name="android:insetLeft">@dimen/dp_0</item>
+        <item name="android:insetRight">@dimen/dp_0</item>
+        <item name="iconSize">@dimen/dp_30</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">@dimen/dp_0</item>
+        <item name="strokeWidth">@dimen/dp_5</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="android:textSize">@dimen/sp_15</item>
+        <item name="android:fontFamily">@font/utm_avo</item>
+    </style>
+
+   <style name="Button.Like" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:layout_width">@dimen/dp_25</item>
+        <item name="android:layout_height">@dimen/dp_25</item>
+        <item name="icon">@drawable/ic_like</item>
+        <item name="iconTint">@color/colorPrimary</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="iconSize">@dimen/sp_15</item>
+       <item name="iconGravity">textStart</item>
+       <item name="iconPadding">@dimen/dp_0</item>
+        <item name="backgroundTint">@color/google_red</item>
+        <item name="rippleColor">@color/colorPrimary</item>
+        <item name="strokeColor">@color/colorPrimary</item>
+        <item name="strokeWidth">@dimen/dp_2</item>
+    </style>
 
 </resources>

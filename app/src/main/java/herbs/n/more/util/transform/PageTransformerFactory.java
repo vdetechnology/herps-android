@@ -1,13 +1,13 @@
-package herbs.n.more.ui.transform;
+package herbs.n.more.util.transform;
 
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.zhpan.bannerview.transform.ScaleInTransformer;
-import static herbs.n.more.ui.transform.TransformerStyle.ACCORDION;
-import static herbs.n.more.ui.transform.TransformerStyle.DEPTH;
-import static herbs.n.more.ui.transform.TransformerStyle.ROTATE;
-import static herbs.n.more.ui.transform.TransformerStyle.SCALE_IN;
-import static herbs.n.more.ui.transform.TransformerStyle.STACK;
+import static herbs.n.more.util.transform.TransformerStyle.ACCORDION;
+import static herbs.n.more.util.transform.TransformerStyle.DEPTH;
+import static herbs.n.more.util.transform.TransformerStyle.ROTATE;
+import static herbs.n.more.util.transform.TransformerStyle.SCALE_IN;
+import static herbs.n.more.util.transform.TransformerStyle.STACK;
 
 public class PageTransformerFactory {
 

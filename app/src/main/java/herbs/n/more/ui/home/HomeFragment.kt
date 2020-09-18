@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.PageStyle
 import com.zhpan.indicator.IndicatorView
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import herbs.n.more.R
+import herbs.n.more.databinding.FragmentHomeBinding
 import herbs.n.more.ui.adapter.ImageResourceAdapter
 import herbs.n.more.ui.viewholder.ImageResourceViewHolder
 import java.util.*
+
 
 class HomeFragment : Fragment() {
 
@@ -25,9 +29,11 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view  = inflater.inflate(R.layout.fragment_home, container, false)
-        setupViewPager(view)
-        return view
+        val binding: FragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding.searchButton.setOnClickListener { view -> onClickSearch(view) }
+        binding.cartContainer.setOnClickListener { view -> onClickSearch(view) }
+        setupViewPager(binding.root)
+        return binding.root
     }
 
     private fun setupViewPager(view: View) {
@@ -52,11 +58,15 @@ class HomeFragment : Fragment() {
 
     private fun getPicList(count:Int): MutableList<Int> {
         mPictureList.clear()
-        for (i in 1..count) {
+        for (i in 0..count) {
             val drawable = resources.getIdentifier("slide_$i", "mipmap", activity?.packageName)
             mPictureList.add(drawable)
         }
         return mPictureList;
+    }
+
+    fun onClickSearch(v: View) {
+        v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
     }
 
     protected fun pageClick(position: Int) {

@@ -36,9 +36,9 @@
     <!-- Menu-->
     <string name="menu_home">Trang chủ</string>
     <string name="menu_category">Danh mục</string>
-    <string name="menu_saved">Lưu trữ</string>
+    <string name="menu_saved">Yêu thích</string>
     <string name="menu_notification">Thông báo</string>
-    <string name="menu_profile">Cá nhân</string>
+    <string name="menu_profile">Tài khoản</string>
 
     <!-- Home-->
     <string name="title_morning">Chào buổi sáng!</string>
