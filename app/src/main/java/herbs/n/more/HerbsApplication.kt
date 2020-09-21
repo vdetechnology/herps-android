@@ -4,8 +4,11 @@ import android.app.Application
 import herbs.n.more.data.db.AppDatabase
 import herbs.n.more.data.network.MyApi
 import herbs.n.more.data.network.NetworkConnectionInterceptor
+import herbs.n.more.data.repositories.BestSellingRepository
 import herbs.n.more.data.repositories.UserRepository
 import herbs.n.more.ui.auth.AuthViewModelFactory
+import herbs.n.more.ui.home.BestSellingViewModelFactory
+import net.simplifiedcoding.mvvmsampleapp.data.preferences.PreferenceProvider
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -22,11 +25,11 @@ class HerbsApplication : Application(), KodeinAware {
         bind() from singleton { NetworkConnectionInterceptor(instance()) }
         bind() from singleton { MyApi(instance()) }
         bind() from singleton { AppDatabase(instance()) }
-        //bind() from singleton { PreferenceProvider(instance()) }
+        bind() from singleton { PreferenceProvider(instance()) }
         bind() from singleton { UserRepository(instance(), instance()) }
-        //bind() from singleton { QuotesRepository(instance(), instance(), instance()) }
+        bind() from singleton { BestSellingRepository(instance()) }
         bind() from provider { AuthViewModelFactory(instance()) }
-
+        bind() from provider { BestSellingViewModelFactory(instance()) }
 
     }
 

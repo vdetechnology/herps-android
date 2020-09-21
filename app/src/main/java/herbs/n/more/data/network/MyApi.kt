@@ -28,7 +28,7 @@ interface MyApi {
         @Field("password") password: String
     ) : Response<AuthResponse>
 
-    @GET
+    @GET("quotes")
     suspend fun getBestSelling() : Response<GetBestSellingResponse>
 
     companion object{

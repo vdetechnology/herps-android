@@ -104,43 +104,61 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_time_hi"
-                    style="@style/ColorMainTextBold20"
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="@string/title_morning" />
-
-                <com.zhpan.bannerview.BannerViewPager
-                    android:id="@+id/banner_view"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_195"
-                    android:layout_gravity="right"
-                    app:bvp_indicator_slide_mode="worm"
-                    app:bvp_page_style="multi_page" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <com.zhpan.indicator.IndicatorView
-                    android:id="@+id/indicator_view"
+                    <TextView
+                        android:id="@+id/tv_time_hi"
+                        style="@style/ColorMainTextBold20"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:text="@string/title_morning" />
+
+                    <com.zhpan.bannerview.BannerViewPager
+                        android:id="@+id/banner_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_195"
+                        android:layout_gravity="right"
+                        app:bvp_indicator_slide_mode="worm"
+                        app:bvp_page_style="multi_page" />
+
+                    <com.zhpan.indicator.IndicatorView
+                        android:id="@+id/indicator_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/banner_view"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/dp_10" />
+
+                    <TextView
+                        android:id="@+id/tv_hot"
+                        style="@style/ColorMainTextRegular15"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:text="@string/best_selling" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_best_selling"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_15"/>
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/banner_view"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/dp_10" />
-
-                <TextView
-                    android:id="@+id/tv_hot"
-                    style="@style/ColorMainTextRegular15"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    android:text="@string/best_selling" />
-
-            </LinearLayout>
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal|center_vertical" />
+            </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
