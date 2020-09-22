@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import herbs.n.more.R
+import net.simplifiedcoding.mvvmsampleapp.data.preferences.PreferenceProvider
 
 class SplashActivity: AppCompatActivity(R.layout.activity_splash) {
 
@@ -20,14 +21,20 @@ class SplashActivity: AppCompatActivity(R.layout.activity_splash) {
             .duration(7000)
             .playOn(findViewById(R.id.logo))
 
-        YoYo.with(Techniques.FadeInUp)
+        /*YoYo.with(Techniques.FadeInUp)
             .duration(5000)
-            .playOn(findViewById(R.id.appname))
-
-        Handler().postDelayed({ // This method will be executed once the timer is over
-            // Start your app main activity
-            startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
-            finish()
-        }, SPLASH_TIME_OUT.toLong())
+            .playOn(findViewById(R.id.appname))*/
+        val preferenceProvider  = PreferenceProvider(this)
+        if (preferenceProvider.getIntro() == 1){
+            Handler().postDelayed({
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                finish()
+            }, SPLASH_TIME_OUT.toLong())
+        }else {
+            Handler().postDelayed({
+                startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
+                finish()
+            }, SPLASH_TIME_OUT.toLong())
+        }
     }
 }

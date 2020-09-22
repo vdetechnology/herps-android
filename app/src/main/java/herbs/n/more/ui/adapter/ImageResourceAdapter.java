@@ -10,9 +10,11 @@ import herbs.n.more.ui.viewholder.ImageResourceViewHolder;
 public class ImageResourceAdapter extends BaseBannerAdapter<Integer, ImageResourceViewHolder> {
 
     private int roundCorner;
+    private int layoutId;
 
-    public ImageResourceAdapter(int roundCorner) {
+    public ImageResourceAdapter(int roundCorner, int layoutID) {
         this.roundCorner = roundCorner;
+        this.layoutId = layoutID;
     }
 
 
@@ -28,6 +30,6 @@ public class ImageResourceAdapter extends BaseBannerAdapter<Integer, ImageResour
 
     @Override
     public int getLayoutId(int viewType) {
-        return R.layout.item_slide_mode;
+        return layoutId;
     }
 }

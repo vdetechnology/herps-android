@@ -44,6 +44,8 @@
     <string name="title_morning">Chào buổi sáng!</string>
     <string name="say_hi">Xin chào,</string>
     <string name="best_selling">Sản phẩm bán chạy</string>
+    <string name="see_more">Xem thêm</string>
+    <string name="recently">Sản phẩm đã xem</string>
 
     <!-- Category-->
     <string name="search_hint">Tìm kiếm...</string>

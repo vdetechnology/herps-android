@@ -17,12 +17,12 @@ class BestSellingRepository(
 
     suspend fun getBestSelling(): LiveData<List<Product>> {
         return withContext(Dispatchers.IO) {
-            fetchQuotes()
+            fetchProducts()
             bestSelling
         }
     }
 
-    private suspend fun fetchQuotes() {
+    private suspend fun fetchProducts() {
         try {
             val response = apiRequest { api.getBestSelling() }
             bestSelling.postValue(response.quotes)

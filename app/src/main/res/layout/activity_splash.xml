@@ -31,7 +31,7 @@
             android:visibility="gone"/>
 
 
-        <com.airbnb.lottie.LottieAnimationView
+        <!--<com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"
             android:layout_width="@dimen/dp_80"
             android:layout_height="@dimen/dp_80"
@@ -41,7 +41,7 @@
             android:layout_gravity="center"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/dp_20"/>
+            android:layout_marginBottom="@dimen/dp_20"/>-->
 
     </RelativeLayout>
 

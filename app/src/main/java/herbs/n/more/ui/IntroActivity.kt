@@ -20,6 +20,7 @@ import herbs.n.more.util.transform.PageTransformerFactory
 import herbs.n.more.ui.viewholder.CustomPageViewHolder
 import herbs.n.more.util.transform.TransformerStyle
 import kotlinx.android.synthetic.main.activity_welcome.*
+import net.simplifiedcoding.mvvmsampleapp.data.preferences.PreferenceProvider
 import kotlin.collections.ArrayList
 
 class IntroActivity : AppCompatActivity() {
@@ -84,6 +85,7 @@ class IntroActivity : AppCompatActivity() {
     }
 
     fun onClick(view: View) {
+        PreferenceProvider(this).saveIntro(1)
         goToMain()
         finish()
     }
