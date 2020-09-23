@@ -19,7 +19,7 @@ import herbs.n.more.util.bean.CustomBean
 import herbs.n.more.util.transform.PageTransformerFactory
 import herbs.n.more.ui.viewholder.CustomPageViewHolder
 import herbs.n.more.util.transform.TransformerStyle
-import kotlinx.android.synthetic.main.activity_welcome.*
+import kotlinx.android.synthetic.main.activity_intro.*
 import net.simplifiedcoding.mvvmsampleapp.data.preferences.PreferenceProvider
 import kotlin.collections.ArrayList
 
@@ -52,7 +52,7 @@ class IntroActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_welcome)
+        setContentView(R.layout.activity_intro)
         supportActionBar?.hide()
         setupViewPager()
         updateUI(0)

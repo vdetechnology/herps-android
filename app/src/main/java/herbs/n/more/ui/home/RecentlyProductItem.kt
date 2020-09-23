@@ -1,5 +1,6 @@
 package herbs.n.more.ui.home
 
+import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
 import com.xwray.groupie.databinding.BindableItem
 import herbs.n.more.R
@@ -14,7 +15,7 @@ class RecentlyProductItem(
     override fun getLayout() = R.layout.item_product_rectangle
 
     override fun bind(viewBinding: ItemProductRectangleBinding, position: Int) {
-        viewBinding.tvProductName.text = product.quote
+        viewBinding.product = product
         Glide
             .with(context)
             .load(product.thumbnail)
@@ -22,12 +23,19 @@ class RecentlyProductItem(
             .placeholder(R.drawable.logo_herbs)
             .into(viewBinding.ivProductImage);
 
-        viewBinding.ivProductImage.setOnClickListener {
+        viewBinding.cvItem.setOnClickListener {
             listener.onItemClicked(product)
+        }
+
+        viewBinding.btLike.setOnClickListener {
+            it.startAnimation(AnimationUtils.loadAnimation(context.context, R.anim.image_click))
+            viewBinding.btLike.setImageDrawable(context.resources.getDrawable(R.drawable.ic_liked))
+            listener.onLikeClicked(product)
         }
     }
 }
 
 interface ProductRecentlyItemListener {
     fun onItemClicked(product: Product)
+    fun onLikeClicked(product: Product)
 }

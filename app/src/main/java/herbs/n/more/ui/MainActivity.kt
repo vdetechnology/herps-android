@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         bind?.bottomBar?.enableItemShiftingMode(false)
         bind?.bottomBar?.enableAnimation(true)
         bind?.bottomBar?.enableShiftingMode(false)
-        bind?.bottomBar?.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_transparent))
+        //bind?.bottomBar?.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_transparent))
         bind?.bottomBar?.setTextSize(11f)
     }
 
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         var adapter = MainPagerAdapter(supportFragmentManager,fragmentList)
-
+        bind?.vpMain?.offscreenPageLimit = 5
         bind?.vpMain?.setAdapter(adapter)
 
         // binding with ViewPager

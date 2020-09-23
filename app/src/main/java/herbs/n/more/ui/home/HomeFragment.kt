@@ -2,18 +2,20 @@ package herbs.n.more.ui.home
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.ViewHolder
+import com.xwray.groupie.GroupieViewHolder
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.indicator.IndicatorView
 import herbs.n.more.R
@@ -21,10 +23,7 @@ import herbs.n.more.data.db.entities.Product
 import herbs.n.more.databinding.FragmentHomeBinding
 import herbs.n.more.ui.adapter.ImageResourceAdapter
 import herbs.n.more.ui.viewholder.ImageResourceViewHolder
-import herbs.n.more.util.Coroutines
-import herbs.n.more.util.hide
-import herbs.n.more.util.show
-import herbs.n.more.util.toast
+import herbs.n.more.util.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -32,7 +31,6 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 import java.util.*
-import kotlin.system.measureTimeMillis
 
 
 class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecentlyItemListener {
@@ -55,19 +53,37 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         binding.searchButton.setOnClickListener { view -> onClickSearch(view) }
-        binding.cartContainer.setOnClickListener { view -> onClickSearch(view) }
+        binding.cartContainer.setOnClickListener { view -> onClickCart(view) }
+        binding.tvMoreBestSelling.setOnClickListener { view -> seeMoreBestSelling(view) }
+        binding.tvMoreRecently.setOnClickListener { view -> seeMoreBestRecently(view) }
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this, factory).get(BestSellingViewModel::class.java)
-        val time = measureTimeMillis {
-            GlobalScope.async{setupViewPager(binding.root)}
-            GlobalScope.async{setupSlideAdvertisement(binding.root)}
-            GlobalScope.async{bindUI()}
+        setTimeText()
+        initData()
+        swiperefresh.setOnRefreshListener {
+            initData()
         }
-        println("Completed in $time ms")
+    }
+
+    private fun initData(){
+        GlobalScope.async{setupViewPager(binding.root)}
+        GlobalScope.async{setupSlideAdvertisement(binding.root)}
+        GlobalScope.async{bindData()}
+    }
+
+    private fun setTimeText(){
+        val currentDate = Calendar.getInstance().time
+        if (!DateFormat.is24HourFormat(activity)) {
+            if (currentDate.hours > 12 && currentDate.hours < 18) {
+                tv_time_hi.text = getString(R.string.title_affternoon)
+            } else if (currentDate.hours > 18) {
+                tv_time_hi.text = getString(R.string.title_evening)
+            }
+        }
     }
 
     private fun setupViewPager(view: View) {
@@ -118,34 +134,28 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         return mAvertisementList;
     }
 
-    fun onClickSearch(v: View) {
-        v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
-    }
-
-    protected fun pageClick(position: Int) {
-        if (position != mViewPager!!.currentItem) {
-            mViewPager!!.setCurrentItem(position, true)
-        }
-        Toast.makeText(activity, "position:$position", Toast.LENGTH_SHORT).show()
-    }
-
     @SuppressLint("FragmentLiveDataObserve")
-    private fun bindUI() = Coroutines.main {
+    private fun bindData() = Coroutines.main {
         progress_bar.show()
         val bestSelling = viewModel.bestSelling.await()
         bestSelling.observe(this, androidx.lifecycle.Observer {
             progress_bar.hide()
+            swiperefresh.isRefreshing = false
             initRecyclerView(it.toProductItem(), it.toRecentlyItem())
         })
     }
 
     private fun initRecyclerView(bestSellingItem: List<ProductItem>, recentlyItem: List<RecentlyProductItem>) {
 
-        val mAdapter = GroupAdapter<ViewHolder>().apply {
+        val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(bestSellingItem)
         }
 
-        val mRecentlyAdapter = GroupAdapter<ViewHolder>().apply {
+        val mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
+            addAll(bestSellingItem)
+        }
+
+        val mRecentlyAdapter = GroupAdapter<GroupieViewHolder>().apply {
             addAll(recentlyItem)
         }
 
@@ -154,10 +164,20 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
             adapter = mAdapter
         }
 
+        rv_suggested.apply {
+            layoutManager = GridLayoutManager(activity, 2, LinearLayoutManager.VERTICAL, false)
+            adapter = mSuggestedAdapter
+        }
+
         rv_recently.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = mRecentlyAdapter
         }
+        sv_home.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                mSuggestedAdapter.addAll(bestSellingItem)
+            }
+        })
 
     }
 
@@ -173,7 +193,34 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         }
     }
 
+    fun onClickSearch(v: View) {
+        v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
+    }
+
+    fun onClickCart(v: View) {
+        v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
+    }
+
+    fun seeMoreBestSelling(v: View) {
+        v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
+    }
+
+    fun seeMoreBestRecently(v: View) {
+        v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
+    }
+
+    protected fun pageClick(position: Int) {
+        if (position != mViewPager!!.currentItem) {
+            mViewPager!!.setCurrentItem(position, true)
+        }
+        Toast.makeText(activity, "position:$position", Toast.LENGTH_SHORT).show()
+    }
+
     override fun onItemClicked(product: Product) {
         context?.toast(product.author)
+    }
+
+    override fun onLikeClicked(product: Product) {
+        context?.toast(product.id.toString())
     }
 }

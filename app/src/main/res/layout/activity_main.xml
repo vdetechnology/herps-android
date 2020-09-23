@@ -40,6 +40,12 @@
             app:elevation="@dimen/dp_16"
             app:fabAlignmentMode="center"
             app:layout_constraintBottom_toBottomOf="parent"/>
+        <!--<ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:src="@mipmap/shadow"
+            android:scaleType="fitStart"
+            app:layout_constraintBottom_toBottomOf="parent"/>-->
 
         <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
             android:id="@+id/bottomBar"

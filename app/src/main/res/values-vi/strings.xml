@@ -42,10 +42,14 @@
 
     <!-- Home-->
     <string name="title_morning">Chào buổi sáng!</string>
+    <string name="title_affternoon">Chào buổi chiều!</string>
+    <string name="title_evening">Chào buổi tối!</string>
     <string name="say_hi">Xin chào,</string>
     <string name="best_selling">Sản phẩm bán chạy</string>
     <string name="see_more">Xem thêm</string>
     <string name="recently">Sản phẩm đã xem</string>
+    <string name="suggested">Dành riêng cho bạn</string>
+    <string name="login_register">Đăng ký / đăng nhập</string>
 
     <!-- Category-->
     <string name="search_hint">Tìm kiếm...</string>
