@@ -54,7 +54,7 @@
                 android:layout_marginLeft="@dimen/dp_8"
                 android:layout_marginRight="@dimen/dp_8"
                 android:visibility="invisible"
-                app:srcCompat="@drawable/ic_icon_form_clear_text" />
+                app:srcCompat="@drawable/ic_close" />
         </LinearLayout>
 
         <TextView
@@ -105,7 +105,7 @@
             android:layout_height="@dimen/dp_40"
             android:background="?attr/selectableItemBackground"
             android:padding="@dimen/dp_10"
-            android:src="@drawable/ic_icon_form_clear_text" />
+            android:src="@drawable/ic_close" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -135,7 +135,7 @@
             android:layout_height="@dimen/dp_40"
             android:background="?attr/selectableItemBackground"
             android:padding="@dimen/dp_10"
-            android:src="@drawable/ic_icon_form_clear_text" />
+            android:src="@drawable/ic_close" />
     </LinearLayout>
 
     <TextView

@@ -3,38 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
-
+    app:startDestination="@id/loginFragment2">
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="herbs.n.more.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_categoryFragment"
-            app:destination="@id/categoryFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/categoryFragment"
-        android:name="herbs.n.more.ui.category.CategoryFragment"
-        android:label="fragment_category"
-        tools:layout="@layout/fragment_category" >
-        <action
-            android:id="@+id/action_categoryFragment_to_savedFragment"
-            app:destination="@id/savedFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/savedFragment"
-        android:name="herbs.n.more.ui.saved.SavedFragment"
-        android:label="fragment_saved"
-        tools:layout="@layout/fragment_saved" >
-        <action
-            android:id="@+id/action_savedFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="herbs.n.more.ui.profile.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/loginFragment2"
+        android:name="herbs.n.more.ui.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>

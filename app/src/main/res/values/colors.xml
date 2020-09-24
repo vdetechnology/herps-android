@@ -20,12 +20,12 @@
     <!-- Item-->
     <color name="color_bg_item">#F1F3F4</color>
 
-    <color name="colorInputText">#C0C8B8</color>
     <color name="colorIndicatorInActive">#AFAFAF</color>
     <color name="text_lable">#BF403F3F</color>
     <color name="text_color">#373737</color>
     <color name="text_sub_color">#707070</color>
     <color name="line_color">#DCDBDB</color>
     <color name="icon_color">#7E7C7C</color>
+    <color name="text_color_hint">#616161</color>
 
 </resources>

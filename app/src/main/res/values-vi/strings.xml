@@ -22,8 +22,6 @@
     <!-- Login-->
     <string name="s_select_all">Chọn tất cả</string>
     <string name="promotion">Khuyến mãi</string>
-    <string name="lb_welcome_back">Chào mừng trở lại</string>
-    <string name="lb_please_log_in">Đăng nhập tài khoản của bạn</string>
     <string name="lb_username">Email hoặc số điện thoại</string>
     <string name="lb_password">Mật khẩu</string>
     <string name="lb_login_reset_password">Quên mật khẩu</string>
@@ -32,6 +30,8 @@
     <string name="lb_sign_up">Đăng ký</string>
     <string name="lb_footer_login">Bạn chưa có tài khoản?</string>
     <string name="lb_log_in">Đăng nhập</string>
+    <string name="email_hint">Nhập email của bạn</string>
+    <string name="password_hint">Nhập mật khẩu</string>
 
     <!-- Menu-->
     <string name="menu_home">Trang chủ</string>

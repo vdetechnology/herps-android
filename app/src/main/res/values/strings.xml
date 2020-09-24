@@ -22,8 +22,6 @@
     <!-- Login-->
     <string name="s_select_all">Select all</string>
     <string name="promotion">Promotion</string>
-    <string name="lb_welcome_back">Welcome back!</string>
-    <string name="lb_please_log_in">Please log in to your account</string>
     <string name="lb_username">Your email or Phone Number</string>
     <string name="lb_password">Password</string>
     <string name="lb_login_reset_password">Forgot password?</string>
@@ -32,6 +30,8 @@
     <string name="lb_sign_up">Sign up</string>
     <string name="lb_footer_login">Don\'t have an account?</string>
     <string name="lb_log_in">Log in</string>
+    <string name="email_hint">Input your email</string>
+    <string name="password_hint">Input password</string>
 
     <!-- Menu-->
     <string name="menu_home">Home</string>
