@@ -1,6 +1,7 @@
 package herbs.n.more.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -21,7 +22,9 @@ import com.zhpan.indicator.IndicatorView
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.Product
 import herbs.n.more.databinding.FragmentHomeBinding
+import herbs.n.more.ui.MainActivity
 import herbs.n.more.ui.adapter.ImageResourceAdapter
+import herbs.n.more.ui.auth.AuthActivity
 import herbs.n.more.ui.viewholder.ImageResourceViewHolder
 import herbs.n.more.util.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -56,6 +59,7 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         binding.cartContainer.setOnClickListener { view -> onClickCart(view) }
         binding.tvMoreBestSelling.setOnClickListener { view -> seeMoreBestSelling(view) }
         binding.tvMoreRecently.setOnClickListener { view -> seeMoreBestRecently(view) }
+        binding.rlUser.setOnClickListener { view -> goToLogin() }
         return binding.root
     }
 
@@ -207,6 +211,15 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
 
     fun seeMoreBestRecently(v: View) {
         v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
+    }
+
+    fun goToLogin() {
+        activity?.let {
+            Intent(it, AuthActivity::class.java).also {
+                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(it)
+            }
+        }
     }
 
     protected fun pageClick(position: Int) {

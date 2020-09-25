@@ -23,15 +23,26 @@
     <string name="s_select_all">Select all</string>
     <string name="promotion">Promotion</string>
     <string name="lb_username">Your email or Phone Number</string>
+    <string name="lb_name">Name<font color='#F52B2B'>*</font></string>
+    <string name="lb_email">Email</string>
     <string name="lb_password">Password</string>
+    <string name="lb_email_requiment">Email<font color='#F52B2B'>*</font></string>
+    <string name="lb_password_requiment">Password<font color='#F52B2B'>*</font></string>
     <string name="lb_login_reset_password">Forgot password?</string>
     <string name="lb_continued_as_guest">Continued as a guest</string>
     <string name="lb_or_login_with">Or login with</string>
     <string name="lb_sign_up">Sign up</string>
     <string name="lb_footer_login">Don\'t have an account?</string>
+    <string name="lb_footer_signup">Already have an account?</string>
     <string name="lb_log_in">Log in</string>
+    <string name="name_hint">Input your name</string>
     <string name="email_hint">Input your email</string>
     <string name="password_hint">Input password</string>
+    <string name="continute_with">Or continute with</string>
+    <string name="message_forgot">Để khôi phục mật khẩu của bạn, vui lòng nhập địa chỉ email</string>
+    <string name="help">Help?</string>
+    <string name="reset_password">Reset password</string>
+    <string name="comming_soon">Comming soon</string>
 
     <!-- Menu-->
     <string name="menu_home">Home</string>

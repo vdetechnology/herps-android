@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.auth.LoginFragment">
 
@@ -9,25 +8,31 @@
         <variable
             name="viewmodel"
             type="herbs.n.more.ui.auth.AuthViewModel" />
+
+        <variable
+            name="fragment"
+            type="herbs.n.more.ui.auth.LoginFragment" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.auth.LoginActivity">
+        android:background="@mipmap/bg_login">
 
-        <!--<ImageButton
+        <ImageButton
+            android:id="@+id/ib_back"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
             android:src="@drawable/ic_arrow_back"
             android:scaleType="centerCrop"
-            android:padding="@dimen/dp_12"
-            android:layout_gravity="right"
-            android:background="?selectableItemBackgroundBorderless"/>-->
+            android:padding="@dimen/dp_15"
+            android:onClick="@{fragment::onBack}"
+            android:background="?actionBarItemBackground"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="@dimen/dp_20">
 
             <ImageView
@@ -42,9 +47,10 @@
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/image_view_logo"
-                android:layout_marginTop="@dimen/dp_50"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/image_view_logo"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
@@ -64,6 +70,7 @@
                     android:fontFamily="@font/utm_avo"
                     android:hint="@string/email_hint"
                     android:inputType="textEmailAddress"
+                    android:nextFocusDown="@id/et_password"
                     android:paddingLeft="@dimen/dp_20"
                     android:paddingRight="@dimen/dp_20"
                     android:text="@={viewmodel.email}"
@@ -91,6 +98,7 @@
                         android:background="@drawable/bg_edit_text"
                         android:fontFamily="@font/utm_avo"
                         android:hint="@string/password_hint"
+                        android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:paddingLeft="@dimen/dp_20"
                         android:paddingRight="@dimen/dp_50"
@@ -105,21 +113,23 @@
                         android:layout_height="@dimen/dp_45"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:padding="@dimen/dp_15"
+                        android:background="?actionBarItemBackground"
+                        android:padding="@dimen/dp_13"
                         android:scaleType="centerCrop"
+                        android:onClick="@{fragment::onShowPassword}"
                         android:src="@drawable/ic_show_pass" />
 
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/tv_forget_password"
+                    android:id="@+id/tv_forgot_password"
                     style="@style/ColorMainTextBold12"
                     android:layout_gravity="right"
                     android:text="@string/lb_login_reset_password"
+                    android:onClick="@{fragment::onForgotPassword}"
                     android:textColor="@color/colorPrimary" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/bt_log_in"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_50"
@@ -130,6 +140,7 @@
                     android:onClick="@{viewmodel::onLoginButtonClick}"
                     android:text="@string/lb_log_in"
                     android:textAllCaps="false"
+                    android:textColor="@color/colorWhite"
                     android:textSize="@dimen/sp_15" />
 
                 <LinearLayout
@@ -149,7 +160,7 @@
                         style="@style/ColorMainTextBold12"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dp_5"
-                        android:onClick="@{viewmodel::onSingup}"
+                        android:onClick="@{fragment::onSingup}"
                         android:text="@string/lb_sign_up" />
                 </LinearLayout>
 
@@ -158,49 +169,48 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp_30"
                     android:gravity="center_horizontal"
-                    android:text="@string/lb_footer_login"
+                    android:text="@string/continute_with"
                     android:textColor="@color/text_color_hint" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_20"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/bt_zalo"
                         android:layout_width="@dimen/dp_45"
                         android:layout_height="@dimen/dp_45"
                         android:background="?selectableItemBackgroundBorderless"
-                        android:padding="@dimen/dp_10"
+                        android:onClick="@{fragment::commingSoon}"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_cart" />
+                        android:src="@mipmap/ic_zalo" />
 
                     <ImageButton
                         android:id="@+id/bt_google"
                         android:layout_width="@dimen/dp_45"
                         android:layout_height="@dimen/dp_45"
+                        android:layout_marginLeft="@dimen/dp_25"
+                        android:layout_marginRight="@dimen/dp_25"
                         android:background="?selectableItemBackgroundBorderless"
-                        android:padding="@dimen/dp_10"
-                        android:layout_marginLeft="@dimen/dp_35"
-                        android:layout_marginRight="@dimen/dp_35"
+                        android:onClick="@{fragment::commingSoon}"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_cart" />
+                        android:src="@mipmap/ic_google" />
 
                     <ImageButton
                         android:id="@+id/bt_face"
                         android:layout_width="@dimen/dp_45"
                         android:layout_height="@dimen/dp_45"
                         android:background="?selectableItemBackgroundBorderless"
-                        android:padding="@dimen/dp_10"
+                        android:onClick="@{fragment::commingSoon}"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_cart" />
+                        android:src="@mipmap/ic_face" />
 
                 </LinearLayout>
 
             </LinearLayout>
-
         </RelativeLayout>
 
         <ProgressBar
@@ -213,5 +223,3 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
-
-

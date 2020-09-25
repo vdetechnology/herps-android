@@ -23,15 +23,26 @@
     <string name="s_select_all">Chọn tất cả</string>
     <string name="promotion">Khuyến mãi</string>
     <string name="lb_username">Email hoặc số điện thoại</string>
+    <string name="lb_name">Họ tên<font color='#F52B2B'>*</font></string>
+    <string name="lb_email">Email</string>
     <string name="lb_password">Mật khẩu</string>
+    <string name="lb_email_requiment">Email<font color='#F52B2B'>*</font></string>
+    <string name="lb_password_requiment">Mật khẩu<font color='#F52B2B'>*</font></string>
     <string name="lb_login_reset_password">Quên mật khẩu</string>
     <string name="lb_continued_as_guest">Tiếp tục là khách</string>
     <string name="lb_or_login_with">Đăng nhập nhanh với</string>
     <string name="lb_sign_up">Đăng ký</string>
     <string name="lb_footer_login">Bạn chưa có tài khoản?</string>
+    <string name="lb_footer_signup">Bạn đã có tài khoản?</string>
     <string name="lb_log_in">Đăng nhập</string>
+    <string name="name_hint">Nhập tên của bạn</string>
     <string name="email_hint">Nhập email của bạn</string>
     <string name="password_hint">Nhập mật khẩu</string>
+    <string name="continute_with">Hoặc tiếp tục với</string>
+    <string name="message_forgot">Để khôi phục mật khẩu của bạn, vui lòng nhập địa chỉ email</string>
+    <string name="help">Trợ giúp?</string>
+    <string name="reset_password">Khôi phục lại mật khẩu</string>
+    <string name="comming_soon">Tính năng đang được phát triển</string>
 
     <!-- Menu-->
     <string name="menu_home">Trang chủ</string>

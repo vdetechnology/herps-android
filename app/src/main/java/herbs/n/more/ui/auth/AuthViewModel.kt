@@ -3,6 +3,7 @@ package herbs.n.more.ui.auth
 import android.content.Intent
 import android.view.View
 import androidx.lifecycle.ViewModel
+import androidx.navigation.Navigation
 import herbs.n.more.data.repositories.UserRepository
 import herbs.n.more.util.ApiException
 import herbs.n.more.util.Coroutines
@@ -19,12 +20,6 @@ class AuthViewModel(
     var authListener: AuthListener? = null
 
     fun getLoggedInUser() = userRepository.getUser()
-
-    fun onLogin(view: View){
-        Intent(view.context, LoginActivity::class.java).also {
-            view.context.startActivity(it)
-        }
-    }
 
     fun onLoginButtonClick(view: View){
         authListener?.onStarted()
@@ -47,12 +42,6 @@ class AuthViewModel(
             }catch (e: NoInternetException){
                 authListener?.onFailure(e.message!!)
             }
-        }
-    }
-
-    fun onSingup(view: View){
-        Intent(view.context, SingupActivity::class.java).also {
-            view.context.startActivity(it)
         }
     }
 
