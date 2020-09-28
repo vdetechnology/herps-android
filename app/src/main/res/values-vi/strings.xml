@@ -44,6 +44,13 @@
     <string name="reset_password">Khôi phục lại mật khẩu</string>
     <string name="comming_soon">Tính năng đang được phát triển</string>
 
+    <string name="email_is_blank">Vui lòng nhập email</string>
+    <string name="password_is_blank">Vui lòng nhập mật khẩu</string>
+    <string name="email_wrong_format">Email không hợp lệ</string>
+    <string name="name_is_blank">Vui lòng nhập họ tên</string>
+    <string name="name_shorter">Họ tên tối thiểu phải từ 2 kí tự</string>
+    <string name="password_shorter">Mật khẩu tối thiểu phải từ 6 kí tự</string>
+
     <!-- Menu-->
     <string name="menu_home">Trang chủ</string>
     <string name="menu_category">Danh mục</string>
@@ -52,10 +59,12 @@
     <string name="menu_profile">Tài khoản</string>
 
     <!-- Home-->
+    <string name="you">bạn</string>
     <string name="title_morning">Chào buổi sáng!</string>
     <string name="title_affternoon">Chào buổi chiều!</string>
     <string name="title_evening">Chào buổi tối!</string>
     <string name="say_hi">Xin chào,</string>
+    <string name="say_hi_name">%s!</string>
     <string name="best_selling">Sản phẩm bán chạy</string>
     <string name="see_more">Xem thêm</string>
     <string name="recently">Sản phẩm đã xem</string>

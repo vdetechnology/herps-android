@@ -19,10 +19,8 @@ import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentLoginBinding
 import herbs.n.more.ui.MainActivity
-import herbs.n.more.util.hide
-import herbs.n.more.util.show
-import herbs.n.more.util.snackbar
-import herbs.n.more.util.toast
+import herbs.n.more.util.*
+import kotlinx.android.synthetic.main.fragment_login.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -66,12 +64,19 @@ class LoginFragment : Fragment(), AuthListener, KodeinAware {
 
     override fun onSuccess(user: User) {
         binding.progressBar.hide()
-        binding.rootLayout.snackbar("${user.name} is Logged In")
+        binding.rootLayout.snackbar("${user.displayName} is Logged In")
     }
 
     override fun onFailure(message: String) {
         binding.progressBar.hide()
-        activity?.toast(message)
+        when(message) {
+            Constant.EMAIL_NULL -> tv_err_mail.setText(resources.getString(R.string.email_is_blank))
+            Constant.EMAIL_OK -> tv_err_mail.setText("")
+            Constant.EMAIL_ISVALID -> tv_err_mail.setText(resources.getString(R.string.email_wrong_format))
+            Constant.PASSWORD_NULL -> tv_err_pass.setText(resources.getString(R.string.password_is_blank))
+            Constant.PASSWORD_OK -> tv_err_pass.setText("")
+            else -> activity?.toast(message)
+        }
     }
 
     fun onSingup(view: View){

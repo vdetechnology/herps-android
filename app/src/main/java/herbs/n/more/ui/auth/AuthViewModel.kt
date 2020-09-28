@@ -1,13 +1,11 @@
 package herbs.n.more.ui.auth
 
-import android.content.Intent
 import android.view.View
 import androidx.lifecycle.ViewModel
-import androidx.navigation.Navigation
 import herbs.n.more.data.repositories.UserRepository
-import herbs.n.more.util.ApiException
-import herbs.n.more.util.Coroutines
-import herbs.n.more.util.NoInternetException
+import herbs.n.more.util.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 class AuthViewModel(
     private val userRepository: UserRepository
@@ -15,23 +13,20 @@ class AuthViewModel(
 
     var name: String? = null
     var email: String? = null
-    var password: String? = null;
-    var passwordconfirm: String? = null;
+    var password: String? = null
     var authListener: AuthListener? = null
 
     fun getLoggedInUser() = userRepository.getUser()
 
     fun onLoginButtonClick(view: View){
-        authListener?.onStarted()
-        if (email.isNullOrEmpty() || password.isNullOrEmpty()){
-            authListener?.onFailure("Invalid emmail or password")
-            return
-        }
 
+        if (!checkValidate())
+            return
+        authListener?.onStarted()
         Coroutines.main {
             try {
                 var authResponse = userRepository.userLogin(email!!, password!!)
-                authResponse.user?.let {
+                authResponse.data?.let {
                     authListener?.onSuccess(it)
                     userRepository.saveUser(it)
                     return@main
@@ -45,9 +40,30 @@ class AuthViewModel(
         }
     }
 
+    fun checkValidate() : Boolean{
+        var isMail = false
+        var isPass = false
+            if (Validate.isNull(email)) {
+                authListener?.onFailure(Constant.EMAIL_NULL)
+            } else if (!Validate.isValidEmail(email)) {
+                authListener?.onFailure(Constant.EMAIL_ISVALID)
+            } else {
+                authListener?.onFailure(Constant.EMAIL_OK)
+                isMail = true
+            }
+            if (Validate.isNull(password)) {
+                authListener?.onFailure(Constant.PASSWORD_NULL)
+            } else {
+                authListener?.onFailure(Constant.PASSWORD_OK)
+                isPass = true
+            }
+
+        return isMail && isPass
+    }
+
     fun onSignupButtonClick(view: View){
         authListener?.onStarted()
-        if (email.isNullOrEmpty()){
+        if (name.isNullOrEmpty()){
             authListener?.onFailure("Name is required")
             return
         }
@@ -59,15 +75,11 @@ class AuthViewModel(
             authListener?.onFailure("Please enter a password")
             return
         }
-        if (password != passwordconfirm){
-            authListener?.onFailure("Password confirm did not match")
-            return
-        }
 
         Coroutines.main {
             try {
                 var authResponse = userRepository.userSignup(name!!, email!!, password!!)
-                authResponse.user?.let {
+                authResponse.data?.let {
                     authListener?.onSuccess(it)
                     return@main
                 }
@@ -78,5 +90,9 @@ class AuthViewModel(
                 authListener?.onFailure(e.message!!)
             }
         }
+    }
+
+    fun checkEmail(email : String){
+
     }
 }

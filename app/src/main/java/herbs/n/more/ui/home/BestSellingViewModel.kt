@@ -10,4 +10,6 @@ class BestSellingViewModel(
     val bestSelling by lazyDeferred {
         repository.getBestSelling()
     }
+
+    val user = repository.getUser()
 }

@@ -47,7 +47,7 @@ class RegisterFragment : Fragment(), AuthListener, KodeinAware {
 
     override fun onSuccess(user: User) {
         binding.progressBar.hide()
-        activity?.toast("${user.name} is registed. Please login your account")
+        activity?.toast("${user.displayName} is registed. Please login your account")
         activity?.onBackPressed()
     }
 

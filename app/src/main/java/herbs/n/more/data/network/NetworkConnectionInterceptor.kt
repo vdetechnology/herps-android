@@ -5,8 +5,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.core.os.ConfigurationCompat
 import herbs.n.more.util.NoInternetException
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
 
 class NetworkConnectionInterceptor(
@@ -19,7 +21,19 @@ class NetworkConnectionInterceptor(
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isInternetAvailable())
             throw NoInternetException("Make sure you have an active data connection")
-        return chain.proceed(chain.request())
+
+        val original: Request = chain.request()
+
+        val currentLocale = ConfigurationCompat.getLocales(applicationContext.resources.configuration)[0]
+        val authorization : String = "Basic Y2tfZDQ4ZmU4ZjIxNDg4YmVlNWRlYmY4ZTYzZmY4YTA0NTg0NjMzZWRlYTpjc18yZDJiZTBmOTZhMzU0ZGI1MzQ2NzdiY2I5NTQ1OTBkYWVlZmM3MmQ2"
+
+        val request: Request = original.newBuilder()
+            .header("lang", currentLocale.language.toString())
+            .header("authorization", authorization)
+            .method(original.method(), original.body())
+            .build()
+
+        return chain.proceed(request)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

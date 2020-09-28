@@ -60,13 +60,14 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         binding.tvMoreBestSelling.setOnClickListener { view -> seeMoreBestSelling(view) }
         binding.tvMoreRecently.setOnClickListener { view -> seeMoreBestRecently(view) }
         binding.rlUser.setOnClickListener { view -> goToLogin() }
+        viewModel = ViewModelProviders.of(this, factory).get(BestSellingViewModel::class.java)
+        binding.bestselling = viewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, factory).get(BestSellingViewModel::class.java)
-        setTimeText()
         initData()
         swiperefresh.setOnRefreshListener {
             initData()
@@ -74,6 +75,7 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
     }
 
     private fun initData(){
+        GlobalScope.async{setTimeText()}
         GlobalScope.async{setupViewPager(binding.root)}
         GlobalScope.async{setupSlideAdvertisement(binding.root)}
         GlobalScope.async{bindData()}

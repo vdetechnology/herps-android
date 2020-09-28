@@ -5,6 +5,10 @@
     tools:context=".ui.home.HomeFragment">
 
     <data>
+        <import type="android.view.View"/>
+        <variable
+            name="bestselling"
+            type="herbs.n.more.ui.home.BestSellingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_15"
                     android:layout_toRightOf="@+id/cv_image"
+                    android:layout_centerVertical="true"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -65,17 +70,19 @@
 
                         <TextView
                             android:id="@+id/tv_user_name"
-                            style="@style/ColorMainTextRegular15"
+                            style="@style/ColorMainTextBold15"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/dp_5"
-                            android:text="Bạn!" />
+                            android:text= "@{String.format(@string/say_hi_name, bestselling.user.email != null ? bestselling.user.displayName : @string/you)}" />
+
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_login_register"
                         style="@style/ColorMainTextBold12"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/login_register" />
+                        android:text="@string/login_register"
+                        android:visibility="@{bestselling.user.email != null ? View.GONE : View.VISIBLE}" />
                 </LinearLayout>
             </RelativeLayout>
 
