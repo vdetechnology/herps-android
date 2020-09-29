@@ -10,5 +10,9 @@ class Constant {
         const val PASSWORD_NULL = "1004"
         const val PASSWORD_SHORTER = "1005"
         const val PASSWORD_OK = "1006"
+
+        const val NAME_NULL = "1007"
+        const val NAME_SHORTER = "1008"
+        const val NAME_OK = "1009"
     }
 }

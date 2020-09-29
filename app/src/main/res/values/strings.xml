@@ -46,10 +46,18 @@
 
     <string name="email_is_blank">Please enter your email</string>
     <string name="password_is_blank">Please enter your password</string>
-    <string name="email_wrong_format">Invalid email</string>
+    <string name="email_wrong_format">Invalid email address</string>
     <string name="name_is_blank">Please enter your name</string>
-    <string name="name_shorter">Please enter your name</string>
+    <string name="name_shorter">Name must be at least 2 characters</string>
     <string name="password_shorter">Password must be at least 6 characters</string>
+    <string name="login_error">Login error</string>
+    <string name="register_error">Register error</string>
+    <string name="register_success">Register success</string>
+    <string name="forgot_error">Forgot password fail</string>
+    <string name="forgot_success">Forgot password success</string>
+    <string name="close">Close</string>
+    <string name="continute_account">Continute with newly  account</string>
+    <string name="back_to_login">Back to login</string>
 
     <!-- Menu-->
     <string name="menu_home">Home</string>

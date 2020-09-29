@@ -3,11 +3,22 @@ package herbs.n.more.ui.auth
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import herbs.n.more.R
+import herbs.n.more.ui.dialog.MessageDialogFragment
+import herbs.n.more.ui.dialog.RegisterSuccessDialogFragment
+
 
 class AuthActivity : AppCompatActivity(R.layout.activity_auth) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+    }
+
+    fun showMessage(title: String, message : String) {
+        MessageDialogFragment(title, message).apply {show(supportFragmentManager, "TAG") }
+    }
+
+    fun showRegisterSuccess(message : String) {
+        RegisterSuccessDialogFragment(message).apply {show(supportFragmentManager, "TAG") }
     }
 }

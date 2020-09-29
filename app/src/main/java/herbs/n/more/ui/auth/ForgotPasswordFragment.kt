@@ -7,8 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
@@ -44,7 +42,7 @@ class ForgotPasswordFragment  : Fragment(), AuthListener, KodeinAware {
         binding.progressBar.show()
     }
 
-    override fun onSuccess(user: User) {
+    override fun onSuccess(user: User, message : String) {
         binding.progressBar.hide()
         activity?.onBackPressed()
     }
@@ -59,22 +57,9 @@ class ForgotPasswordFragment  : Fragment(), AuthListener, KodeinAware {
     }
 
     fun onHelp(view: View){
-        /*val animation = AnimationUtils.loadAnimation(activity, R.anim.image_click)
-        view.startAnimation(animation)
-        animation.setAnimationListener(object : Animation.AnimationListener{
-            override fun onAnimationRepeat(animation: Animation?) {
-            }
-
-            override fun onAnimationEnd(animation: Animation?) {*/
-                val url = "http://herbs.vn/"
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(url)
-                startActivity(intent)
-            /*}
-
-            override fun onAnimationStart(animation: Animation?) {
-            }
-
-        })*/
+        val url = "http://herbs.vn/"
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
     }
 }

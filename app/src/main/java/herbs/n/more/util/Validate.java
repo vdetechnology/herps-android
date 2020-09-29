@@ -15,8 +15,8 @@ public class Validate {
         return false;
     }
 
-    public final static boolean isShorterThan(String str) {
-        if (str.length() < 6) {
+    public final static boolean isShorterThan(String str, Integer num) {
+        if (str.length() < num) {
             return true;
         }
         return false;

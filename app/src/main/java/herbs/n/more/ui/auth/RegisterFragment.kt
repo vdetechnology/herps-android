@@ -15,9 +15,11 @@ import androidx.navigation.findNavController
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentRegisterBinding
+import herbs.n.more.util.Constant
 import herbs.n.more.util.hide
 import herbs.n.more.util.show
 import herbs.n.more.util.toast
+import kotlinx.android.synthetic.main.fragment_register.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -37,6 +39,7 @@ class RegisterFragment : Fragment(), AuthListener, KodeinAware {
         var viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
         binding.register = viewModel
         binding.fragment = this
+        binding.lifecycleOwner = this
         viewModel.authListener = this
         return binding.root
     }
@@ -45,15 +48,25 @@ class RegisterFragment : Fragment(), AuthListener, KodeinAware {
         binding.progressBar.show()
     }
 
-    override fun onSuccess(user: User) {
+    override fun onSuccess(user: User, message: String) {
         binding.progressBar.hide()
-        activity?.toast("${user.displayName} is registed. Please login your account")
-        activity?.onBackPressed()
+        (activity as AuthActivity).showRegisterSuccess(message)
     }
 
     override fun onFailure(message: String) {
         binding.progressBar.hide()
-        activity?.toast(message)
+        when(message) {
+            Constant.EMAIL_NULL -> tv_err_mail.text = resources.getString(R.string.email_is_blank)
+            Constant.EMAIL_OK -> tv_err_mail.text = ""
+            Constant.EMAIL_ISVALID -> tv_err_mail.text = resources.getString(R.string.email_wrong_format)
+            Constant.PASSWORD_NULL -> tv_err_pass.text = resources.getString(R.string.password_is_blank)
+            Constant.PASSWORD_SHORTER -> tv_err_pass.text = resources.getString(R.string.password_shorter)
+            Constant.PASSWORD_OK -> tv_err_pass.text = ""
+            Constant.NAME_NULL -> tv_err_name.text = resources.getString(R.string.name_is_blank)
+            Constant.NAME_SHORTER -> tv_err_name.text = resources.getString(R.string.name_shorter)
+            Constant.NAME_OK -> tv_err_name.text = ""
+            else -> (activity as AuthActivity).showMessage(resources.getString(R.string.register_error), message)
+        }
     }
 
     fun onLogin(view: View){

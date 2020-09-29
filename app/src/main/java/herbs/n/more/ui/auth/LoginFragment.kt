@@ -8,9 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.view.inputmethod.EditorInfo
 import android.widget.ImageButton
-import android.widget.TextView.OnEditorActionListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -46,7 +44,7 @@ class LoginFragment : Fragment(), AuthListener, KodeinAware {
 
         viewModel.getLoggedInUser().observe(viewLifecycleOwner, androidx.lifecycle.Observer { user ->
             if (user != null){
-                activity?.let {
+                activity?.let {it ->
                     Intent(it, MainActivity::class.java).also {
                         it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(it)
@@ -62,7 +60,7 @@ class LoginFragment : Fragment(), AuthListener, KodeinAware {
         binding.progressBar.show()
     }
 
-    override fun onSuccess(user: User) {
+    override fun onSuccess(user: User, message : String) {
         binding.progressBar.hide()
         binding.rootLayout.snackbar("${user.displayName} is Logged In")
     }
@@ -70,12 +68,12 @@ class LoginFragment : Fragment(), AuthListener, KodeinAware {
     override fun onFailure(message: String) {
         binding.progressBar.hide()
         when(message) {
-            Constant.EMAIL_NULL -> tv_err_mail.setText(resources.getString(R.string.email_is_blank))
-            Constant.EMAIL_OK -> tv_err_mail.setText("")
-            Constant.EMAIL_ISVALID -> tv_err_mail.setText(resources.getString(R.string.email_wrong_format))
-            Constant.PASSWORD_NULL -> tv_err_pass.setText(resources.getString(R.string.password_is_blank))
-            Constant.PASSWORD_OK -> tv_err_pass.setText("")
-            else -> activity?.toast(message)
+            Constant.EMAIL_NULL -> tv_err_mail.text = resources.getString(R.string.email_is_blank)
+            Constant.EMAIL_OK -> tv_err_mail.text = ""
+            Constant.EMAIL_ISVALID -> tv_err_mail.text = resources.getString(R.string.email_wrong_format)
+            Constant.PASSWORD_NULL -> tv_err_pass.text = resources.getString(R.string.password_is_blank)
+            Constant.PASSWORD_OK -> tv_err_pass.text = ""
+            else -> (activity as AuthActivity).showMessage(resources.getString(R.string.login_error), message)
         }
     }
 

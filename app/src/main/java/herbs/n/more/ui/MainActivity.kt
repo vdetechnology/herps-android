@@ -4,9 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.android.material.shape.CornerFamily
-import com.google.android.material.shape.MaterialShapeDrawable
 import herbs.n.more.R
 import herbs.n.more.databinding.ActivityMainBinding
 import herbs.n.more.ui.adapter.MainPagerAdapter
@@ -20,7 +17,6 @@ import herbs.n.more.ui.saved.SavedFragment
 class MainActivity : AppCompatActivity() {
 
     private var bind: ActivityMainBinding? = null
-    private val adapter: MainPagerAdapter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

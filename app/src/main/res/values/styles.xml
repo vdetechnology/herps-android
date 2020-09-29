@@ -63,6 +63,20 @@
         <item name="android:textSize">@dimen/sp_10</item>
     </style>
 
+    <style name="BottomSheetDialogTheme" parent="Theme.AppCompat.Light">
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="BottomSheetDialogThemeNotCancel" parent="Theme.AppCompat.Light">
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
     <style name="Button.With.Text" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_width">@dimen/dp_150</item>
         <item name="android:layout_height">@dimen/dp_45</item>

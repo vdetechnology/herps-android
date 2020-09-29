@@ -21,6 +21,7 @@ import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.indicator.IndicatorView
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.Product
+import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentHomeBinding
 import herbs.n.more.ui.MainActivity
 import herbs.n.more.ui.adapter.ImageResourceAdapter
@@ -49,6 +50,7 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
     private lateinit var mIndicatorView2 : IndicatorView
     protected var mPictureList: MutableList<Int> = ArrayList()
     protected var mAvertisementList: MutableList<Int> = ArrayList()
+    protected var user : User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +65,10 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         viewModel = ViewModelProviders.of(this, factory).get(BestSellingViewModel::class.java)
         binding.bestselling = viewModel
         binding.lifecycleOwner = this
+        viewModel.user.observe(viewLifecycleOwner, androidx.lifecycle.Observer { user ->
+            if (user !=null)
+                this.user = user
+        })
         return binding.root
     }
 
@@ -216,10 +222,14 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
     }
 
     fun goToLogin() {
-        activity?.let {
-            Intent(it, AuthActivity::class.java).also {
-                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(it)
+        if (user != null){
+
+        }else {
+            activity?.let {
+                Intent(it, AuthActivity::class.java).also {
+                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(it)
+                }
             }
         }
     }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "439589920007",
+    "firebase_url": "https://herbs-and-more.firebaseio.com",
+    "project_id": "herbs-and-more",
+    "storage_bucket": "herbs-and-more.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439589920007:android:e127a1d68cacf9af1139a2",
+        "android_client_info": {
+          "package_name": "herbs.n.more"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439589920007-kot174a6pvr5k4kom977aee36i0o53mk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "herbs.n.more",
+            "certificate_hash": "4a3658bbd159f52ca13bdd39afb0abfc281ec53d"
+          }
+        },
+        {
+          "client_id": "439589920007-h43rpgml7pu9d8mnofr3js6a5c9ok4bo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHDvYbfpJHglYXyoV6zTBJ_q2a4PIyX8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439589920007-h43rpgml7pu9d8mnofr3js6a5c9ok4bo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
