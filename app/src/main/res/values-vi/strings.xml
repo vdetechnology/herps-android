@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Herbs &amp; More</string>
 
     <!-- Onboarding-->
     <string name="title0">Herbs ® (Thảo Dược Cao Cấp)</string>
@@ -78,6 +77,7 @@
     <string name="recently">Sản phẩm đã xem</string>
     <string name="suggested">Dành riêng cho bạn</string>
     <string name="login_register">Đăng ký / đăng nhập</string>
+    <string name="number_comment">%s Nhận xét</string>
 
     <!-- Category-->
     <string name="search_hint">Tìm kiếm...</string>

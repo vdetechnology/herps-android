@@ -16,9 +16,10 @@ class RecentlyProductItem(
 
     override fun bind(viewBinding: ItemProductRectangleBinding, position: Int) {
         viewBinding.product = product
+        viewBinding.rbRating.rating = product.rating!!
         Glide
             .with(context)
-            .load(product.thumbnail)
+            .load(product.image)
             .centerCrop()
             .placeholder(R.drawable.logo_herbs)
             .into(viewBinding.ivProductImage);

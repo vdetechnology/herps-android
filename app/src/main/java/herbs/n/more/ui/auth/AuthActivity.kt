@@ -4,10 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import herbs.n.more.R
 import herbs.n.more.ui.dialog.MessageDialogFragment
-import herbs.n.more.ui.dialog.RegisterSuccessDialogFragment
 
 
-class AuthActivity : AppCompatActivity(R.layout.activity_auth) {
+class AuthActivity : AppCompatActivity(R.layout.activity_auth){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +17,4 @@ class AuthActivity : AppCompatActivity(R.layout.activity_auth) {
         MessageDialogFragment(title, message).apply {show(supportFragmentManager, "TAG") }
     }
 
-    fun showRegisterSuccess(message : String) {
-        RegisterSuccessDialogFragment(message).apply {show(supportFragmentManager, "TAG") }
-    }
 }

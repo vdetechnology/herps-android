@@ -1,5 +1,6 @@
 package herbs.n.more.ui.dialog
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import herbs.n.more.ui.MainActivity
 class RegisterSuccessDialogFragment(message: String) : BottomSheetDialogFragment() {
 
     private val message = message
+    private var mListener: ItemClickListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,12 +35,13 @@ class RegisterSuccessDialogFragment(message: String) : BottomSheetDialogFragment
         tvMessage.text = message
 
         btContinute.setOnClickListener(View.OnClickListener {
-            activity?.let {it ->
+            /*activity?.let {it ->
                 Intent(it, MainActivity::class.java).also {
                     it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(it)
                 }
-            }
+            }*/
+            mListener?.onContinuteClick()
         })
 
         btBack.setOnClickListener(View.OnClickListener {
@@ -49,9 +52,18 @@ class RegisterSuccessDialogFragment(message: String) : BottomSheetDialogFragment
         return view
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mListener = context as ItemClickListener
+    }
+
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.BottomSheetDialogThemeNotCancel)
+    }
+
+    interface ItemClickListener {
+        fun onContinuteClick()
     }
 
 }

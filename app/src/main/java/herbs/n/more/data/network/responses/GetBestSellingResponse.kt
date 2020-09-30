@@ -3,6 +3,8 @@ package herbs.n.more.data.network.responses
 import herbs.n.more.data.db.entities.Product
 
 data class GetBestSellingResponse (
-    val isSuccessful: Boolean?,
-    val quotes : List<Product>
+    val code: Int?,
+    val success: Boolean?,
+    val message: String,
+    val data : List<Product>
 )

@@ -1,5 +1,6 @@
 package herbs.n.more.data.network
 
+import herbs.n.more.BuildConfig
 import herbs.n.more.data.network.responses.AuthResponse
 import herbs.n.more.data.network.responses.GetBestSellingResponse
 import okhttp3.OkHttpClient
@@ -25,7 +26,7 @@ interface MyApi {
         @Field("password") password: String
     ) : Response<AuthResponse>
 
-    @GET("quotes")
+    @GET("product/bestseller/")
     suspend fun getBestSelling() : Response<GetBestSellingResponse>
 
     companion object{
@@ -33,7 +34,7 @@ interface MyApi {
             networkConnectionInterceptor: NetworkConnectionInterceptor
         ): MyApi{
 
-            val base_url = "https://dev.herbs.vn/wp-json/api/v1/"
+            val base_url = BuildConfig.API_URL
 
             val okkHttpclient = OkHttpClient.Builder()
                 .addInterceptor(networkConnectionInterceptor)

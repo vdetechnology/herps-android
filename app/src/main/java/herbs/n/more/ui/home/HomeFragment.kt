@@ -23,7 +23,6 @@ import herbs.n.more.R
 import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentHomeBinding
-import herbs.n.more.ui.MainActivity
 import herbs.n.more.ui.adapter.ImageResourceAdapter
 import herbs.n.more.ui.auth.AuthActivity
 import herbs.n.more.ui.viewholder.ImageResourceViewHolder
@@ -69,6 +68,7 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
             if (user !=null)
                 this.user = user
         })
+        
         return binding.root
     }
 
@@ -242,7 +242,7 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
     }
 
     override fun onItemClicked(product: Product) {
-        context?.toast(product.author)
+        context?.toast(product.short_description.toString())
     }
 
     override fun onLikeClicked(product: Product) {

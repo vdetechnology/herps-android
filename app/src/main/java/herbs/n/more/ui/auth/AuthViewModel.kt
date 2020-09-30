@@ -3,6 +3,7 @@ package herbs.n.more.ui.auth
 import android.view.View
 import androidx.lifecycle.ViewModel
 import herbs.n.more.R
+import herbs.n.more.data.db.entities.User
 import herbs.n.more.data.repositories.UserRepository
 import herbs.n.more.util.*
 
@@ -14,8 +15,13 @@ class AuthViewModel(
     var email: String? = null
     var password: String? = null
     var authListener: AuthListener? = null
+    var user: User? = null
 
     fun getLoggedInUser() = userRepository.getUser()
+
+    fun saveUser(){
+        user?.let { userRepository.saveUserIO(it) }
+    }
 
     fun onLoginButtonClick(view: View){
 
@@ -105,7 +111,7 @@ class AuthViewModel(
                 var authResponse = userRepository.userSignup(name!!, email!!, password!!)
                 authResponse.data?.let {
                     authListener?.onSuccess(it, authResponse.message)
-                    //userRepository.saveUser(it)
+                    user = it
                     return@main
                 }
                 authListener?.onFailure(authResponse.message!!)

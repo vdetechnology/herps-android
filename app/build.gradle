@@ -13,16 +13,42 @@ android {
         applicationId "herbs.n.more"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            keyAlias KEY_ALIAS
+            keyPassword KEYSTORE_PASSWORD
+            storeFile file(KEY_FILE)
+            storePassword KEYSTORE_PASSWORD
+        }
+        dev{
+            keyAlias KEY_ALIAS
+            keyPassword KEYSTORE_PASSWORD
+            storeFile file(KEY_FILE)
+            storePassword KEYSTORE_PASSWORD
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "API_URL", API_URL
+            resValue("string", "app_name", "Herbs &amp; More")
+            signingConfig signingConfigs.release
+        }
+
+        dev {
+            debuggable true
+            resValue("string", "app_name", "Herbs DEV")
+            buildConfigField "String", "API_URL", DEV_API_URL
+            signingConfig signingConfigs.dev
         }
     }
 

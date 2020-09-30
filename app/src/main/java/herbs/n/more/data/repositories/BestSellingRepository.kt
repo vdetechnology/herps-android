@@ -27,7 +27,7 @@ class BestSellingRepository(
     private suspend fun fetchProducts() {
         try {
             val response = apiRequest { api.getBestSelling() }
-            bestSelling.postValue(response.quotes)
+            bestSelling.postValue(response.data)
         } catch (e: Exception) {
             e.printStackTrace()
         }

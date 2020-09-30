@@ -1,42 +1,45 @@
 package herbs.n.more.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentRegisterBinding
-import herbs.n.more.util.Constant
-import herbs.n.more.util.hide
-import herbs.n.more.util.show
-import herbs.n.more.util.toast
+import herbs.n.more.ui.MainActivity
+import herbs.n.more.util.*
 import kotlinx.android.synthetic.main.fragment_register.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
-class RegisterFragment : Fragment(), AuthListener, KodeinAware {
+
+class RegisterFragment : Fragment(), AuthListener, KodeinAware{
 
     override val kodein by kodein()
     private val factory: AuthViewModelFactory by instance()
     private lateinit var binding: FragmentRegisterBinding
     private var isShow : Boolean = false
+    private lateinit var viewModel: AuthViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false)
-        var viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
         binding.register = viewModel
         binding.fragment = this
         binding.lifecycleOwner = this
@@ -50,7 +53,7 @@ class RegisterFragment : Fragment(), AuthListener, KodeinAware {
 
     override fun onSuccess(user: User, message: String) {
         binding.progressBar.hide()
-        (activity as AuthActivity).showRegisterSuccess(message)
+        openDialog(user)
     }
 
     override fun onFailure(message: String) {
@@ -93,5 +96,30 @@ class RegisterFragment : Fragment(), AuthListener, KodeinAware {
             view.setImageResource(R.drawable.ic_show_pass)
             isShow = false
         }
+    }
+
+    private fun openDialog(user: User) {
+        val view: View = layoutInflater.inflate(R.layout.bottom_sheet_register, null)
+        val dialog = BottomSheetDialog(this.requireContext())
+        dialog.setContentView(view)
+        val btContinute = view.findViewById<View>(R.id.bt_continute) as TextView
+        val btBack = view.findViewById<View>(R.id.bt_back_login) as TextView
+        btContinute.setOnClickListener {
+            Coroutines.io {
+                viewModel.saveUser()
+            }
+            activity?.let {it ->
+                Intent(it, MainActivity::class.java).also {
+                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(it)
+                }
+            }
+            dialog.dismiss()
+        }
+        btBack.setOnClickListener {
+            binding.root.findNavController().popBackStack()
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 }

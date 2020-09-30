@@ -25,5 +25,7 @@ class UserRepository(
 
     suspend fun saveUser(user: User) = db.getUserDao().upsert(user)
 
+    fun saveUserIO(user: User) = db.getUserDao().save(user)
+
     fun getUser() = db.getUserDao().getuser()
 }
