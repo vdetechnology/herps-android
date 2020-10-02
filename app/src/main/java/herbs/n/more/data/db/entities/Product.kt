@@ -1,6 +1,11 @@
 package herbs.n.more.data.db.entities
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class Product(
+    @PrimaryKey(autoGenerate = false)
     var id: Int? = null,
     var sku: String? = null,
     var status: String? = null,
@@ -17,5 +22,6 @@ data class Product(
     var description: String? = null,
     var date: String? = null,
     var rating: Float? = null,
-    var comment: Int? = null
+    var comment: Int? = null,
+    var update_date: Long? = null
 )

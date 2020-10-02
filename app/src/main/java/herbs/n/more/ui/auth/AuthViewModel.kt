@@ -122,4 +122,28 @@ class AuthViewModel(
             }
         }
     }
+
+    fun onForgotButtonClick(view: View){
+
+        if (Validate.isNull(email)) {
+            authListener?.onFailure(Constant.EMAIL_NULL)
+            return
+        } else if (!Validate.isValidEmail(email)) {
+            authListener?.onFailure(Constant.EMAIL_ISVALID)
+            return
+        } else {
+            authListener?.onFailure(Constant.EMAIL_OK)
+        }
+        authListener?.onStarted()
+        Coroutines.main {
+            try {
+                email?.let { authListener?.onFailure(it) }
+            }catch (e: ApiException){
+                authListener?.onFailure(e.message!!)
+            }catch (e: NoInternetException){
+                authListener?.onFailure(e.message!!)
+            }
+        }
+    }
+
 }

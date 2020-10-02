@@ -16,6 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/title1"
-        android:scaleType="fitXY" />
+        android:scaleType="centerCrop" />
 
 </com.google.android.material.card.MaterialCardView>

@@ -100,7 +100,7 @@ class RegisterFragment : Fragment(), AuthListener, KodeinAware{
 
     private fun openDialog(user: User) {
         val view: View = layoutInflater.inflate(R.layout.bottom_sheet_register, null)
-        val dialog = BottomSheetDialog(this.requireContext())
+        val dialog = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
         dialog.setContentView(view)
         val btContinute = view.findViewById<View>(R.id.bt_continute) as TextView
         val btBack = view.findViewById<View>(R.id.bt_back_login) as TextView

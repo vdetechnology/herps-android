@@ -4,15 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.db.entities.User
 
 @Database(
-    entities = [User::class],
+    entities = [User::class, Product::class],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getUserDao(): UserDao
+    abstract fun getProductDao(): ProductDao
 
     companion object {
 
@@ -30,7 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
-                "MyDatabase.db"
+                "HerbsDatabase.db"
             ).build()
     }
 }

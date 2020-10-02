@@ -113,4 +113,19 @@
         <item name="strokeWidth">@dimen/dp_2</item>
     </style>
 
+    <style name="App.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/dp_40</item>
+        <item name="cornerRadius">@dimen/dp_10</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:fontFamily">@font/utm_avo_bold</item>
+        <item name="android:inset">@dimen/dp_0</item>
+        <item name="android:padding">@dimen/dp_0</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="rippleColor">@color/colorWhite</item>
+        <item name="strokeColor">@color/colorWhite</item>
+    </style>
+
 </resources>

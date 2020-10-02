@@ -2,6 +2,7 @@ package herbs.n.more.data.network
 
 import herbs.n.more.BuildConfig
 import herbs.n.more.data.network.responses.AuthResponse
+import herbs.n.more.data.network.responses.BannerResponse
 import herbs.n.more.data.network.responses.GetBestSellingResponse
 import okhttp3.OkHttpClient
 import retrofit2.Response
@@ -28,6 +29,18 @@ interface MyApi {
 
     @GET("product/bestseller/")
     suspend fun getBestSelling() : Response<GetBestSellingResponse>
+
+    @GET("product/popular/")
+    suspend fun getPopular(
+        @Query("pageindex") pageindex : Int,
+        @Query("pagesize") pagesize : Int
+    ) : Response<GetBestSellingResponse>
+
+    @GET("home/banners")
+    suspend fun getBanners() : Response<BannerResponse>
+
+    @GET("home/campaigns")
+    suspend fun getCampaigns() : Response<BannerResponse>
 
     companion object{
         operator fun invoke(

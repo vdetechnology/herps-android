@@ -14,5 +14,7 @@ class Constant {
         const val NAME_NULL = "1007"
         const val NAME_SHORTER = "1008"
         const val NAME_OK = "1009"
+
+        const val FORGOT_PASS_OK = "1010"
     }
 }

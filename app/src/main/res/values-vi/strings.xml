@@ -42,6 +42,7 @@
     <string name="help">Trợ giúp?</string>
     <string name="reset_password">Khôi phục lại mật khẩu</string>
     <string name="comming_soon">Tính năng đang được phát triển</string>
+    <string name="require_login">Bạn vui lòng đăng nhập để sử dụng chức năng này!</string>
 
     <string name="email_is_blank">Vui lòng nhập email</string>
     <string name="password_is_blank">Vui lòng nhập mật khẩu</string>
@@ -53,10 +54,12 @@
     <string name="register_error">Lỗi đăng ký</string>
     <string name="register_success">Đăng ký thành công</string>
     <string name="forgot_error">Khôi phục mật khẩu thất bại</string>
-    <string name="forgot_success">Khôi phục mật khẩu thành công</string>
+    <string name="forgot_success">Email khôi phục mật khẩu đã được gửi</string>
     <string name="close">Đóng</string>
     <string name="continute_account">Tiếp tục với tài khoản vừa tạo</string>
     <string name="back_to_login">Trở lại trang đăng nhập</string>
+    <string name="forgot_text1">Email hướng dẫn tạo mật khẩu đã được gửi đến địa chỉ <b><u>%s</u></b>. Hãy kiểm tra email và làm theo hướng đẫn.</string>
+    <string name="forgot_text2">Trong trường hợp không tìm thấy email trong hộp thư đến (inbox), vui lòng kiểm tra hộp thư Spam hoặc Junk.</string>
 
     <!-- Menu-->
     <string name="menu_home">Trang chủ</string>
@@ -78,6 +81,7 @@
     <string name="suggested">Dành riêng cho bạn</string>
     <string name="login_register">Đăng ký / đăng nhập</string>
     <string name="number_comment">%s Nhận xét</string>
+    <string name="vnd"><u>đ</u></string>
 
     <!-- Category-->
     <string name="search_hint">Tìm kiếm...</string>
@@ -91,5 +95,6 @@
     <string name="my_purchases">Thanh toán của tôi</string>
     <string name="address_book">Địa chỉ</string>
     <string name="sign_out">Đăng xuất</string>
+    <string name="lb_cancel">Cancel</string>
 
 </resources>

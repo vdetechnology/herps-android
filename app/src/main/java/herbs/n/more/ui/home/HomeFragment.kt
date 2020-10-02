@@ -2,13 +2,16 @@ package herbs.n.more.ui.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -18,15 +21,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.zhpan.bannerview.BannerViewPager
+import com.zhpan.bannerview.BaseViewHolder
 import com.zhpan.indicator.IndicatorView
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.Product
+import herbs.n.more.data.db.entities.SlideImage
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentHomeBinding
-import herbs.n.more.ui.adapter.ImageResourceAdapter
+import herbs.n.more.ui.adapter.BannerAdapter
+import herbs.n.more.ui.adapter.CampaignAdapter
 import herbs.n.more.ui.auth.AuthActivity
-import herbs.n.more.ui.viewholder.ImageResourceViewHolder
-import herbs.n.more.util.*
+import herbs.n.more.ui.dialog.ConfirmLoginDialog
+import herbs.n.more.util.Coroutines
+import herbs.n.more.util.hide
+import herbs.n.more.util.show
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -43,14 +51,17 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
     private val factory: BestSellingViewModelFactory by instance()
     private lateinit var viewModel: BestSellingViewModel
 
-    private var mViewPager: BannerViewPager<Int, ImageResourceViewHolder>? = null
-    private var mViewPagerAdvertisement: BannerViewPager<Int, ImageResourceViewHolder>? = null
+    private var mViewPager: BannerViewPager<SlideImage, BaseViewHolder<SlideImage>>? = null
+    private var mViewPagerCampaign: BannerViewPager<SlideImage, BaseViewHolder<SlideImage>>? = null
     private lateinit var mIndicatorView : IndicatorView
     private lateinit var mIndicatorView2 : IndicatorView
-    protected var mPictureList: MutableList<Int> = ArrayList()
-    protected var mAvertisementList: MutableList<Int> = ArrayList()
-    protected var user : User? = null
+    private var user : User? = null
+    private var mSuggestedAdapter = GroupAdapter<GroupieViewHolder>()
+    private var pageindex : Int = 1
+    private var loadmore : Boolean = false
+    private var loadmoreDisable : Boolean = false
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,26 +76,38 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         binding.bestselling = viewModel
         binding.lifecycleOwner = this
         viewModel.user.observe(viewLifecycleOwner, androidx.lifecycle.Observer { user ->
-            if (user !=null)
-                this.user = user
+            this.user = user
+            if (user != null) {
+                binding.tvUserName.setTextAppearance(R.style.ColorMainTextBold15)
+            }else{
+                binding.tvUserName.setTextAppearance(R.style.ColorMainTextRegular15)
+            }
         })
-        
+        binding.swiperefresh.setColorSchemeColors(resources.getColor(R.color.colorPrimary))
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initData()
-        swiperefresh.setOnRefreshListener {
+        binding.swiperefresh.setOnRefreshListener {
+            mSuggestedAdapter.clear()
+            loadmoreDisable = false
+            loadmore = false
+            pageindex = 1
             initData()
         }
+        initData()
     }
 
     private fun initData(){
         GlobalScope.async{setTimeText()}
         GlobalScope.async{setupViewPager(binding.root)}
-        GlobalScope.async{setupSlideAdvertisement(binding.root)}
-        GlobalScope.async{bindData()}
+        GlobalScope.async{setupSlideCampaign(binding.root)}
+        GlobalScope.async{bindDataBestSelling()}
+        GlobalScope.async{bindBanners()}
+        GlobalScope.async{bindCampaigns()}
+        GlobalScope.async{bindDataRecently()}
+        GlobalScope.async{bindDataPopular()}
     }
 
     private fun setTimeText(){
@@ -98,99 +121,119 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         }
     }
 
-    private fun setupViewPager(view: View) {
+    private fun setupViewPager(view: View){
         mViewPager = view?.findViewById(R.id.banner_view)
         mIndicatorView = view?.findViewById(R.id.indicator_view)
         mIndicatorView.setVisibility(View.VISIBLE)
         mViewPager?.apply {
-            setLifecycleRegistry(getLifecycle())
             setIndicatorView(mIndicatorView)
             setIndicatorSliderRadius(resources.getDimensionPixelOffset(R.dimen.dp_4), resources.getDimensionPixelOffset(R.dimen.dp_4))
             setLifecycleRegistry(getLifecycle())
             setOnPageClickListener{ position: Int -> pageClick(position) }
-            adapter = ImageResourceAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_0), R.layout.item_slide_mode)
-        }?.create(getPicList(3))
+            setAdapter(BannerAdapter())
+        }?.create()
     }
 
-    private fun getPicList(count:Int): MutableList<Int> {
-        mPictureList.clear()
-        for (i in 0..count) {
-            val drawable = resources.getIdentifier("slide_$i", "mipmap", activity?.packageName)
-            mPictureList.add(drawable)
-        }
-        return mPictureList;
-    }
 
-    private fun setupSlideAdvertisement(view: View) {
-        mViewPagerAdvertisement = view?.findViewById(R.id.banner_view_advertisement)
+    private fun setupSlideCampaign(view: View) {
+        mViewPagerCampaign = view?.findViewById(R.id.banner_view_advertisement)
         mIndicatorView2 = view?.findViewById(R.id.indicator_view_2)
         mIndicatorView2.setVisibility(View.VISIBLE)
-        mViewPagerAdvertisement?.apply {
-            setLifecycleRegistry(getLifecycle())
+        mViewPagerCampaign?.apply {
             setIndicatorView(mIndicatorView2)
             setLifecycleRegistry(getLifecycle())
             setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_0))
             setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_30))
             setIndicatorSliderRadius(resources.getDimensionPixelOffset(R.dimen.dp_3), resources.getDimensionPixelOffset(R.dimen.dp_3))
             setOnPageClickListener{ position: Int -> pageClick(position) }
-            adapter = ImageResourceAdapter(getResources().getDimensionPixelOffset(R.dimen.dp_25), R.layout.item_slide_advertisement)
-        }?.create(getAdvertisementList(3))
+            setAdapter(CampaignAdapter())
+        }?.create()
     }
 
-    private fun getAdvertisementList(count:Int): MutableList<Int> {
-        mAvertisementList.clear()
-        for (i in 0..count) {
-            val drawable = resources.getIdentifier("slide_$i", "mipmap", activity?.packageName)
-            mAvertisementList.add(drawable)
-        }
-        return mAvertisementList;
-    }
 
     @SuppressLint("FragmentLiveDataObserve")
-    private fun bindData() = Coroutines.main {
+    private fun bindDataBestSelling() = Coroutines.main {
         progress_bar.show()
         val bestSelling = viewModel.bestSelling.await()
         bestSelling.observe(this, androidx.lifecycle.Observer {
             progress_bar.hide()
             swiperefresh.isRefreshing = false
-            initRecyclerView(it.toProductItem(), it.toRecentlyItem())
+            val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
+                addAll(it.toProductItem())
+            }
+
+            rv_best_selling.apply {
+                layoutManager = GridLayoutManager(activity, 2, LinearLayoutManager.VERTICAL, false)
+                adapter = mAdapter
+            }
         })
     }
 
-    private fun initRecyclerView(bestSellingItem: List<ProductItem>, recentlyItem: List<RecentlyProductItem>) {
+    @SuppressLint("FragmentLiveDataObserve")
+    private fun bindDataRecently() = Coroutines.main {
+        val recentlys = viewModel.recentlys.await()
+        recentlys.observe(this, androidx.lifecycle.Observer {
+            if (it.isNotEmpty()) {
+                rv_recently.visibility = View.VISIBLE
+                tv_more_recently.visibility = View.VISIBLE
+                tv_recently.visibility = View.VISIBLE
+                swiperefresh.isRefreshing = false
+                val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
+                    addAll(it.toRecentlyItem())
+                }
 
-        val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
-            addAll(bestSellingItem)
-        }
-
-        val mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
-            addAll(bestSellingItem)
-        }
-
-        val mRecentlyAdapter = GroupAdapter<GroupieViewHolder>().apply {
-            addAll(recentlyItem)
-        }
-
-        rv_best_selling.apply {
-            layoutManager = GridLayoutManager(activity, 2, LinearLayoutManager.VERTICAL, false)
-            adapter = mAdapter
-        }
-
-        rv_suggested.apply {
-            layoutManager = GridLayoutManager(activity, 2, LinearLayoutManager.VERTICAL, false)
-            adapter = mSuggestedAdapter
-        }
-
-        rv_recently.apply {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            adapter = mRecentlyAdapter
-        }
-        sv_home.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
-                mSuggestedAdapter.addAll(bestSellingItem)
+                rv_recently.apply {
+                    layoutManager =
+                        LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+                    adapter = mAdapter
+                }
+            }else{
+                rv_recently.visibility = View.GONE
+                tv_more_recently.visibility = View.GONE
+                tv_recently.visibility = View.GONE
             }
         })
+    }
 
+    @SuppressLint("FragmentLiveDataObserve")
+    private fun bindDataPopular() = Coroutines.main {
+        viewModel.getPopular(pageindex).removeObservers(this);
+        viewModel.getPopular(pageindex).observe(this, androidx.lifecycle.Observer {
+            if (!loadmore) {
+                mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
+                    if (it.isNotEmpty()) {
+                        addAll(it.toProductItem())
+                    }
+                }
+                rv_suggested.apply {
+                    layoutManager = GridLayoutManager(activity, 2, LinearLayoutManager.VERTICAL, false)
+                    adapter = mSuggestedAdapter
+                }
+                sv_home.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                    if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                        if (!loadmoreDisable) {
+                            pageindex += 1
+                            loadmore = true
+                            loadMorePopular()
+                        }
+                    }
+                })
+            }
+        })
+    }
+
+    @SuppressLint("FragmentLiveDataObserve")
+    private fun loadMorePopular() = Coroutines.main {
+        viewModel.getPopular(pageindex).removeObservers(this);
+        viewModel.getPopular(pageindex).observe(this, androidx.lifecycle.Observer {
+            if (loadmore) {
+                if (it.isNotEmpty()) {
+                    mSuggestedAdapter.addAll(it.toProductItem())
+                } else {
+                    loadmoreDisable = true
+                }
+            }
+        })
     }
 
     private fun List<Product>.toProductItem() : List<ProductItem>{
@@ -203,6 +246,24 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         return this.map {
             RecentlyProductItem(this@HomeFragment, it, this@HomeFragment)
         }
+    }
+
+    @SuppressLint("FragmentLiveDataObserve")
+    private fun bindBanners() = Coroutines.main {
+        val banners = viewModel.banners.await()
+        banners.observe(this, androidx.lifecycle.Observer {
+            swiperefresh.isRefreshing = false
+            mViewPager?.refreshData(it)
+        })
+    }
+
+    @SuppressLint("FragmentLiveDataObserve")
+    private fun bindCampaigns() = Coroutines.main {
+        val campaigns = viewModel.campaigns.await()
+        campaigns.observe(this, androidx.lifecycle.Observer {
+            swiperefresh.isRefreshing = false
+            mViewPagerCampaign?.refreshData(it)
+        })
     }
 
     fun onClickSearch(v: View) {
@@ -238,14 +299,21 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         if (position != mViewPager!!.currentItem) {
             mViewPager!!.setCurrentItem(position, true)
         }
-        Toast.makeText(activity, "position:$position", Toast.LENGTH_SHORT).show()
     }
 
     override fun onItemClicked(product: Product) {
-        context?.toast(product.short_description.toString())
+        val calendar = Calendar.getInstance()
+        val startTime = calendar.timeInMillis
+        product.update_date = startTime
+        viewModel.saveRecentlys(product)
     }
 
     override fun onLikeClicked(product: Product) {
-        context?.toast(product.id.toString())
+        if (user != null){
+
+        }else {
+            val dialog : ConfirmLoginDialog? = activity?.let { ConfirmLoginDialog(it) }
+            dialog?.show()
+        }
     }
 }

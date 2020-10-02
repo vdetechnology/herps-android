@@ -112,7 +112,6 @@
                             android:id="@+id/tv_price_sale"
                             style="@style/TextSubRegular10"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="@{product.sale_price}"
                             android:visibility="@{product.total_sales == 0 ? View.INVISIBLE : View.VISIBLE}" />
 
                         <View
@@ -131,7 +130,7 @@
                         android:background="@drawable/bg_percent_sale"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
-                        android:text="@{product.total_sales.toString()}"
+                        android:text="@{product.total_sales_percent.toString()}"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/sp_6"
                         android:visibility="@{product.total_sales == 0 ? View.INVISIBLE : View.VISIBLE}" />
@@ -142,7 +141,6 @@
                     style="@style/ColorMainTextBold12"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="@color/colorBlack"
-                    android:text="@{product.price}"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>
 

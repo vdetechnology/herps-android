@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.savedFragment -> {
                 }
                 R.id.profileFragment -> {
+
                 }
             }
             true

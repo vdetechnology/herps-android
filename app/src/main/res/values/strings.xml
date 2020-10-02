@@ -42,6 +42,7 @@
     <string name="help">Help?</string>
     <string name="reset_password">Reset password</string>
     <string name="comming_soon">Comming soon</string>
+    <string name="require_login">Please login to use this function!</string>
 
     <string name="email_is_blank">Please enter your email</string>
     <string name="password_is_blank">Please enter your password</string>
@@ -53,10 +54,12 @@
     <string name="register_error">Register error</string>
     <string name="register_success">Register success</string>
     <string name="forgot_error">Forgot password fail</string>
-    <string name="forgot_success">Forgot password success</string>
+    <string name="forgot_success">Password recovery email has been sent</string>
     <string name="close">Close</string>
     <string name="continute_account">Continute with newly  account</string>
     <string name="back_to_login">Back to login</string>
+    <string name="forgot_text1">Email hướng dẫn tạo mật khẩu đã được gửi đến địa chỉ <b><u>%s</u></b>. Hãy kiểm tra email và làm theo hướng đẫn.</string>
+    <string name="forgot_text2">Trong trường hợp không tìm thấy email trong hộp thư đến (inbox), vui lòng kiểm tra hộp thư Spam hoặc Junk.</string>
 
     <!-- Menu-->
     <string name="menu_home">Home</string>
@@ -78,6 +81,7 @@
     <string name="suggested">Suggested for you</string>
     <string name="login_register">Login / register</string>
     <string name="number_comment">%s Comment</string>
+    <string name="vnd"><u>đ</u></string>
 
     <!-- Category-->
     <string name="search_hint">Search...</string>
@@ -91,5 +95,8 @@
     <string name="my_purchases">My purchases</string>
     <string name="address_book">Address Book</string>
     <string name="sign_out">Sign out</string>
+    <string name="lb_cancel">Cancel</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

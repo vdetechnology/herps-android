@@ -1,316 +1,336 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    tools:context=".ui.profile.ProfileFragment">
 
-    <RelativeLayout
-        android:id="@+id/header"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/dp_50"
-        android:orientation="horizontal"
-        android:paddingRight="@dimen/dp_20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="bestselling"
+            type="herbs.n.more.ui.home.BestSellingViewModel" />
+
+        <variable
+            name="fragment"
+            type="herbs.n.more.ui.profile.ProfileFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/cart_container"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical">
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_50"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/dp_20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/cartButton"
-                android:layout_width="@dimen/dp_25"
-                android:layout_height="@dimen/dp_25"
-                android:layout_centerInParent="true"
-                android:background="@drawable/ic_cart" />
-
-            <TextView
-                android:layout_width="@dimen/dp_15"
-                android:layout_height="@dimen/dp_15"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/bg_cart_text"
-                android:gravity="center"
-                android:text="10"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/sp_8" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/image_header"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_190"
-                android:background="@drawable/border_bottom">
+                android:id="@+id/cart_container"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical">
 
-                <FrameLayout
-                    android:id="@+id/view_avatar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:padding="@dimen/dp_4">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/avatar"
-                        android:layout_width="@dimen/dp_100"
-                        android:layout_height="@dimen/dp_100"
-                        android:layout_gravity="center"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/ic_avatar" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="@dimen/dp_35"
-                        android:layout_height="@dimen/dp_35"
-                        android:layout_gravity="bottom|end"
-                        android:background="@drawable/bg_circle_white"
-                        app:srcCompat="@drawable/ic_vector_edit"
-                        app:tint="#373636" />
-
-                </FrameLayout>
+                <ImageView
+                    android:id="@+id/bt_cart"
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/dp_2"
+                    android:src="@drawable/ic_cart" />
 
                 <TextView
-                    android:id="@+id/name_show"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/view_avatar"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:maxLength="40"
-                    android:maxLines="1"
-                    android:text="User Name"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/dp_20" />
+                    android:layout_width="@dimen/dp_18"
+                    android:layout_height="@dimen/dp_18"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_cart_text"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_8" />
             </RelativeLayout>
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginRight="@dimen/dp_20"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/image_header"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:background="@drawable/border_bottom"
-                    android:orientation="horizontal">
+                    android:layout_height="@dimen/dp_190"
+                    android:background="@drawable/border_bottom">
 
-                    <TextView
-                        android:id="@+id/lb_user_name"
+                    <FrameLayout
+                        android:id="@+id/view_avatar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="@string/profile_name"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:padding="@dimen/dp_4">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/avatar"
+                            android:layout_width="@dimen/dp_100"
+                            android:layout_height="@dimen/dp_100"
+                            android:layout_gravity="center"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/ic_avatar" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/dp_35"
+                            android:layout_height="@dimen/dp_35"
+                            android:layout_gravity="bottom|end"
+                            android:background="@drawable/bg_circle_white"
+                            app:srcCompat="@drawable/ic_vector_edit"
+                            app:tint="#373636" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/name_show"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view_avatar"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:maxLength="40"
+                        android:maxLines="1"
+                        android:text="@{bestselling.user.displayName}"
                         android:textAllCaps="false"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/dp_20" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_45"
+                        android:background="@drawable/border_bottom"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/lb_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="@string/profile_name"
+                            android:textAllCaps="false"
+                            android:textSize="@dimen/sp_14" />
+
+                        <TextView
+                            android:id="@+id/tv_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_toRightOf="@+id/lb_user_name"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="right"
+                            android:maxLines="1"
+                            android:text="@{bestselling.user.displayName}"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/dp_16" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_45"
+                        android:background="@drawable/border_bottom"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/lb_profile_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="@string/profile_phone"
+                            android:textAllCaps="false"
+                            android:textSize="@dimen/sp_14" />
+
+                        <TextView
+                            android:id="@+id/tv_phone_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_toRightOf="@+id/lb_profile_phone"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="right"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/dp_16" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_45"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/lb_mail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="@string/profile_email"
+                            android:textAllCaps="false"
+                            android:textSize="@dimen/sp_14" />
+
+                        <TextView
+                            android:id="@+id/tv_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_toRightOf="@+id/lb_mail"
+                            android:drawablePadding="10dp"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="right"
+                            android:maxLines="1"
+                            android:text="@{bestselling.user.email}"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/dp_16" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:background="@color/line_color" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:background="@drawable/search_box">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_purchases"
+                        android:layout_width="@dimen/dp_25"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:tint="@color/icon_color"
+                        app:srcCompat="@drawable/ic_my_purchases" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_25"
+                        android:layout_toRightOf="@+id/iv_purchases"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@string/my_purchases"
                         android:textSize="@dimen/sp_14" />
 
-                    <TextView
-                        android:id="@+id/tv_user_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/dp_15"
+                        android:layout_height="@dimen/dp_15"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="10dp"
-                        android:layout_toRightOf="@+id/lb_user_name"
-                        android:drawablePadding="10dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="right"
-                        android:maxLines="1"
-                        android:text="user name"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/dp_16" />
-
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:tint="@color/line_color"
+                        app:srcCompat="@drawable/ic_arrow_next" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:background="@drawable/border_bottom"
-                    android:orientation="horizontal">
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:background="@drawable/search_box">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_address"
+                        android:layout_width="@dimen/dp_25"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:tint="@color/icon_color"
+                        app:srcCompat="@drawable/ic_location" />
 
                     <TextView
-                        android:id="@+id/lb_profile_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_25"
+                        android:layout_toRightOf="@+id/iv_address"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="@string/profile_phone"
-                        android:textAllCaps="false"
+                        android:text="@string/address_book"
                         android:textSize="@dimen/sp_14" />
 
-                    <TextView
-                        android:id="@+id/tv_phone_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/dp_15"
+                        android:layout_height="@dimen/dp_15"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="10dp"
-                        android:layout_toRightOf="@+id/lb_profile_phone"
-                        android:drawablePadding="10dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="right"
-                        android:maxLines="1"
-                        android:text="09090909"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/dp_16" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_45"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/lb_mail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="@string/profile_email"
-                        android:textAllCaps="false"
-                        android:textSize="@dimen/sp_14" />
-
-                    <TextView
-                        android:id="@+id/tv_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="10dp"
-                        android:layout_toRightOf="@+id/lb_mail"
-                        android:drawablePadding="10dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:gravity="right"
-                        android:maxLines="1"
-                        android:text="hotro@vde.dev"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/dp_16" />
-
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:tint="@color/line_color"
+                        app:srcCompat="@drawable/ic_arrow_next" />
                 </RelativeLayout>
 
             </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="15dp"
-                android:background="@color/line_color"
-                android:layout_marginBottom="@dimen/dp_20"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_50"
-                android:background="@drawable/search_box"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginRight="@dimen/dp_20">
+        </androidx.core.widget.NestedScrollView>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_purchases"
-                    android:layout_width="@dimen/dp_25"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_my_purchases"
-                    android:tint="@color/icon_color"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_15"/>
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:background="@drawable/bg_button"
+            android:text="@string/sign_out"
+            android:onClick="@{fragment :: logOut}"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="@font/roboto_regular"
-                    android:layout_toRightOf="@+id/iv_purchases"
-                    android:layout_marginLeft="@dimen/dp_25"
-                    android:text="@string/my_purchases"
-                    android:textSize="@dimen/sp_14" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/dp_15"
-                    android:layout_height="@dimen/dp_15"
-                    app:srcCompat="@drawable/ic_arrow_next"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_15"
-                    android:tint="@color/line_color"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_50"
-                android:background="@drawable/search_box"
-                android:layout_marginTop="@dimen/dp_20"
-                android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginRight="@dimen/dp_20">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/iv_address"
-                    android:layout_width="@dimen/dp_25"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_location"
-                    android:tint="@color/icon_color"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_15"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="@font/roboto_regular"
-                    android:layout_toRightOf="@+id/iv_address"
-                    android:layout_marginLeft="@dimen/dp_25"
-                    android:text="@string/address_book"
-                    android:textSize="@dimen/sp_14" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/dp_15"
-                    android:layout_height="@dimen/dp_15"
-                    app:srcCompat="@drawable/ic_arrow_next"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_15"
-                    android:tint="@color/line_color"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginEnd="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_20"
-        android:text="@string/sign_out"
-        android:textColor="@android:color/white"
-        android:background="@drawable/bg_start"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
