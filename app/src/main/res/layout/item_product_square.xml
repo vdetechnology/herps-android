@@ -101,6 +101,7 @@
                         android:visibility="@{product.total_sales == 0 ? View.INVISIBLE : View.VISIBLE}"/>
 
                     <View
+                        android:id="@+id/line"
                         android:layout_width="@dimen/dp_43"
                         android:layout_height="@dimen/dp_1"
                         android:layout_centerVertical="true"

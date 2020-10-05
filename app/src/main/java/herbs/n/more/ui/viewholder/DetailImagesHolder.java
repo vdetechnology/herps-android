@@ -9,21 +9,19 @@ import com.zhpan.bannerview.BaseViewHolder;
 import com.zhpan.bannerview.utils.BannerUtils;
 
 import herbs.n.more.R;
-import herbs.n.more.data.db.entities.SlideImage;
 import herbs.n.more.util.view.CornerImageView;
 
-public class BannerViewHolder extends BaseViewHolder<SlideImage> {
+public class DetailImagesHolder extends BaseViewHolder<String> {
 
-    public BannerViewHolder(@NonNull View itemView) {
+    public DetailImagesHolder(@NonNull View itemView) {
         super(itemView);
         CornerImageView imageView = findView(R.id.banner_image);
         imageView.setRoundCorner(BannerUtils.dp2px(0));
     }
 
     @Override
-    public void bindData(SlideImage data, int position, int pageSize) {
+    public void bindData(String data, int position, int pageSize) {
         CornerImageView imageView = findView(R.id.banner_image);
-        Glide.with(imageView).load(data.getUrl()).into(imageView);
-        BannerUtils.log("NetViewHolder", "position:" + position);
+        Glide.with(imageView).load(data).into(imageView);
     }
 }

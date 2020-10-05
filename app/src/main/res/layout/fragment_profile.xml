@@ -319,7 +319,7 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"

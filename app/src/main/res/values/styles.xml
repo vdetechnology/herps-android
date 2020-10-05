@@ -48,11 +48,35 @@
     </style>
 
     <style name="TextNameProductRegular10" parent="Widget.MaterialComponents.TextView">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:fontFamily">@font/utm_avo</item>
         <item name="android:textSize">@dimen/sp_10</item>
+    </style>
+
+    <style name="TextHintBold12" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_color_hint</item>
+        <item name="android:fontFamily">@font/utm_avo_bold</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+    </style>
+
+    <style name="TextHintRegular12" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_color_hint</item>
+        <item name="android:fontFamily">@font/utm_avo</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+    </style>
+
+    <style name="TextNameProductRegular15" parent="Widget.MaterialComponents.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:fontFamily">@font/utm_avo</item>
+        <item name="android:textSize">@dimen/sp_15</item>
     </style>
 
     <style name="TextSubRegular10" parent="Widget.MaterialComponents.TextView">

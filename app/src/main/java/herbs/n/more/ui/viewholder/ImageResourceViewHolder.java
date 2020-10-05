@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import com.zhpan.bannerview.BaseViewHolder;
 
 import herbs.n.more.R;
-import herbs.n.more.util.CornerImageView;
+import herbs.n.more.util.view.CornerImageView;
 
 public class ImageResourceViewHolder extends BaseViewHolder<Integer> {
 

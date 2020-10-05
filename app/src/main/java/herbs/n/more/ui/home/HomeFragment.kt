@@ -2,7 +2,6 @@ package herbs.n.more.ui.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.annotation.RequiresApi
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -31,6 +29,7 @@ import herbs.n.more.databinding.FragmentHomeBinding
 import herbs.n.more.ui.adapter.BannerAdapter
 import herbs.n.more.ui.adapter.CampaignAdapter
 import herbs.n.more.ui.auth.AuthActivity
+import herbs.n.more.ui.detail.DetailActivity
 import herbs.n.more.ui.dialog.ConfirmLoginDialog
 import herbs.n.more.util.Coroutines
 import herbs.n.more.util.hide
@@ -306,6 +305,10 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         val startTime = calendar.timeInMillis
         product.update_date = startTime
         viewModel.saveRecentlys(product)
+        val intent = Intent(activity, DetailActivity::class.java).apply {
+            putExtra("id", product.id.toString())
+        }
+        startActivity(intent)
     }
 
     override fun onLikeClicked(product: Product) {

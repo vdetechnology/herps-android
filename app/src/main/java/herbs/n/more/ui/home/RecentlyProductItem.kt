@@ -1,5 +1,7 @@
 package herbs.n.more.ui.home
 
+import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
 import com.xwray.groupie.databinding.BindableItem
@@ -22,6 +24,16 @@ class RecentlyProductItem(
         if (product.total_sales != 0){
             viewBinding.tvPriceSale.text = (mDecimalFormat.format(product.sale_price?.toDouble()).toString()).replace(",", ".") +
                     context.resources.getString(R.string.vnd)
+            viewBinding.tvPriceSale.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    viewBinding.tvPriceSale.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    viewBinding.tvPriceSale.height //height is ready
+                    val params: ViewGroup.LayoutParams = viewBinding.line.layoutParams
+                    params.width = viewBinding.tvPriceSale.width
+                    viewBinding.line.layoutParams = params;
+                }
+            })
         }
         viewBinding.product = product
         viewBinding.rbRating.rating = product.rating!!

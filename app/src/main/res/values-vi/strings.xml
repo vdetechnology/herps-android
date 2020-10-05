@@ -97,4 +97,20 @@
     <string name="sign_out">Đăng xuất</string>
     <string name="lb_cancel">Cancel</string>
 
+    <!-- Detail-->
+    <string name="add_to_cart">Thêm vào giỏ hàng</string>
+    <string name="buy_now">Mua ngay</string>
+    <string name="number_comment_detail"><u>%s Nhận xét</u></string>
+    <string name="policy1">Bồi thường 200% nếu không dạt hay kém chất lượng</string>
+    <string name="policy2">Bồi thường 500% nếu không đúng xuất sứ</string>
+    <string name="policy3">Sản phẩm được miễn phí vận chuyển</string>
+    <string name="info_detail">Thông tin chi tiết</string>
+    <string name="producer">Nhà sản xuất:</string>
+    <string name="specification">Quy cách:</string>
+    <string name="dosage_forms">Dạng bào chế:</string>
+    <string name="expiry_date">Hạn sử dụng:</string>
+    <string name="category">Danh mục:</string>
+    <string name="key_word">Từ khóa:</string>
+    <string name="description">Mô tả</string>
+
 </resources>

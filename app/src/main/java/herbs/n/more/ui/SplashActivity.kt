@@ -11,14 +11,14 @@ import net.simplifiedcoding.mvvmsampleapp.data.preferences.PreferenceProvider
 
 class SplashActivity: AppCompatActivity(R.layout.activity_splash) {
 
-    private val SPLASH_TIME_OUT = 3000
+    private val SPLASH_TIME_OUT = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
 
         YoYo.with(Techniques.Bounce)
-            .duration(7000)
+            .duration(4000)
             .playOn(findViewById(R.id.logo))
 
         /*YoYo.with(Techniques.FadeInUp)

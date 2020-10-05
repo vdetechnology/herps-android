@@ -96,7 +96,21 @@
     <string name="address_book">Address Book</string>
     <string name="sign_out">Sign out</string>
     <string name="lb_cancel">Cancel</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Detail-->
+    <string name="add_to_cart">Add to cart</string>
+    <string name="buy_now">Buy now</string>
+    <string name="number_comment_detail"><u>%s Comment</u></string>
+    <string name="policy1">Bồi thường 200% nếu không dạt hay kém chất lượng</string>
+    <string name="policy2">Bồi thường 500% nếu không đúng xuất sứ</string>
+    <string name="policy3">Sản phẩm được miễn phí vận chuyển</string>
+    <string name="info_detail">Infomation product</string>
+    <string name="producer">Producer:</string>
+    <string name="specification">Specification:</string>
+    <string name="dosage_forms">Dosage form:</string>
+    <string name="expiry_date">Expiry date:</string>
+    <string name="category">Category:</string>
+    <string name="key_word">Key word:</string>
+    <string name="description">Description</string>
 
 </resources>
