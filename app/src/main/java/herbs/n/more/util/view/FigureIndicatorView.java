@@ -57,10 +57,6 @@ public class FigureIndicatorView extends BaseIndicatorView {
         super.onDraw(canvas);
         if (getPageSize() > 1) {
             mPaint.setColor(backgroundColor);
-            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-                canvas.drawRoundRect(0, 20, 140, 120, 15, 15,
-                        mPaint);
-            }
             mPaint.setColor(textColor);
             mPaint.setTextSize(textSize);
             mPaint.setTextAlign(Paint.Align.CENTER);

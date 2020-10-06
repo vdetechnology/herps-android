@@ -19,6 +19,6 @@ data class DetailProduct (
     var short_description: String? = null,
     var description_html: String? = null,
     var description: String? = null,
-    var rating: Int? = null,
+    var rating: Float? = null,
     var comment: Int? = null
 )

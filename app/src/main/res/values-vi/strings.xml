@@ -1,9 +1,9 @@
 <resources>
 
     <!-- Onboarding-->
-    <string name="title0">Herbs ® (Thảo Dược Cao Cấp)</string>
+    <string name="title0">Herbs ® Thảo Dược Cao Cấp</string>
     <string name="description0">Là hệ thống phân phối thảo dược, thực phẩm chức năng, dinh dưỡng,
-        sản phẩm hữu cơ. Herbs &amp; More ® trực thuộc Công ty Cổ phần Phân phối Thông minh Cổng
+        sản phẩm hữu cơ.\n Herbs &amp; More ® trực thuộc Công ty Cổ phần Phân phối Thông minh Cổng
         Việt(Vietgate.ae) có trụ sở chính tại Dubai, UAE &amp; chi nhánh tại Tp.HCM.</string>
     <string name="title1">Đảm bảo xuất xứ</string>
     <string name="description1">Nguồn gốc xuất xứ đúng như trên bao bì và công bố sản phẩm,
@@ -16,18 +16,18 @@
         cầu của quý khách hàng &amp; sẵn sàng phục vụ bằng cả tấm lòng.</string>
     <string name="start_now">Bắt đầu ngay</string>
     <string name="skip">Bỏ qua</string>
-    <string name="next">Tiếp</string>
+    <string name="next">Tiếp tục</string>
 
     <!-- Login-->
     <string name="s_select_all">Chọn tất cả</string>
     <string name="promotion">Khuyến mãi</string>
     <string name="lb_username">Email hoặc số điện thoại</string>
-    <string name="lb_name">Họ tên<font color='#F52B2B'>*</font></string>
+    <string name="lb_name">Họ tên*</string>
     <string name="lb_email">Email</string>
     <string name="lb_password">Mật khẩu</string>
-    <string name="lb_email_requiment">Email<font color='#F52B2B'>*</font></string>
-    <string name="lb_password_requiment">Mật khẩu<font color='#F52B2B'>*</font></string>
-    <string name="lb_login_reset_password">Quên mật khẩu</string>
+    <string name="lb_email_requiment">Email*</string>
+    <string name="lb_password_requiment">Mật khẩu*</string>
+    <string name="lb_login_reset_password">Quên mật khẩu?</string>
     <string name="lb_continued_as_guest">Tiếp tục là khách</string>
     <string name="lb_or_login_with">Đăng nhập nhanh với</string>
     <string name="lb_sign_up">Đăng ký</string>
@@ -50,6 +50,7 @@
     <string name="name_is_blank">Vui lòng nhập họ tên</string>
     <string name="name_shorter">Họ tên tối thiểu phải từ 2 kí tự</string>
     <string name="password_shorter">Mật khẩu tối thiểu phải từ 6 kí tự</string>
+    <string name="password_not_contain_space">Mật khẩu không được chứa khoảng trắng</string>
     <string name="login_error">Lỗi đăng nhập</string>
     <string name="register_error">Lỗi đăng ký</string>
     <string name="register_success">Đăng ký thành công</string>
@@ -60,6 +61,7 @@
     <string name="back_to_login">Trở lại trang đăng nhập</string>
     <string name="forgot_text1">Email hướng dẫn tạo mật khẩu đã được gửi đến địa chỉ <b><u>%s</u></b>. Hãy kiểm tra email và làm theo hướng đẫn.</string>
     <string name="forgot_text2">Trong trường hợp không tìm thấy email trong hộp thư đến (inbox), vui lòng kiểm tra hộp thư Spam hoặc Junk.</string>
+    <string name="network_error">Kết nối mạng của bạn hiện không hoạt động. Vui lòng kiểm tra và thử lại</string>
 
     <!-- Menu-->
     <string name="menu_home">Trang chủ</string>
@@ -112,5 +114,14 @@
     <string name="category">Danh mục:</string>
     <string name="key_word">Từ khóa:</string>
     <string name="description">Mô tả</string>
+    <string name="see_less">Thu gọn</string>
+    <string name="rating_product">Đánh giá sản phẩm</string>
+    <string name="see_all">Xem tất cả</string>
+    <string name="your_rating">Đánh giá của bạn</string>
+    <string name="rating_hint">Viết đánh giá của bạn</string>
+    <string name="rating_email_hint">Nhập Email (bắt buộc)</string>
+    <string name="rating_name_hint">Tên hiển thị của bạn (bắt buộc)</string>
+    <string name="rating">Đánh giá</string>
+    <string name="hints_for_you">Gợi ý cho bạn</string>
 
 </resources>

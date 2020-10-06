@@ -110,12 +110,14 @@ class IntroActivity : AppCompatActivity() {
         if (position == mViewPager.data.size - 1 && btn_start?.visibility == View.GONE) {
             btn_start?.visibility = View.VISIBLE
             btn_next?.visibility = View.GONE
+            tv_skip.visibility = View.GONE
             ObjectAnimator
                     .ofFloat(btn_start, "alpha", 0f, 1f)
                     .setDuration(ANIMATION_DURATION.toLong()).start()
         } else {
             btn_start?.visibility = View.GONE
             btn_next?.visibility = View.VISIBLE
+            tv_skip.visibility = View.VISIBLE
             ObjectAnimator
                 .ofFloat(btn_next, "alpha", 0f, 1f)
                 .setDuration(ANIMATION_DURATION.toLong()).start()
@@ -123,17 +125,12 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun setAnimation(textView: TextView){
-        val translationAnim = ObjectAnimator.ofFloat(textView, "translationX", -120f, 0f)
-        translationAnim.apply {
-            duration = ANIMATION_DURATION.toLong()
-            interpolator = DecelerateInterpolator()
-        }
         val alphaAnimator = ObjectAnimator.ofFloat(textView, "alpha", 0f, 1f)
         alphaAnimator.apply {
             duration = ANIMATION_DURATION.toLong()
         }
         val animatorSet = AnimatorSet()
-        animatorSet.playTogether(translationAnim, alphaAnimator)
+        animatorSet.playTogether(alphaAnimator)
         animatorSet.start()
     }
 

@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Onboarding-->
-    <string name="title0">Herbs ® (Thảo Dược Cao Cấp)</string>
+    <string name="title0">Herbs ® Thảo Dược Cao Cấp</string>
     <string name="description0">Là hệ thống phân phối thảo dược, thực phẩm chức năng, dinh dưỡng,
         sản phẩm hữu cơ. Herbs &amp; More ® trực thuộc Công ty Cổ phần Phân phối Thông minh Cổng
         Việt(Vietgate.ae) có trụ sở chính tại Dubai, UAE &amp; chi nhánh tại Tp.HCM.</string>
@@ -22,11 +22,11 @@
     <string name="s_select_all">Select all</string>
     <string name="promotion">Promotion</string>
     <string name="lb_username">Your email or Phone Number</string>
-    <string name="lb_name">Name<font color='#F52B2B'>*</font></string>
+    <string name="lb_name">Name*</string>
     <string name="lb_email">Email</string>
     <string name="lb_password">Password</string>
-    <string name="lb_email_requiment">Email<font color='#F52B2B'>*</font></string>
-    <string name="lb_password_requiment">Password<font color='#F52B2B'>*</font></string>
+    <string name="lb_email_requiment">Email*</string>
+    <string name="lb_password_requiment">Password*</string>
     <string name="lb_login_reset_password">Forgot password?</string>
     <string name="lb_continued_as_guest">Continued as a guest</string>
     <string name="lb_or_login_with">Or login with</string>
@@ -50,6 +50,7 @@
     <string name="name_is_blank">Please enter your name</string>
     <string name="name_shorter">Name must be at least 2 characters</string>
     <string name="password_shorter">Password must be at least 6 characters</string>
+    <string name="password_not_contain_space">Password must not contain space</string>
     <string name="login_error">Login error</string>
     <string name="register_error">Register error</string>
     <string name="register_success">Register success</string>
@@ -60,6 +61,7 @@
     <string name="back_to_login">Back to login</string>
     <string name="forgot_text1">Email hướng dẫn tạo mật khẩu đã được gửi đến địa chỉ <b><u>%s</u></b>. Hãy kiểm tra email và làm theo hướng đẫn.</string>
     <string name="forgot_text2">Trong trường hợp không tìm thấy email trong hộp thư đến (inbox), vui lòng kiểm tra hộp thư Spam hoặc Junk.</string>
+    <string name="network_error">Make sure you have an active data connection</string>
 
     <!-- Menu-->
     <string name="menu_home">Home</string>
@@ -112,5 +114,14 @@
     <string name="category">Category:</string>
     <string name="key_word">Key word:</string>
     <string name="description">Description</string>
+    <string name="see_less">See less</string>
+    <string name="rating_product">Rating product</string>
+    <string name="see_all">See all</string>
+    <string name="your_rating">Your rating</string>
+    <string name="rating_hint">Input your email</string>
+    <string name="rating_email_hint">Input email (require)</string>
+    <string name="rating_name_hint">Your name display (require)</string>
+    <string name="rating">Rating</string>
+    <string name="hints_for_you">Hints for you</string>
 
 </resources>

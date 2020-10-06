@@ -6,6 +6,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.os.ConfigurationCompat
+import herbs.n.more.R
 import herbs.n.more.util.NoInternetException
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -20,7 +21,7 @@ class NetworkConnectionInterceptor(
     @RequiresApi(Build.VERSION_CODES.M)
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isInternetAvailable())
-            throw NoInternetException("Make sure you have an active data connection")
+            throw NoInternetException(applicationContext.resources.getString(R.string.network_error))
 
         val original: Request = chain.request()
 

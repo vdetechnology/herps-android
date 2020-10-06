@@ -14,31 +14,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/dp_30"
-        android:layout_marginRight="@dimen/dp_30"
+        android:layout_marginLeft="@dimen/dp_25"
+        android:layout_marginRight="@dimen/dp_25"
         android:layout_marginBottom="@dimen/dp_300"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/utm_avo_bold"
         android:gravity="center"
         android:lineSpacingExtra="@dimen/dp_5"
         android:text="@string/title1"
         android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/sp_22" />
+        android:textSize="@dimen/sp_18" />
 
     <TextView
         android:id="@+id/tv_describe"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_120"
+        android:layout_height="@dimen/dp_130"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/dp_30"
-        android:layout_marginRight="@dimen/dp_30"
+        android:layout_marginLeft="@dimen/dp_25"
+        android:layout_marginRight="@dimen/dp_25"
         android:layout_marginBottom="@dimen/dp_160"
         android:gravity="top|center_horizontal"
+        android:fontFamily="@font/utm_avo"
         android:lineSpacingExtra="@dimen/dp_5"
         android:text="@string/description0"
         android:textColor="@color/text_lable"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_13" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
         android:id="@+id/btn_start"
         android:layout_width="@dimen/dp_200"
         android:layout_height="@dimen/dp_50"
@@ -46,17 +47,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/dp_40"
         android:background="@drawable/bg_start"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/utm_avo"
         android:gravity="center"
         android:onClick="onClick"
         android:text="@string/start_now"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:backgroundTintMode="@color/colorGray"
-        android:textSize="@dimen/sp_15"
+        android:textSize="@dimen/sp_14"
         android:visibility="gone" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
         android:id="@+id/btn_next"
         android:layout_width="@dimen/dp_200"
         android:layout_height="@dimen/dp_50"
@@ -64,14 +64,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/dp_40"
         android:background="@drawable/bg_next"
-        android:backgroundTintMode="@color/colorGray"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/utm_avo"
         android:gravity="center"
         android:onClick="onNext"
         android:text="@string/next"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/sp_15" />
+        android:textSize="@dimen/sp_14" />
 
     <TextView
         android:id="@+id/tv_skip"

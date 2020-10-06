@@ -58,7 +58,9 @@ class AuthViewModel(
             }
             if (Validate.isNull(password)) {
                 authListener?.onFailure(Constant.PASSWORD_NULL)
-            } else {
+            }else if (password?.contains(" ")!!) {
+                authListener?.onFailure(Constant.PASSWORD_INVALID)
+            }else {
                 authListener?.onFailure(Constant.PASSWORD_OK)
                 isPass = true
             }
@@ -93,6 +95,8 @@ class AuthViewModel(
             authListener?.onFailure(Constant.PASSWORD_NULL)
         } else if (Validate.isShorterThan(password, 6)) {
             authListener?.onFailure(Constant.PASSWORD_SHORTER)
+        }else if (password?.contains(" ")!!) {
+            authListener?.onFailure(Constant.PASSWORD_INVALID)
         }else {
             authListener?.onFailure(Constant.PASSWORD_OK)
             isPass = true

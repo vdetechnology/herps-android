@@ -64,6 +64,7 @@ class RegisterFragment : Fragment(), AuthListener, KodeinAware{
             Constant.EMAIL_ISVALID -> tv_err_mail.text = resources.getString(R.string.email_wrong_format)
             Constant.PASSWORD_NULL -> tv_err_pass.text = resources.getString(R.string.password_is_blank)
             Constant.PASSWORD_SHORTER -> tv_err_pass.text = resources.getString(R.string.password_shorter)
+            Constant.PASSWORD_INVALID -> tv_err_pass.text = resources.getString(R.string.password_not_contain_space)
             Constant.PASSWORD_OK -> tv_err_pass.text = ""
             Constant.NAME_NULL -> tv_err_name.text = resources.getString(R.string.name_is_blank)
             Constant.NAME_SHORTER -> tv_err_name.text = resources.getString(R.string.name_shorter)
@@ -91,10 +92,12 @@ class RegisterFragment : Fragment(), AuthListener, KodeinAware{
             binding.etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
             view.setImageResource(R.drawable.ic_show_pass_off)
             isShow = true
+            binding.etPassword.setSelection(binding.etPassword.text.length);
         } else{
             binding.etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
             view.setImageResource(R.drawable.ic_show_pass)
             isShow = false
+            binding.etPassword.setSelection(binding.etPassword.text.length);
         }
     }
 

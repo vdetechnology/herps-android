@@ -2,6 +2,7 @@ package herbs.n.more.data.db.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 const val CURRENT_USER_ID = 0
 
@@ -12,7 +13,7 @@ data class User(
     var userNicename: String? = null,
     var email: String? = null,
     var displayName: String? = null
-){
+) : Serializable{
     @PrimaryKey(autoGenerate = false)
     var uid: Int = CURRENT_USER_ID
 }

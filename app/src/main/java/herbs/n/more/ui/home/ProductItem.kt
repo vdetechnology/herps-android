@@ -1,5 +1,6 @@
 package herbs.n.more.ui.home
 
+import android.app.Activity
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.AnimationUtils
@@ -12,7 +13,7 @@ import java.text.DecimalFormat
 
 
 class ProductItem(
-    private  val context: HomeFragment,
+    private  val context: Activity,
     private val product: Product,
     private val listener: ProductItemListener
 ) : BindableItem<ItemProductSquareBinding>(){
@@ -49,7 +50,7 @@ class ProductItem(
         }
 
         viewBinding.btLike.setOnClickListener {
-            it.startAnimation(AnimationUtils.loadAnimation(context.context, R.anim.image_click))
+            it.startAnimation(AnimationUtils.loadAnimation(context, R.anim.image_click))
             //viewBinding.btLike.setImageDrawable(context.resources.getDrawable(R.drawable.ic_liked))
             listener.onLikeClicked(product)
         }

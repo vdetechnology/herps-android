@@ -237,7 +237,7 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
 
     private fun List<Product>.toProductItem() : List<ProductItem>{
         return this.map {
-            ProductItem(this@HomeFragment, it, this@HomeFragment)
+            ProductItem(requireActivity(), it, this@HomeFragment)
         }
     }
 
@@ -307,6 +307,7 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         viewModel.saveRecentlys(product)
         val intent = Intent(activity, DetailActivity::class.java).apply {
             putExtra("id", product.id.toString())
+            putExtra("user", user)
         }
         startActivity(intent)
     }

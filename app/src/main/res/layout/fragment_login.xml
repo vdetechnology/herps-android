@@ -172,6 +172,7 @@
                     <TextView
                         android:id="@+id/tv_user_name"
                         style="@style/ColorMainTextBold12"
+                        android:background="@drawable/border_bottom_primary"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dp_5"
                         android:onClick="@{fragment::onSingup}"
