@@ -22,6 +22,6 @@ public class DetailImagesHolder extends BaseViewHolder<String> {
     @Override
     public void bindData(String data, int position, int pageSize) {
         CornerImageView imageView = findView(R.id.banner_image);
-        Glide.with(imageView).load(data).into(imageView);
+        Glide.with(imageView).load(data).error(R.mipmap.ic_logo).into(imageView);
     }
 }

@@ -41,6 +41,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecentlyItemListener {
@@ -173,12 +174,24 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         val recentlys = viewModel.recentlys.await()
         recentlys.observe(this, androidx.lifecycle.Observer {
             if (it.isNotEmpty()) {
+                if (it.size <= 4){
+                    tv_more_recently.visibility = View.GONE
+                }else{
+                    tv_more_recently.visibility = View.VISIBLE
+                }
                 rv_recently.visibility = View.VISIBLE
-                tv_more_recently.visibility = View.VISIBLE
                 tv_recently.visibility = View.VISIBLE
                 swiperefresh.isRefreshing = false
                 val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
-                    addAll(it.toRecentlyItem())
+                    if (it.size <= 4) {
+                        addAll(it.toRecentlyItem())
+                    }else{
+                        val places = ArrayList<Product>()
+                        for (x in 0..3){
+                            places.add(it[x])
+                        }
+                        addAll(places.toRecentlyItem())
+                    }
                 }
 
                 rv_recently.apply {
@@ -265,27 +278,27 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         })
     }
 
-    fun onClickSearch(v: View) {
+    private fun onClickSearch(v: View) {
         v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
     }
 
-    fun onClickCart(v: View) {
+    private fun onClickCart(v: View) {
         v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
     }
 
-    fun seeMoreBestSelling(v: View) {
+    private fun seeMoreBestSelling(v: View) {
         v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
     }
 
-    fun seeMoreBestRecently(v: View) {
+    private fun seeMoreBestRecently(v: View) {
         v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
     }
 
-    fun goToLogin() {
+    private fun goToLogin() {
         if (user != null){
 
         }else {
-            activity?.let {
+            activity?.let { it ->
                 Intent(it, AuthActivity::class.java).also {
                     it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(it)
@@ -310,6 +323,7 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
             putExtra("user", user)
         }
         startActivity(intent)
+        activity?.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
     }
 
     override fun onLikeClicked(product: Product) {

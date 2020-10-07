@@ -34,7 +34,7 @@ class BestSellingViewModel(
     }
 
     val recentlys by lazyDeferred {
-        repository.getProducts()
+        repository.getAllProducts()
     }
 
     fun saveRecentlys(product: Product) {

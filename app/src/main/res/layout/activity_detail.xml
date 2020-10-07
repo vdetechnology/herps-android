@@ -59,7 +59,8 @@
                 android:layout_height="@dimen/dp_40"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical">
+                android:layout_gravity="center_vertical"
+                android:elevation="15dp">
 
                 <ImageView
                     android:id="@+id/bt_cart"
@@ -70,14 +71,16 @@
                     android:src="@drawable/ic_cart" />
 
                 <TextView
+                    android:id="@+id/tv_number_in_cart"
                     android:layout_width="@dimen/dp_18"
                     android:layout_height="@dimen/dp_18"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/bg_cart_text"
                     android:gravity="center"
-                    android:text="10"
+                    android:text="0"
                     android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/sp_8" />
+                    android:textSize="@dimen/sp_8"
+                    android:visibility="gone"/>
             </RelativeLayout>
         </RelativeLayout>
 
@@ -101,6 +104,13 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_370">
+
+                        <ImageView
+                            android:id="@+id/iv_no_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_370"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone"/>
 
                         <com.zhpan.bannerview.BannerViewPager
                             android:id="@+id/banner_view"
@@ -284,6 +294,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
+                                android:padding="@dimen/dp_2"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -321,6 +332,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
+                                android:padding="@dimen/dp_5"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -356,6 +368,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
+                                android:padding="@dimen/dp_5"
                                 android:orientation="vertical">
 
                                 <ImageView
@@ -545,6 +558,7 @@
                         android:padding="@dimen/dp_15">
 
                         <LinearLayout
+                            android:id="@+id/ll_lable"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
@@ -724,6 +738,9 @@
                             android:nextFocusDown="@id/et_mail"
                             android:padding="@dimen/dp_15"
                             android:gravity="top"
+                            android:overScrollMode="always"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbars="vertical"
                             android:textColor="@color/colorBlack"
                             android:textColorHint="@color/text_color_hint"
                             android:textSize="@dimen/sp_10"
@@ -800,7 +817,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:elevation="1dp"
+            android:elevation="@dimen/dp_3"
             android:outlineAmbientShadowColor="@color/colorBlack"
             android:outlineSpotShadowColor="@color/colorBlack"
             app:cardBackgroundColor="@color/colorWhite"
@@ -817,40 +834,53 @@
                 android:paddingBottom="@dimen/dp_25"
                 android:weightSum="3">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dp_50"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_button"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_8">
+                    android:layout_weight="1">
 
-                    <ImageView
-                        android:layout_width="@dimen/dp_20"
-                        android:layout_height="@dimen/dp_20"
-                        android:src="@drawable/ic_cart_plus" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/bt_add"
+                        style="@style/App.Button.Text"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_gravity="center_horizontal"
+                        app:cornerRadius="@dimen/dp_10"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:fontFamily="@font/utm_avo_bold"
+                        android:onClick="@{() ->activity.flyToCart()}"/>
 
-                    <TextView
-                        style="@style/TextSubRegular10"
-                        android:text="@string/add_to_cart"
-                        android:textColor="@color/colorWhite" />
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_50"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="@dimen/dp_8">
 
-                <androidx.appcompat.widget.AppCompatButton
+                        <ImageView
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_20"
+                            android:src="@drawable/ic_cart_plus" />
+
+                        <TextView
+                            style="@style/TextSubRegular10"
+                            android:text="@string/add_to_cart"
+                            android:textColor="@color/colorWhite" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/bt_buy"
+                    style="@style/App.Button.Text"
                     android:layout_width="@dimen/dp_0"
                     android:layout_height="@dimen/dp_50"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_gravity="center_horizontal"
                     android:layout_weight="2"
-                    android:background="@drawable/bg_button"
+                    app:cornerRadius="@dimen/dp_10"
                     android:backgroundTint="@color/text_color_error"
                     android:fontFamily="@font/utm_avo_bold"
-                    android:text="@string/buy_now"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/sp_12" />
+                    android:text="@string/buy_now" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -873,5 +903,12 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
         </RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_move_cart"
+            android:layout_width="@dimen/dp_90"
+            android:layout_height="@dimen/dp_90"
+            android:layout_alignParentBottom="true"
+            android:scaleType="centerCrop"
+            android:elevation="5dp"/>
     </RelativeLayout>
 </layout>

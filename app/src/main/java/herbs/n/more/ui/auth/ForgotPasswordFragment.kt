@@ -45,9 +45,9 @@ class ForgotPasswordFragment  : Fragment(), AuthListener, KodeinAware {
         binding.progressBar.show()
     }
 
-    override fun onSuccess(user: User, message : String) {
+    override fun onSuccess(user: User?, message : String) {
         binding.progressBar.hide()
-
+        openDialog(message)
     }
 
     override fun onFailure(message: String) {
@@ -56,11 +56,7 @@ class ForgotPasswordFragment  : Fragment(), AuthListener, KodeinAware {
             Constant.EMAIL_NULL -> tv_err_mail.text = resources.getString(R.string.email_is_blank)
             Constant.EMAIL_OK -> tv_err_mail.text = ""
             Constant.EMAIL_ISVALID -> tv_err_mail.text = resources.getString(R.string.email_wrong_format)
-            else -> if(message.contains("@")){
-                openDialog(message)
-            }else{
-                (activity as AuthActivity).showMessage(resources.getString(R.string.forgot_error), message)
-            }
+            else -> (activity as AuthActivity).showMessage(resources.getString(R.string.forgot_error), message)
         }
     }
 
@@ -81,7 +77,7 @@ class ForgotPasswordFragment  : Fragment(), AuthListener, KodeinAware {
         dialog.setContentView(view)
         val tvMessage = view.findViewById<View>(R.id.tv_message) as TextView
         tvMessage.text = String.format(resources?.getString(R.string.forgot_text1), email)
-        val btBack = view.findViewById<View>(R.id.bt_back_login) as TextView
+        val btBack = view.findViewById<View>(R.id.bt_back_login)
         btBack.setOnClickListener {
             binding.root.findNavController().popBackStack()
             dialog.dismiss()

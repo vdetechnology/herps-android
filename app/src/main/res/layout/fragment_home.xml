@@ -115,14 +115,16 @@
                     android:src="@drawable/ic_cart" />
 
                 <TextView
+                    android:id="@+id/tv_number_in_cart"
                     android:layout_width="@dimen/dp_18"
                     android:layout_height="@dimen/dp_18"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/bg_cart_text"
                     android:gravity="center"
-                    android:text="10"
+                    android:text="0"
                     android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/sp_8" />
+                    android:textSize="@dimen/sp_8"
+                    android:visibility="gone"/>
             </RelativeLayout>
 
         </RelativeLayout>
@@ -219,7 +221,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="@dimen/dp_5" />
+                        android:layout_marginTop="@dimen/dp_0" />
 
                     <TextView
                         android:id="@+id/tv_recently"

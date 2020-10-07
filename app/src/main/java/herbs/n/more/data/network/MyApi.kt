@@ -28,6 +28,12 @@ interface MyApi {
         @Field("password") password: String
     ) : Response<AuthResponse>
 
+    @FormUrlEncoded
+    @POST("users/forgotpassword")
+    suspend fun userForgotPassword(
+        @Field("email") email: String
+    ) : Response<AuthResponse>
+
     @GET("product/bestseller/")
     suspend fun getBestSelling() : Response<GetBestSellingResponse>
 

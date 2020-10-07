@@ -51,9 +51,11 @@ class RegisterFragment : Fragment(), AuthListener, KodeinAware{
         binding.progressBar.show()
     }
 
-    override fun onSuccess(user: User, message: String) {
+    override fun onSuccess(user: User?, message: String) {
         binding.progressBar.hide()
-        openDialog(user)
+        if (user != null) {
+            openDialog(user, message)
+        }
     }
 
     override fun onFailure(message: String) {
@@ -101,10 +103,12 @@ class RegisterFragment : Fragment(), AuthListener, KodeinAware{
         }
     }
 
-    private fun openDialog(user: User) {
+    private fun openDialog(user: User, message: String) {
         val view: View = layoutInflater.inflate(R.layout.bottom_sheet_register, null)
         val dialog = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
         dialog.setContentView(view)
+        val tvMessage = view.findViewById<View>(R.id.tv_message) as TextView
+        tvMessage.text = message
         val btContinute = view.findViewById<View>(R.id.bt_continute) as TextView
         val btBack = view.findViewById<View>(R.id.bt_back_login) as TextView
         btContinute.setOnClickListener {

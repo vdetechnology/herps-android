@@ -15,4 +15,7 @@ interface ProductDao {
 
     @Query("SELECT * FROM Product ORDER BY update_date DESC LIMIT 4")
     fun getProducts() : LiveData<List<Product>>
+
+    @Query("SELECT * FROM Product ORDER BY update_date DESC")
+    fun getAllProducts() : LiveData<List<Product>>
 }

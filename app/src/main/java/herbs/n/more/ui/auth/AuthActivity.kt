@@ -17,4 +17,9 @@ class AuthActivity : AppCompatActivity(R.layout.activity_auth){
         MessageDialogFragment(title, message).apply {show(supportFragmentManager, "TAG") }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right
+        )
+    }
 }

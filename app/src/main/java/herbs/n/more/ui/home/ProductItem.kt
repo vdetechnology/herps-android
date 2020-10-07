@@ -42,6 +42,7 @@ class ProductItem(
         Glide
             .with(context)
             .load(product.image)
+            .error(R.mipmap.ic_logo)
             .centerCrop()
             .into(viewBinding.ivProductImage);
 

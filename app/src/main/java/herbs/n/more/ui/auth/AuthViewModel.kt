@@ -141,7 +141,16 @@ class AuthViewModel(
         authListener?.onStarted()
         Coroutines.main {
             try {
-                email?.let { authListener?.onFailure(it) }
+                var authResponse = userRepository.userFogotPassword(email!!)
+                authResponse.success?.let { it ->
+                    if (it){
+                        authListener?.onSuccess(null, email!!)
+                    }else{
+                        authListener?.onFailure(authResponse.message)
+                    }
+                    return@main
+                }
+                authListener?.onFailure(authResponse.message)
             }catch (e: ApiException){
                 authListener?.onFailure(e.message!!)
             }catch (e: NoInternetException){

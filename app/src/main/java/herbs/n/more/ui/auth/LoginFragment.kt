@@ -39,6 +39,7 @@ class LoginFragment : Fragment(), AuthListener, KodeinAware {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
         binding.viewmodel = viewModel
@@ -63,9 +64,8 @@ class LoginFragment : Fragment(), AuthListener, KodeinAware {
         binding.progressBar.show()
     }
 
-    override fun onSuccess(user: User, message : String) {
+    override fun onSuccess(user: User?, message : String) {
         binding.progressBar.hide()
-        binding.rootLayout.snackbar("${user.displayName} is Logged In")
     }
 
     override fun onFailure(message: String) {
@@ -97,6 +97,7 @@ class LoginFragment : Fragment(), AuthListener, KodeinAware {
 
     fun onBack(view: View){
         activity?.finish()
+        activity?.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
     }
 
     fun onShowPassword(view: View){

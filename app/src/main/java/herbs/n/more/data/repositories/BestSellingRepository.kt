@@ -27,6 +27,8 @@ class BestSellingRepository(
 
     fun getProducts() = db.getProductDao().getProducts()
 
+    fun getAllProducts() = db.getProductDao().getAllProducts()
+
     fun saveProducts(product: Product) = db.getProductDao().saveProduct(product)
 
     suspend fun getBestSelling(): LiveData<List<Product>> {
