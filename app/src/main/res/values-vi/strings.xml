@@ -75,6 +75,7 @@
     <string name="title_morning">Chào buổi sáng!</string>
     <string name="title_affternoon">Chào buổi chiều!</string>
     <string name="title_evening">Chào buổi tối!</string>
+    <string name="title_feeling">Sức khỏe bạn thế nào? </string>
     <string name="say_hi">Xin chào,</string>
     <string name="say_hi_name">%s!</string>
     <string name="best_selling">Sản phẩm bán chạy</string>
@@ -123,5 +124,14 @@
     <string name="rating_name_hint">Tên hiển thị của bạn (bắt buộc)</string>
     <string name="rating">Đánh giá</string>
     <string name="hints_for_you">Gợi ý cho bạn</string>
+
+    <!-- Cart-->
+    <string name="cart">Giỏ hàng</string>
+    <string name="total_payment">Thành tiền</string>
+    <string name="discount_code">Mã giảm giá</string>
+    <string name="input_discount_code">Nhập mã giảm giá</string>
+    <string name="apply">Áp dụng</string>
+    <string name="total_temp">Tạm tính</string>
+    <string name="proceed_to_order">Tiến hành đặt hàng</string>
 
 </resources>

@@ -251,8 +251,9 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="@dimen/dp_5"
+                                app:cardUseCompatPadding="true"
                                 app:cardCornerRadius="@dimen/dp_5"
-                                app:cardElevation="5dp">
+                                app:cardElevation="@dimen/dp_2">
 
                                 <ImageButton
                                     android:id="@+id/bt_like"
@@ -755,6 +756,7 @@
                             android:hint="@string/rating_email_hint"
                             android:inputType="textEmailAddress"
                             android:nextFocusDown="@id/et_name"
+                            android:text="@{activity.user.email}"
                             android:paddingLeft="@dimen/dp_15"
                             android:paddingRight="@dimen/dp_15"
                             android:textColor="@color/colorBlack"
@@ -773,6 +775,7 @@
                             android:imeOptions="actionDone"
                             android:paddingLeft="@dimen/dp_15"
                             android:paddingRight="@dimen/dp_15"
+                            android:text="@{activity.user.displayName}"
                             android:textColor="@color/colorBlack"
                             android:textColorHint="@color/text_color_hint"
                             android:textSize="@dimen/sp_10"
@@ -837,17 +840,15 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dp_50"
-                    android:layout_weight="1">
+                    android:layout_weight="1.2">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/bt_add"
                         style="@style/App.Button.Text"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_50"
-                        android:layout_gravity="center_horizontal"
                         app:cornerRadius="@dimen/dp_10"
                         android:backgroundTint="@color/colorPrimary"
-                        android:fontFamily="@font/utm_avo_bold"
                         android:onClick="@{() ->activity.flyToCart()}"/>
 
                     <LinearLayout
@@ -855,7 +856,7 @@
                         android:layout_height="@dimen/dp_50"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
-                        android:padding="@dimen/dp_8">
+                        android:padding="@dimen/dp_7">
 
                         <ImageView
                             android:layout_width="@dimen/dp_20"
@@ -876,10 +877,9 @@
                     android:layout_height="@dimen/dp_50"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_gravity="center_horizontal"
-                    android:layout_weight="2"
+                    android:layout_weight="1.8"
                     app:cornerRadius="@dimen/dp_10"
                     android:backgroundTint="@color/text_color_error"
-                    android:fontFamily="@font/utm_avo_bold"
                     android:text="@string/buy_now" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

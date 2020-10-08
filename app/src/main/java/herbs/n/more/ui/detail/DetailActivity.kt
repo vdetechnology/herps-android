@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.*
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
@@ -53,7 +54,7 @@ class DetailActivity : AppCompatActivity(), KodeinAware, DetailListener, Product
     private var loadmore : Boolean = false
     private var loadmoreDisable : Boolean = false
     private var mViewPager: BannerViewPager<String, BaseViewHolder<String>>? = null
-    private var user : User? = null
+    var user : User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -161,7 +162,8 @@ class DetailActivity : AppCompatActivity(), KodeinAware, DetailListener, Product
                 binding.ivNoImage.visibility = View.VISIBLE
                 mViewPager?.visibility = View.GONE
                 if (it.image.isNullOrEmpty()){
-                    binding.ivNoImage.setImageResource(R.mipmap.ic_logo)
+                    binding.ivNoImage.setImageResource(R.drawable.ic_logo)
+                    binding.ivNoImage.scaleType = ImageView.ScaleType.CENTER_INSIDE
                 }else{
                     Glide
                         .with(this)
@@ -259,8 +261,10 @@ class DetailActivity : AppCompatActivity(), KodeinAware, DetailListener, Product
         val calendar = Calendar.getInstance()
         val startTime = calendar.timeInMillis
         product.update_date = startTime
+        viewModel.saveRecentlys(product)
         val intent = Intent(this, DetailActivity::class.java).apply {
             putExtra("id", product.id.toString())
+            putExtra("user", user)
         }
         startActivity(intent)
 
@@ -326,7 +330,7 @@ class DetailActivity : AppCompatActivity(), KodeinAware, DetailListener, Product
         })
     }
 
-    fun View.getLocationOnScreen(): Point
+    private fun View.getLocationOnScreen(): Point
     {
         val location = IntArray(2)
         this.getLocationOnScreen(location)

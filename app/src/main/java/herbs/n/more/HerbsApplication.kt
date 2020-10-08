@@ -31,7 +31,7 @@ class HerbsApplication : Application(), KodeinAware {
 
         bind() from singleton { UserRepository(instance(), instance()) }
         bind() from singleton { BestSellingRepository(instance(), instance()) }
-        bind() from singleton { DetailProductRepository(instance()) }
+        bind() from singleton { DetailProductRepository(instance(), instance()) }
 
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { BestSellingViewModelFactory(instance()) }

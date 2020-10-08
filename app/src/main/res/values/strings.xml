@@ -75,6 +75,7 @@
     <string name="title_morning">Good morning!</string>
     <string name="title_affternoon">Good affternoon!</string>
     <string name="title_evening">Good evening!</string>
+    <string name="title_feeling">How are you feeling? </string>
     <string name="say_hi">Hi,</string>
     <string name="say_hi_name">%s!</string>
     <string name="best_selling">Best selling</string>
@@ -123,5 +124,14 @@
     <string name="rating_name_hint">Your name display (require)</string>
     <string name="rating">Rating</string>
     <string name="hints_for_you">Hints for you</string>
+
+    <!-- Cart-->
+    <string name="cart">Cart</string>
+    <string name="total_payment">Total payment</string>
+    <string name="discount_code">Discount code</string>
+    <string name="input_discount_code">Input discount code</string>
+    <string name="apply">Apply</string>
+    <string name="total_temp">Total temp</string>
+    <string name="proceed_to_order">Proceed to order</string>
 
 </resources>

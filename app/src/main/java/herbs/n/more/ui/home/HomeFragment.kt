@@ -112,23 +112,25 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
 
     private fun setTimeText(){
         val currentDate = Calendar.getInstance().time
-        if (!DateFormat.is24HourFormat(activity)) {
-            if (currentDate.hours > 12 && currentDate.hours < 18) {
+        if (DateFormat.is24HourFormat(activity)) {
+            if (currentDate.hours in 12..17) {
                 tv_time_hi.text = getString(R.string.title_affternoon)
-            } else if (currentDate.hours > 18) {
+            } else if (currentDate.hours >= 18) {
                 tv_time_hi.text = getString(R.string.title_evening)
             }
+        }else{
+            tv_time_hi.text = getString(R.string.title_feeling)
         }
     }
 
     private fun setupViewPager(view: View){
         mViewPager = view?.findViewById(R.id.banner_view)
         mIndicatorView = view?.findViewById(R.id.indicator_view)
-        mIndicatorView.setVisibility(View.VISIBLE)
+        mIndicatorView.visibility = View.VISIBLE
         mViewPager?.apply {
             setIndicatorView(mIndicatorView)
             setIndicatorSliderRadius(resources.getDimensionPixelOffset(R.dimen.dp_4), resources.getDimensionPixelOffset(R.dimen.dp_4))
-            setLifecycleRegistry(getLifecycle())
+            setLifecycleRegistry(lifecycle)
             setOnPageClickListener{ position: Int -> pageClick(position) }
             setAdapter(BannerAdapter())
         }?.create()
@@ -138,10 +140,10 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
     private fun setupSlideCampaign(view: View) {
         mViewPagerCampaign = view?.findViewById(R.id.banner_view_advertisement)
         mIndicatorView2 = view?.findViewById(R.id.indicator_view_2)
-        mIndicatorView2.setVisibility(View.VISIBLE)
+        mIndicatorView2.visibility = View.VISIBLE
         mViewPagerCampaign?.apply {
             setIndicatorView(mIndicatorView2)
-            setLifecycleRegistry(getLifecycle())
+            setLifecycleRegistry(lifecycle)
             setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_0))
             setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_30))
             setIndicatorSliderRadius(resources.getDimensionPixelOffset(R.dimen.dp_3), resources.getDimensionPixelOffset(R.dimen.dp_3))

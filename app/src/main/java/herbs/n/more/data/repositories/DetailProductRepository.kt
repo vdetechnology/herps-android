@@ -2,6 +2,7 @@ package herbs.n.more.data.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import herbs.n.more.data.db.AppDatabase
 import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.network.MyApi
 import herbs.n.more.data.network.SafeApiRequest
@@ -12,7 +13,8 @@ import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 class DetailProductRepository (
-    private val api: MyApi
+    private val api: MyApi,
+    private val db: AppDatabase
 ) : SafeApiRequest() {
 
     private val popular = MutableLiveData<List<Product>>()
@@ -40,4 +42,6 @@ class DetailProductRepository (
             e.printStackTrace()
         }
     }
+
+    fun saveProducts(product: Product) = db.getProductDao().saveProduct(product)
 }

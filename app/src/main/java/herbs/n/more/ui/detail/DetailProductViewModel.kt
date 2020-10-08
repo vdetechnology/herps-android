@@ -68,4 +68,10 @@ class DetailProductViewModel (
     suspend fun getPopular(pageindex : Int): LiveData<List<Product>> {
         return  repository.getPopular(pageindex)
     }
+
+    fun saveRecentlys(product: Product) {
+        Coroutines.io {
+            repository.saveProducts(product)
+        }
+    }
 }
