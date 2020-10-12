@@ -1,60 +1,118 @@
 package herbs.n.more.ui.cart
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import herbs.n.more.R
+import herbs.n.more.data.db.entities.Cart
+import herbs.n.more.databinding.FragmentCartBinding
+import herbs.n.more.ui.BaseFragment
+import herbs.n.more.ui.dialog.ConfirmDeleteDialog
+import herbs.n.more.util.Coroutines
+import herbs.n.more.util.DividerItemDecoration
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CartFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CartFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class CartFragment : BaseFragment(), KodeinAware, ConfirmDeleteDialog.OnDialogClick{
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentCartBinding
+    override val kodein by kodein()
+    private val factory: CartViewModelFactory by instance()
+    lateinit var viewModel: CartViewModel
+    private var totalOrder: Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false)
+        viewModel = ViewModelProviders.of(this, factory).get(CartViewModel::class.java)
+        binding.cart = viewModel
+        binding.fragment = this
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CartFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CartFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initData()
+    }
+
+    private fun initData(){
+        GlobalScope.async{bindSumOrder()}
+        GlobalScope.async{bindDataCart()}
+    }
+
+    @SuppressLint("FragmentLiveDataObserve")
+    private fun bindDataCart() = Coroutines.main {
+        binding.rlLoading.visibility = View.VISIBLE
+        viewModel.getAllCart().observe(this, androidx.lifecycle.Observer {
+            binding.rlLoading.visibility = View.GONE
+            if (it.isNullOrEmpty()) {
+                binding.rvCart.visibility = View.GONE
+                binding.llEmpty.visibility = View.VISIBLE
+            } else {
+                val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
+                    addAll(it.toCartItem())
+                }
+
+                binding.rvCart.apply {
+                    layoutManager = LinearLayoutManager(
+                        activity,
+                        LinearLayoutManager.VERTICAL,
+                        false
+                    )
+                    adapter = mAdapter
+                }
+                binding.rvCart.addItemDecoration(DividerItemDecoration(activity))
+                binding.rvCart.addItemDecoration(
+                    DividerItemDecoration(activity, R.drawable.divider)
+                )
+            }
+        })
+    }
+
+    private fun List<Cart>.toCartItem() : List<CartItem> {
+        return this.map {
+            CartItem(this@CartFragment, it)
+        }
+    }
+
+    private fun bindSumOrder() = Coroutines.main {
+        viewModel.sumOrder.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                if (it > 0) {
+                    totalOrder = it
+                    binding.tvTotalTemp.text = convertMoney(it)
+                    binding.tvTotal.text = convertMoney(it)
+                    binding.tvTotalEnd.text = convertMoney(it)
                 }
             }
+        })
+    }
+
+    fun showConfirmDelete(cart: Cart){
+        val dialog : ConfirmDeleteDialog? = ConfirmDeleteDialog(this)
+        dialog?.show(cart)
+    }
+
+    override fun onOKClicked(cart: Cart) {
+        viewModel.deleteCart(cart)
+    }
+
+    fun continueOrder(){
+        closeKeyBoard()
     }
 }

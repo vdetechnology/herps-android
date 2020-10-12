@@ -3,6 +3,7 @@ package herbs.n.more.data.repositories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import herbs.n.more.data.db.AppDatabase
+import herbs.n.more.data.db.entities.Cart
 import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.network.MyApi
 import herbs.n.more.data.network.SafeApiRequest
@@ -44,4 +45,10 @@ class DetailProductRepository (
     }
 
     fun saveProducts(product: Product) = db.getProductDao().saveProduct(product)
+
+    fun saveCart(cart: Cart) = db.getCartDao().saveCart(cart)
+
+    fun getCountCart() = db.getCartDao().getCount()
+
+    suspend fun getCartByID(id: Int) = db.getCartDao().getCartByID(id)
 }

@@ -42,4 +42,6 @@ class BestSellingViewModel(
             repository.saveProducts(product)
         }
     }
+
+    val countCart = repository.getCountCart()
 }

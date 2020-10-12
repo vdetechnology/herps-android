@@ -68,14 +68,14 @@
                         android:id="@+id/rb_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srb_clearRatingEnabled="true"
+                        app:srb_clearRatingEnabled="false"
                         app:srb_clickable="false"
                         app:srb_drawableEmpty="@drawable/ic_star"
                         app:srb_drawableFilled="@drawable/ic_star_filled"
                         app:srb_isIndicator="false"
                         app:srb_minimumStars="0"
                         app:srb_numStars="5"
-                        app:srb_scrollable="true"
+                        app:srb_scrollable="false"
                         app:srb_starHeight="@dimen/dp_10"
                         app:srb_starPadding="@dimen/dp_1"
                         app:srb_starWidth="@dimen/dp_10"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_price_sale"
+                        android:id="@+id/tv_price"
                         style="@style/TextSubRegular10"
                         android:fontFamily="@font/roboto_regular"
                         android:visibility="@{product.total_sales == 0 ? View.INVISIBLE : View.VISIBLE}"/>
@@ -110,7 +110,7 @@
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/tv_price"
+                    android:id="@+id/tv_price_sale"
                     style="@style/ColorMainTextRegular12"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="@color/colorBlack"

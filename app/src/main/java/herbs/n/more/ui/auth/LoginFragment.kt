@@ -10,24 +10,24 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentLoginBinding
+import herbs.n.more.ui.BaseFragment
 import herbs.n.more.ui.MainActivity
-import herbs.n.more.util.*
+import herbs.n.more.util.Constant
+import herbs.n.more.util.hide
+import herbs.n.more.util.show
+import herbs.n.more.util.toast
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_login.tv_err_mail
-import kotlinx.android.synthetic.main.fragment_login.tv_err_pass
-import kotlinx.android.synthetic.main.fragment_register.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
 
-class LoginFragment : Fragment(), AuthListener, KodeinAware {
+class LoginFragment : BaseFragment(), AuthListener, KodeinAware {
 
     override val kodein by kodein()
     private val factory: AuthViewModelFactory by instance()
@@ -46,16 +46,23 @@ class LoginFragment : Fragment(), AuthListener, KodeinAware {
         binding.fragment = this
         viewModel.authListener = this
 
-        viewModel.getLoggedInUser().observe(viewLifecycleOwner, androidx.lifecycle.Observer { user ->
-            if (user != null){
-                activity?.let {it ->
-                    Intent(it, MainActivity::class.java).also {
-                        it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(it)
+        viewModel.getLoggedInUser().observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer { user ->
+                if (user != null) {
+                    activity?.let { it ->
+                        Intent(it, MainActivity::class.java).also {
+                            it.flags =
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(it)
+                            activity?.overridePendingTransition(
+                                R.anim.anim_slide_in_right,
+                                R.anim.anim_slide_out_left
+                            );
+                        }
                     }
                 }
-            }
-        })
+            })
 
         return binding.root
     }
@@ -64,7 +71,7 @@ class LoginFragment : Fragment(), AuthListener, KodeinAware {
         binding.progressBar.show()
     }
 
-    override fun onSuccess(user: User?, message : String) {
+    override fun onSuccess(user: User?, message: String) {
         binding.progressBar.hide()
     }
 
@@ -73,11 +80,17 @@ class LoginFragment : Fragment(), AuthListener, KodeinAware {
         when(message) {
             Constant.EMAIL_NULL -> tv_err_mail.text = resources.getString(R.string.email_is_blank)
             Constant.EMAIL_OK -> tv_err_mail.text = ""
-            Constant.EMAIL_ISVALID -> tv_err_mail.text = resources.getString(R.string.email_wrong_format)
-            Constant.PASSWORD_NULL -> tv_err_pass.text = resources.getString(R.string.password_is_blank)
-            Constant.PASSWORD_INVALID -> tv_err_pass.text = resources.getString(R.string.password_not_contain_space)
+            Constant.EMAIL_ISVALID -> tv_err_mail.text =
+                resources.getString(R.string.email_wrong_format)
+            Constant.PASSWORD_NULL -> tv_err_pass.text =
+                resources.getString(R.string.password_is_blank)
+            Constant.PASSWORD_INVALID -> tv_err_pass.text =
+                resources.getString(R.string.password_not_contain_space)
             Constant.PASSWORD_OK -> tv_err_pass.text = ""
-            else -> (activity as AuthActivity).showMessage(resources.getString(R.string.login_error), message)
+            else -> (activity as AuthActivity).showMessage(
+                resources.getString(R.string.login_error),
+                message
+            )
         }
     }
 

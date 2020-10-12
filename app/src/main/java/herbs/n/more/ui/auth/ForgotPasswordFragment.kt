@@ -3,7 +3,6 @@ package herbs.n.more.ui.auth
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentForgotPasswordBinding
+import herbs.n.more.ui.BaseFragment
 import herbs.n.more.util.Constant
 import herbs.n.more.util.hide
 import herbs.n.more.util.show
@@ -23,7 +23,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
-class ForgotPasswordFragment  : Fragment(), AuthListener, KodeinAware {
+class ForgotPasswordFragment  : BaseFragment(), AuthListener, KodeinAware {
 
     override val kodein by kodein()
     private val factory: AuthViewModelFactory by instance()

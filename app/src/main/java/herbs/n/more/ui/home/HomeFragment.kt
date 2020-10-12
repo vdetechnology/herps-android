@@ -14,6 +14,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
@@ -26,6 +27,7 @@ import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.db.entities.SlideImage
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentHomeBinding
+import herbs.n.more.ui.BaseFragment
 import herbs.n.more.ui.adapter.BannerAdapter
 import herbs.n.more.ui.adapter.CampaignAdapter
 import herbs.n.more.ui.auth.AuthActivity
@@ -44,7 +46,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecentlyItemListener {
+class HomeFragment : BaseFragment(), KodeinAware, ProductItemListener, ProductRecentlyItemListener {
 
     private lateinit var binding: FragmentHomeBinding
     override val kodein by kodein()
@@ -67,13 +69,9 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        binding.searchButton.setOnClickListener { view -> onClickSearch(view) }
-        binding.cartContainer.setOnClickListener { view -> onClickCart(view) }
-        binding.tvMoreBestSelling.setOnClickListener { view -> seeMoreBestSelling(view) }
-        binding.tvMoreRecently.setOnClickListener { view -> seeMoreBestRecently(view) }
-        binding.rlUser.setOnClickListener { view -> goToLogin() }
         viewModel = ViewModelProviders.of(this, factory).get(BestSellingViewModel::class.java)
         binding.bestselling = viewModel
+        binding.fragment = this
         binding.lifecycleOwner = this
         viewModel.user.observe(viewLifecycleOwner, androidx.lifecycle.Observer { user ->
             this.user = user
@@ -103,6 +101,7 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         GlobalScope.async{setTimeText()}
         GlobalScope.async{setupViewPager(binding.root)}
         GlobalScope.async{setupSlideCampaign(binding.root)}
+        GlobalScope.async{bindCountCart()}
         GlobalScope.async{bindDataBestSelling()}
         GlobalScope.async{bindBanners()}
         GlobalScope.async{bindCampaigns()}
@@ -150,6 +149,17 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
             setOnPageClickListener{ position: Int -> pageClick(position) }
             setAdapter(CampaignAdapter())
         }?.create()
+    }
+
+    private fun bindCountCart() = Coroutines.main {
+        viewModel.countCart.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            if (it > 0){
+                binding.tvNumberInCart.visibility = View.VISIBLE
+                binding.tvNumberInCart.text = it.toString()
+            }else{
+                binding.tvNumberInCart.visibility = View.GONE
+            }
+        })
     }
 
 
@@ -284,10 +294,6 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
     }
 
-    private fun onClickCart(v: View) {
-        v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
-    }
-
     private fun seeMoreBestSelling(v: View) {
         v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
     }
@@ -296,7 +302,7 @@ class HomeFragment : Fragment(), KodeinAware, ProductItemListener, ProductRecent
         v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
     }
 
-    private fun goToLogin() {
+    fun goToLogin() {
         if (user != null){
 
         }else {

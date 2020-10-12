@@ -5,9 +5,11 @@ import herbs.n.more.data.db.AppDatabase
 import herbs.n.more.data.network.MyApi
 import herbs.n.more.data.network.NetworkConnectionInterceptor
 import herbs.n.more.data.repositories.BestSellingRepository
+import herbs.n.more.data.repositories.CartRepository
 import herbs.n.more.data.repositories.DetailProductRepository
 import herbs.n.more.data.repositories.UserRepository
 import herbs.n.more.ui.auth.AuthViewModelFactory
+import herbs.n.more.ui.cart.CartViewModelFactory
 import herbs.n.more.ui.detail.DetailViewModelFactory
 import herbs.n.more.ui.home.BestSellingViewModelFactory
 import net.simplifiedcoding.mvvmsampleapp.data.preferences.PreferenceProvider
@@ -32,10 +34,12 @@ class HerbsApplication : Application(), KodeinAware {
         bind() from singleton { UserRepository(instance(), instance()) }
         bind() from singleton { BestSellingRepository(instance(), instance()) }
         bind() from singleton { DetailProductRepository(instance(), instance()) }
+        bind() from singleton { CartRepository(instance(), instance()) }
 
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { BestSellingViewModelFactory(instance()) }
         bind() from singleton { DetailViewModelFactory(instance()) }
+        bind() from singleton { CartViewModelFactory(instance()) }
 
     }
 

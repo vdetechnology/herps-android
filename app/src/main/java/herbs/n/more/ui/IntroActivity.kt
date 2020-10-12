@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.utils.BannerUtils
 import com.zhpan.indicator.enums.IndicatorSlideMode
 import herbs.n.more.R
 import herbs.n.more.ui.adapter.WelcomeAdapter
@@ -30,6 +29,7 @@ class IntroActivity : AppCompatActivity() {
 
     private var tit : Array<String?> = arrayOfNulls(4)
     private var des : Array<String?> = arrayOfNulls(4)
+    private var currentPosition: Int = 0
 
     private val data: List<CustomBean>
         get() {
@@ -69,7 +69,6 @@ class IntroActivity : AppCompatActivity() {
             setIndicatorSliderRadius(resources.getDimension(R.dimen.dp_5).toInt(), resources.getDimension(R.dimen.dp_5).toInt())
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    BannerUtils.log("position:$position")
                     updateUI(position)
                 }
             })
@@ -91,12 +90,12 @@ class IntroActivity : AppCompatActivity() {
     }
 
     fun onNext(view: View) {
-        mViewPager.setCurrentItem(mViewPager.currentItem + 1)
+        mViewPager.currentItem = mViewPager.currentItem + 1
     }
 
     private fun goToMain(){
         val intent = Intent(this, MainActivity::class.java)
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
     }
 
@@ -104,16 +103,18 @@ class IntroActivity : AppCompatActivity() {
         tv_describe?.text = des[position]
         tv_title?.text = tit[position]
 
-        setAnimation(tv_describe)
-        setAnimation(tv_title)
-
+        if (currentPosition > position) {
+            setAnimation(tv_describe)
+            setAnimation(tv_title)
+        }else{
+            setAnimationNext(tv_describe)
+            setAnimationNext(tv_title)
+        }
+        currentPosition = position
         if (position == mViewPager.data.size - 1 && btn_start?.visibility == View.GONE) {
             btn_start?.visibility = View.VISIBLE
             btn_next?.visibility = View.GONE
             tv_skip.visibility = View.GONE
-            ObjectAnimator
-                    .ofFloat(btn_start, "alpha", 0f, 1f)
-                    .setDuration(ANIMATION_DURATION.toLong()).start()
         } else {
             btn_start?.visibility = View.GONE
             btn_next?.visibility = View.VISIBLE
@@ -125,16 +126,36 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun setAnimation(textView: TextView){
-        val alphaAnimator = ObjectAnimator.ofFloat(textView, "alpha", 0f, 1f)
+        val translationAnim = ObjectAnimator.ofFloat(textView, "translationX", -500f, 0f)
+        translationAnim.apply {
+            duration = ANIMATION_DURATION.toLong()
+            interpolator = DecelerateInterpolator()
+        }
+        val alphaAnimator = ObjectAnimator.ofFloat(textView, "alpha", 0.7f, 1f)
         alphaAnimator.apply {
             duration = ANIMATION_DURATION.toLong()
         }
         val animatorSet = AnimatorSet()
-        animatorSet.playTogether(alphaAnimator)
+        animatorSet.playTogether(translationAnim, alphaAnimator)
+        animatorSet.start()
+    }
+
+    private fun setAnimationNext(textView: TextView){
+        val translationAnim = ObjectAnimator.ofFloat(textView, "translationX", 500f, 0f)
+        translationAnim.apply {
+            duration = ANIMATION_DURATION.toLong()
+            interpolator = DecelerateInterpolator()
+        }
+        val alphaAnimator = ObjectAnimator.ofFloat(textView, "alpha", 0.7f, 1f)
+        alphaAnimator.apply {
+            duration = ANIMATION_DURATION.toLong()
+        }
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(translationAnim, alphaAnimator)
         animatorSet.start()
     }
 
     companion object {
-        private const val ANIMATION_DURATION = 700
+        private const val ANIMATION_DURATION = 300
     }
 }

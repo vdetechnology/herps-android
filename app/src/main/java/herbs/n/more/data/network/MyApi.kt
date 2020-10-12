@@ -1,10 +1,7 @@
 package herbs.n.more.data.network
 
 import herbs.n.more.BuildConfig
-import herbs.n.more.data.network.responses.AuthResponse
-import herbs.n.more.data.network.responses.BannerResponse
-import herbs.n.more.data.network.responses.DetailProductResponse
-import herbs.n.more.data.network.responses.GetBestSellingResponse
+import herbs.n.more.data.network.responses.*
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -54,12 +51,18 @@ interface MyApi {
         @Query("productid") productid: String
     ): Response<DetailProductResponse>
 
+    @FormUrlEncoded
+    @POST("users/forgotpassword")
+    suspend fun getDiscountCode(
+        @Field("email") email: String
+    ) : Response<GetDiscountCodeResponse>
+
     companion object{
         operator fun invoke(
             networkConnectionInterceptor: NetworkConnectionInterceptor
         ): MyApi{
 
-            val base_url = BuildConfig.API_URL
+            val baseUrl = BuildConfig.API_URL
 
             val okkHttpclient = OkHttpClient.Builder()
                 .addInterceptor(networkConnectionInterceptor)
@@ -67,7 +70,7 @@ interface MyApi {
 
             return Retrofit.Builder()
                 .client(okkHttpclient)
-                .baseUrl(base_url)
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MyApi::class.java)

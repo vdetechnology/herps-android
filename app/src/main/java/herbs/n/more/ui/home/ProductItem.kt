@@ -22,19 +22,21 @@ class ProductItem(
 
     override fun bind(viewBinding: ItemProductSquareBinding, position: Int) {
         val mDecimalFormat = DecimalFormat("###,###,##0")
-        viewBinding.tvPrice.text = (mDecimalFormat.format(product.price?.toDouble()).toString()).replace(",", ".") + context.resources.getString(R.string.vnd)
+
         if (product.total_sales != 0){
             viewBinding.tvPriceSale.text = (mDecimalFormat.format(product.sale_price?.toDouble()).toString()).replace(",", ".") + context.resources.getString(R.string.vnd)
-
-            viewBinding.tvPriceSale.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+            viewBinding.tvPrice.text = (mDecimalFormat.format(product.price?.toDouble()).toString()).replace(",", ".") + context.resources.getString(R.string.vnd)
+            viewBinding.tvPrice.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
-                    viewBinding.tvPriceSale.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    viewBinding.tvPriceSale.height //height is ready
+                    viewBinding.tvPrice.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    viewBinding.tvPrice.height //height is ready
                     val params: ViewGroup.LayoutParams = viewBinding.line.layoutParams
-                    params.width = viewBinding.tvPriceSale.width
+                    params.width = viewBinding.tvPrice.width
                     viewBinding.line.layoutParams = params;
                 }
             })
+        }else{
+            viewBinding.tvPriceSale.text = (mDecimalFormat.format(product.price?.toDouble()).toString()).replace(",", ".") + context.resources.getString(R.string.vnd)
         }
 
         viewBinding.product = product

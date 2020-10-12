@@ -3,6 +3,7 @@ package herbs.n.more.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import herbs.n.more.data.db.entities.Cart
 import herbs.n.more.data.db.entities.DetailProduct
 import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.repositories.DetailProductRepository
@@ -73,5 +74,17 @@ class DetailProductViewModel (
         Coroutines.io {
             repository.saveProducts(product)
         }
+    }
+
+    fun saveCart(cart: Cart) {
+        Coroutines.io {
+            repository.saveCart(cart)
+        }
+    }
+
+    val countCart = repository.getCountCart()
+
+    suspend fun cartByID(id: Int): Cart{
+        return repository.getCartByID(id)
     }
 }

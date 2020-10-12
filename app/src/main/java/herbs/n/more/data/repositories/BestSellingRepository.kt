@@ -94,4 +94,6 @@ class BestSellingRepository(
             e.printStackTrace()
         }
     }
+
+    fun getCountCart() = db.getCartDao().getCount()
 }

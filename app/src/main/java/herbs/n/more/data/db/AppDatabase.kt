@@ -4,18 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import herbs.n.more.data.db.entities.Cart
 import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.db.entities.User
 
 @Database(
-    entities = [User::class, Product::class],
+    entities = [User::class, Product::class, Cart::class],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getUserDao(): UserDao
     abstract fun getProductDao(): ProductDao
-
+    abstract fun getCartDao(): CartDao
     companion object {
 
         @Volatile
@@ -33,6 +34,6 @@ abstract class AppDatabase : RoomDatabase() {
                 context.applicationContext,
                 AppDatabase::class.java,
                 "HerbsDatabase.db"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
     }
 }

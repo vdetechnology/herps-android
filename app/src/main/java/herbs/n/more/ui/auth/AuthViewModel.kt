@@ -115,7 +115,7 @@ class AuthViewModel(
                 var authResponse = userRepository.userSignup(name!!, email!!, password!!)
                 authResponse.data?.let {
                     authListener?.onSuccess(it, authResponse.message)
-                    user = it
+                    userRepository.saveUser(it)
                     return@main
                 }
                 authListener?.onFailure(authResponse.message!!)

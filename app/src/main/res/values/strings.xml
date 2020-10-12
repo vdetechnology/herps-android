@@ -133,5 +133,10 @@
     <string name="apply">Apply</string>
     <string name="total_temp">Total temp</string>
     <string name="proceed_to_order">Proceed to order</string>
+    <string name="buy_later">Buy later</string>
+    <string name="cart_empty">Chưa có sản phẩm nào trong giỏ hàng</string>
+    <string name="continue_buy">Tiếp tục mua sắm</string>
+    <string name="title_delete">Bạn chắc chắn muốn bỏ sản phẩm này?</string>
+    <string name="btn_ok">OK</string>
 
 </resources>

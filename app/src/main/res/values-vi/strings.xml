@@ -98,7 +98,7 @@
     <string name="my_purchases">Thanh toán của tôi</string>
     <string name="address_book">Địa chỉ</string>
     <string name="sign_out">Đăng xuất</string>
-    <string name="lb_cancel">Cancel</string>
+    <string name="lb_cancel">Hủy</string>
 
     <!-- Detail-->
     <string name="add_to_cart">Thêm vào giỏ hàng</string>
@@ -133,5 +133,10 @@
     <string name="apply">Áp dụng</string>
     <string name="total_temp">Tạm tính</string>
     <string name="proceed_to_order">Tiến hành đặt hàng</string>
+    <string name="buy_later">Mua sau</string>
+    <string name="cart_empty">Chưa có sản phẩm nào trong giỏ hàng</string>
+    <string name="continue_buy">Tiếp tục mua sắm</string>
+    <string name="title_delete">Bạn chắc chắn muốn bỏ sản phẩm này?</string>
+    <string name="btn_ok">Đồng ý</string>
 
 </resources>

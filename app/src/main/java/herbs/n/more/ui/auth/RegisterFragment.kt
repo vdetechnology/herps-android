@@ -11,13 +11,13 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentRegisterBinding
+import herbs.n.more.ui.BaseFragment
 import herbs.n.more.ui.MainActivity
 import herbs.n.more.util.*
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -26,7 +26,7 @@ import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
 
-class RegisterFragment : Fragment(), AuthListener, KodeinAware{
+class RegisterFragment : BaseFragment(), AuthListener, KodeinAware{
 
     override val kodein by kodein()
     private val factory: AuthViewModelFactory by instance()
@@ -54,7 +54,13 @@ class RegisterFragment : Fragment(), AuthListener, KodeinAware{
     override fun onSuccess(user: User?, message: String) {
         binding.progressBar.hide()
         if (user != null) {
-            openDialog(user, message)
+            activity?.let {it ->
+                Intent(it, MainActivity::class.java).also {
+                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(it)
+                    activity?.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+                }
+            }
         }
     }
 
