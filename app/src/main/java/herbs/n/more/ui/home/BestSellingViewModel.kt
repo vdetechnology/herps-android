@@ -11,8 +11,10 @@ class BestSellingViewModel(
     private val repository: BestSellingRepository
 ) : ViewModel() {
 
+    var bestSellingListener: BestSellingListener? = null
+
     val bestSelling by lazyDeferred {
-        repository.getBestSelling()
+        bestSellingListener?.let { repository.getBestSelling(it) }
     }
 
     val user = repository.getUser()

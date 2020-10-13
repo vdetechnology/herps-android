@@ -62,6 +62,9 @@
     <string name="forgot_text1">Email hướng dẫn tạo mật khẩu đã được gửi đến địa chỉ <b><u>%s</u></b>. Hãy kiểm tra email và làm theo hướng đẫn.</string>
     <string name="forgot_text2">Trong trường hợp không tìm thấy email trong hộp thư đến (inbox), vui lòng kiểm tra hộp thư Spam hoặc Junk.</string>
     <string name="network_error">Make sure you have an active data connection</string>
+    <string name="network_error_title">Network error</string>
+    <string name="server_error_title">Connect server fail</string>
+    <string name="server_error">Hiện tại server hoạt động không ổn định. Vui lòng thử lại sau.</string>
 
     <!-- Menu-->
     <string name="menu_home">Home</string>
@@ -103,7 +106,7 @@
     <!-- Detail-->
     <string name="add_to_cart">Add to cart</string>
     <string name="buy_now">Buy now</string>
-    <string name="number_comment_detail"><u>%s Comment</u></string>
+    <string name="number_comment_detail">(%s Comment)</string>
     <string name="policy1">Bồi thường 200% nếu không dạt hay kém chất lượng</string>
     <string name="policy2">Bồi thường 500% nếu không đúng xuất sứ</string>
     <string name="policy3">Sản phẩm được miễn phí vận chuyển</string>
@@ -138,5 +141,25 @@
     <string name="continue_buy">Tiếp tục mua sắm</string>
     <string name="title_delete">Bạn chắc chắn muốn bỏ sản phẩm này?</string>
     <string name="btn_ok">OK</string>
+    <string name="code_is_blank">Please enter discount code</string>
+    <string name="code_error">Discount code error</string>
+    <string name="code_success">Apply discount code success, you will get <b><u>%s</u></b></string>
+    <string name="percent">&#37; off</string>
+
+    <!-- Payment-->
+    <string name="payment">Payment</string>
+    <string name="note_order">Order note</string>
+    <string name="note_order_hint">Ghi chú về đơn hàng\n(ví dụ: Thời gian giao hàng hoặc chỉ đẫn chi tiết địa điểm)</string>
+    <string name="receiving_information">Receiving information</string>
+    <string name="delivery_address">Delivery address*</string>
+    <string name="delivery_address_hint">Nhập địa chỉ (nên ghi rõ tên đường, số nhà)</string>
+    <string name="delivery_phone">Phone number*</string>
+    <string name="delivery_phone_hint">Input your phone number</string>
+    <string name="details_order">Details order</string>
+    <string name="delivery_charges">Delivery charges</string>
+    <string name="free">Free ship</string>
+    <string name="payment_methods">Payment methods</string>
+    <string name="payment_on_delivery">Payment on delivery</string>
+    <string name="complete_order">Complete your order</string>
 
 </resources>

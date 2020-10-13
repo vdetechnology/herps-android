@@ -191,8 +191,9 @@
                                 android:id="@+id/tv_number_rating"
                                 style="@style/TextSubRegular10"
                                 android:layout_marginLeft="@dimen/dp_5"
+                                android:background="@drawable/border_bottom"
                                 android:fontFamily="@font/roboto_regular"
-                                android:text="@{String.format(@string/number_comment, product.comment)}"
+                                android:text="@{String.format(@string/number_comment_detail, product.comment)}"
                                 android:textSize="@dimen/sp_12" />
                         </LinearLayout>
 
@@ -596,7 +597,7 @@
 
                             <TextView
                                 style="@style/TextNameProductRegular10"
-                                android:layout_marginLeft="@dimen/dp_5"
+                                android:layout_marginLeft="@dimen/dp_7"
                                 android:text="@string/description"
                                 android:textSize="@dimen/sp_12" />
                         </LinearLayout>
@@ -728,7 +729,7 @@
 
                             <TextView
                                 style="@style/TextNameProductRegular10"
-                                android:layout_marginLeft="@dimen/dp_5"
+                                android:layout_marginLeft="@dimen/dp_7"
                                 android:text="@string/your_rating"
                                 android:textSize="@dimen/sp_12" />
                         </LinearLayout>
@@ -835,7 +836,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_15"
                         android:layout_marginRight="@dimen/dp_15"
-                        android:layout_marginBottom="@dimen/dp_20" />
+                        android:layout_marginBottom="@dimen/dp_20"
+                        android:nestedScrollingEnabled="false"
+                        android:scrollbars="none"/>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

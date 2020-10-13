@@ -8,6 +8,7 @@ import herbs.n.more.R
 import herbs.n.more.databinding.ActivityMainBinding
 import herbs.n.more.ui.adapter.MainPagerAdapter
 import herbs.n.more.ui.category.CategoryFragment
+import herbs.n.more.ui.dialog.MessageDialogFragment
 import herbs.n.more.ui.home.HomeFragment
 import herbs.n.more.ui.notification.NotificationFragment
 import herbs.n.more.ui.profile.ProfileFragment
@@ -80,4 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun showMessage(title: String, message : String) {
+        MessageDialogFragment(title, message).apply {show(supportFragmentManager, "TAG") }
+    }
 }

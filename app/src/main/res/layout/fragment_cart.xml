@@ -80,9 +80,9 @@
                     android:layout_marginTop="@dimen/dp_20"
                     android:background="@drawable/bg_item"
                     android:nestedScrollingEnabled="false"
+                    android:scrollbars="none"
                     android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10"
-                    android:scrollbars="none" />
+                    android:paddingRight="@dimen/dp_10" />
 
                 <LinearLayout
                     android:id="@+id/ll_empty"
@@ -143,7 +143,7 @@
 
                         <TextView
                             style="@style/TextNameProductRegular10"
-                            android:layout_marginLeft="@dimen/dp_5"
+                            android:layout_marginLeft="@dimen/dp_7"
                             android:text="@string/discount_code"
                             android:textSize="@dimen/sp_12" />
                     </LinearLayout>
@@ -163,6 +163,7 @@
                             android:hint="@string/input_discount_code"
                             android:imeOptions="actionDone"
                             android:inputType="textEmailAddress"
+                            android:text="@={cart.code}"
                             android:paddingLeft="@dimen/dp_15"
                             android:paddingRight="@dimen/dp_15"
                             android:textColor="@color/colorBlack"
@@ -179,7 +180,8 @@
                             android:backgroundTint="@color/colorPrimary"
                             android:text="@string/apply"
                             android:textSize="@dimen/sp_12"
-                            app:cornerRadius="@dimen/dp_5" />
+                            app:cornerRadius="@dimen/dp_5"
+                            android:onClick="@{() -> cart.onDiscountClick()}"/>
                     </RelativeLayout>
 
                     <TextView
@@ -187,8 +189,8 @@
                         style="@style/ColorMainTextRegular12"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="@dimen/dp_5"
-                        android:layout_marginBottom="@dimen/dp_7"
                         android:visibility="gone"
+                        android:textSize="@dimen/sp_10"
                         android:textColor="@color/text_color_error" />
                 </LinearLayout>
 

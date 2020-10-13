@@ -7,6 +7,10 @@ import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.db.entities.SlideImage
 import herbs.n.more.data.network.MyApi
 import herbs.n.more.data.network.SafeApiRequest
+import herbs.n.more.ui.home.BestSellingListener
+import herbs.n.more.util.ApiException
+import herbs.n.more.util.Constant
+import herbs.n.more.util.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
@@ -31,19 +35,24 @@ class BestSellingRepository(
 
     fun saveProducts(product: Product) = db.getProductDao().saveProduct(product)
 
-    suspend fun getBestSelling(): LiveData<List<Product>> {
-        return withContext(Dispatchers.IO) {
-            fetchProducts()
+    suspend fun getBestSelling(bestSellingListener: BestSellingListener): LiveData<List<Product>> {
+        return withContext(Dispatchers.Main) {
+            fetchProducts(bestSellingListener)
             bestSelling
         }
     }
 
-    private suspend fun fetchProducts() {
+    private suspend fun fetchProducts(bestSellingListener: BestSellingListener) {
         try {
             val response = apiRequest { api.getBestSelling() }
             bestSelling.postValue(response.data)
+        } catch (e: ApiException){
+            bestSellingListener?.onFailure(Constant.API_ERROR)
+        } catch (e: NoInternetException){
+            bestSellingListener?.onFailure(Constant.NO_INTERNET)
         } catch (e: Exception) {
             e.printStackTrace()
+            bestSellingListener?.onFailure(Constant.API_ERROR)
         }
     }
 

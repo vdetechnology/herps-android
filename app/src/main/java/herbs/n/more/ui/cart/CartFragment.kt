@@ -15,9 +15,12 @@ import herbs.n.more.R
 import herbs.n.more.data.db.entities.Cart
 import herbs.n.more.databinding.FragmentCartBinding
 import herbs.n.more.ui.BaseFragment
+import herbs.n.more.ui.auth.AuthActivity
 import herbs.n.more.ui.dialog.ConfirmDeleteDialog
+import herbs.n.more.util.Constant
 import herbs.n.more.util.Coroutines
 import herbs.n.more.util.DividerItemDecoration
+import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import org.kodein.di.KodeinAware
@@ -25,13 +28,14 @@ import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
 
-class CartFragment : BaseFragment(), KodeinAware, ConfirmDeleteDialog.OnDialogClick{
+class CartFragment : BaseFragment(), KodeinAware, CartListener, ConfirmDeleteDialog.OnDialogClick{
 
     private lateinit var binding: FragmentCartBinding
     override val kodein by kodein()
     private val factory: CartViewModelFactory by instance()
     lateinit var viewModel: CartViewModel
     private var totalOrder: Double = 0.0
+    private var percent: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +46,7 @@ class CartFragment : BaseFragment(), KodeinAware, ConfirmDeleteDialog.OnDialogCl
         binding.cart = viewModel
         binding.fragment = this
         binding.lifecycleOwner = this
+        viewModel.cartListener = this
         return binding.root
     }
 
@@ -95,12 +100,19 @@ class CartFragment : BaseFragment(), KodeinAware, ConfirmDeleteDialog.OnDialogCl
             if (it != null) {
                 if (it > 0) {
                     totalOrder = it
-                    binding.tvTotalTemp.text = convertMoney(it)
-                    binding.tvTotal.text = convertMoney(it)
-                    binding.tvTotalEnd.text = convertMoney(it)
+                    caculateDiscount()
                 }
             }
         })
+    }
+
+    private fun caculateDiscount(){
+        val totalDiscount = totalOrder * (percent / 100f)
+        totalOrder -= totalDiscount
+        binding.tvTotalDiscount.text = convertMoney(totalDiscount)
+        binding.tvTotalTemp.text = convertMoney(totalOrder)
+        binding.tvTotal.text = convertMoney(totalOrder)
+        binding.tvTotalEnd.text = convertMoney(totalOrder)
     }
 
     fun showConfirmDelete(cart: Cart){
@@ -114,5 +126,35 @@ class CartFragment : BaseFragment(), KodeinAware, ConfirmDeleteDialog.OnDialogCl
 
     fun continueOrder(){
         closeKeyBoard()
+    }
+
+    override fun onStarted() {
+        binding.rlLoading.visibility = View.VISIBLE
+    }
+
+    override fun onSuccess(message: String) {
+        binding.rlLoading.visibility = View.GONE
+    }
+
+    override fun onSuccessCode(percent: Int) {
+        this.percent = percent
+        binding.rlLoading.visibility = View.GONE
+        binding.tvErrCode.visibility = View.VISIBLE
+        binding.tvErrCode.text = String.format(resources.getString(R.string.code_success),percent.toString()) + resources.getString(R.string.percent)
+        binding.tvErrCode.setTextColor(resources.getColor(R.color.colorPrimary))
+        caculateDiscount()
+    }
+
+    override fun onFailure(message: String) {
+        binding.rlLoading.visibility = View.GONE
+        binding.tvErrCode.visibility = View.VISIBLE
+        when(message) {
+            Constant.CODE_NULL -> tv_err_code.text = resources.getString(R.string.code_is_blank)
+            Constant.CODE_OK -> tv_err_code.text = ""
+            else -> (activity as CartActivity).showMessage(
+                resources.getString(R.string.discount_code),
+                message
+            )
+        }
     }
 }

@@ -3,6 +3,9 @@ package herbs.n.more.util
 class Constant {
 
     companion object {
+        const val NO_INTERNET = "2001"
+        const val API_ERROR = "2002"
+
         const val EMAIL_NULL = "1001"
         const val EMAIL_OK = "1002"
         const val EMAIL_ISVALID = "1003"
@@ -17,5 +20,8 @@ class Constant {
         const val NAME_OK = "1009"
 
         const val FORGOT_PASS_OK = "1010"
+
+        const val CODE_NULL = "1012"
+        const val CODE_OK = "1013"
     }
 }

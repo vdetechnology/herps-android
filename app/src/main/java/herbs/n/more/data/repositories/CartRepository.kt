@@ -4,6 +4,7 @@ import herbs.n.more.data.db.AppDatabase
 import herbs.n.more.data.db.entities.Cart
 import herbs.n.more.data.network.MyApi
 import herbs.n.more.data.network.SafeApiRequest
+import herbs.n.more.data.network.responses.GetDiscountCodeResponse
 
 class CartRepository(
     private val api: MyApi,
@@ -17,4 +18,10 @@ class CartRepository(
     fun updateCart(cart: Cart) = db.getCartDao().updateCart(cart)
 
     fun deleteCart(cart: Cart) = db.getCartDao().deleteCart(cart)
+
+    suspend fun getDiscountCode(
+        email: String
+    ) : GetDiscountCodeResponse {
+        return apiRequest{ api.getDiscountCode(email)}
+    }
 }

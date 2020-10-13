@@ -12,9 +12,7 @@ import android.view.animation.AnimationUtils
 import androidx.annotation.RequiresApi
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
@@ -28,14 +26,14 @@ import herbs.n.more.data.db.entities.SlideImage
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentHomeBinding
 import herbs.n.more.ui.BaseFragment
+import herbs.n.more.ui.MainActivity
 import herbs.n.more.ui.adapter.BannerAdapter
 import herbs.n.more.ui.adapter.CampaignAdapter
 import herbs.n.more.ui.auth.AuthActivity
 import herbs.n.more.ui.detail.DetailActivity
 import herbs.n.more.ui.dialog.ConfirmLoginDialog
+import herbs.n.more.util.Constant
 import herbs.n.more.util.Coroutines
-import herbs.n.more.util.hide
-import herbs.n.more.util.show
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -46,7 +44,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class HomeFragment : BaseFragment(), KodeinAware, ProductItemListener, ProductRecentlyItemListener {
+class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductItemListener, ProductRecentlyItemListener {
 
     private lateinit var binding: FragmentHomeBinding
     override val kodein by kodein()
@@ -73,6 +71,7 @@ class HomeFragment : BaseFragment(), KodeinAware, ProductItemListener, ProductRe
         binding.bestselling = viewModel
         binding.fragment = this
         binding.lifecycleOwner = this
+        viewModel.bestSellingListener = this
         viewModel.user.observe(viewLifecycleOwner, androidx.lifecycle.Observer { user ->
             this.user = user
             if (user != null) {
@@ -165,10 +164,10 @@ class HomeFragment : BaseFragment(), KodeinAware, ProductItemListener, ProductRe
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindDataBestSelling() = Coroutines.main {
-        progress_bar.show()
+        binding.rlLoading.visibility = View.VISIBLE
         val bestSelling = viewModel.bestSelling.await()
-        bestSelling.observe(this, androidx.lifecycle.Observer {
-            progress_bar.hide()
+        bestSelling?.observe(this, androidx.lifecycle.Observer {
+            binding.rlLoading.visibility = View.GONE
             swiperefresh.isRefreshing = false
             val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
                 addAll(it.toProductItem())
@@ -221,8 +220,8 @@ class HomeFragment : BaseFragment(), KodeinAware, ProductItemListener, ProductRe
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindDataPopular() = Coroutines.main {
-        viewModel.getPopular(pageindex).removeObservers(this);
-        viewModel.getPopular(pageindex).observe(this, androidx.lifecycle.Observer {
+        viewModel.getPopular(pageindex)?.removeObservers(this);
+        viewModel.getPopular(pageindex)?.observe(this, androidx.lifecycle.Observer {
             if (!loadmore) {
                 mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
                     if (it.isNotEmpty()) {
@@ -248,8 +247,8 @@ class HomeFragment : BaseFragment(), KodeinAware, ProductItemListener, ProductRe
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun loadMorePopular() = Coroutines.main {
-        viewModel.getPopular(pageindex).removeObservers(this);
-        viewModel.getPopular(pageindex).observe(this, androidx.lifecycle.Observer {
+        viewModel.getPopular(pageindex)?.removeObservers(this);
+        viewModel.getPopular(pageindex)?.observe(this, androidx.lifecycle.Observer {
             if (loadmore) {
                 if (it.isNotEmpty()) {
                     mSuggestedAdapter.addAll(it.toProductItem())
@@ -275,7 +274,7 @@ class HomeFragment : BaseFragment(), KodeinAware, ProductItemListener, ProductRe
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindBanners() = Coroutines.main {
         val banners = viewModel.banners.await()
-        banners.observe(this, androidx.lifecycle.Observer {
+        banners?.observe(this, androidx.lifecycle.Observer {
             swiperefresh.isRefreshing = false
             mViewPager?.refreshData(it)
         })
@@ -284,7 +283,7 @@ class HomeFragment : BaseFragment(), KodeinAware, ProductItemListener, ProductRe
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindCampaigns() = Coroutines.main {
         val campaigns = viewModel.campaigns.await()
-        campaigns.observe(this, androidx.lifecycle.Observer {
+        campaigns?.observe(this, androidx.lifecycle.Observer {
             swiperefresh.isRefreshing = false
             mViewPagerCampaign?.refreshData(it)
         })
@@ -340,6 +339,20 @@ class HomeFragment : BaseFragment(), KodeinAware, ProductItemListener, ProductRe
         }else {
             val dialog : ConfirmLoginDialog? = activity?.let { ConfirmLoginDialog(it) }
             dialog?.show()
+        }
+    }
+
+    override fun onFailure(message: String) {
+        binding.rlLoading.visibility = View.GONE
+        when(message) {
+            Constant.API_ERROR -> (activity as MainActivity).showMessage(
+                resources.getString(R.string.server_error_title),
+                resources.getString(R.string.server_error)
+            )
+            Constant.NO_INTERNET -> (activity as MainActivity).showMessage(
+                resources.getString(R.string.network_error_title),
+                resources.getString(R.string.network_error)
+            )
         }
     }
 }
