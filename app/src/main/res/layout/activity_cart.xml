@@ -13,6 +13,6 @@
         android:layout_height="match_parent"
         app:navGraph="@navigation/cart_nav_graph"
         app:defaultNavHost="true"
-        android:id="@+id/fragment"/>
+        android:id="@+id/fragment_cart"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

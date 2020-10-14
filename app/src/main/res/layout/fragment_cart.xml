@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginRight="@dimen/dp_20"
-                android:onClick="@{() -> fragment.closeKeyBoard()}"
+                android:onClick="@{() -> fragment.closeKeyBoardAndClearFocus()}"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/dp_20">
 
@@ -266,7 +266,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:elevation="@dimen/dp_3"
-            android:onClick="@{() -> fragment.closeKeyBoard()}"
+            android:onClick="@{() -> fragment.closeKeyBoardAndClearFocus()}"
             android:outlineAmbientShadowColor="@color/colorBlack"
             android:outlineSpotShadowColor="@color/colorBlack"
             app:cardBackgroundColor="@color/colorWhite"
@@ -306,7 +306,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_50"
                     android:backgroundTint="@color/text_color_error"
-                    android:fontFamily="@font/utm_avo"
                     android:onClick="@{() -> fragment.continueOrder()}"
                     android:text="@string/proceed_to_order"
                     app:cornerRadius="@dimen/dp_5" />

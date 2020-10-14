@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -81,7 +84,6 @@ class CartFragment : BaseFragment(), KodeinAware, CartListener, ConfirmDeleteDia
                     )
                     adapter = mAdapter
                 }
-                binding.rvCart.addItemDecoration(DividerItemDecoration(activity))
                 binding.rvCart.addItemDecoration(
                     DividerItemDecoration(activity, R.drawable.divider)
                 )
@@ -108,11 +110,14 @@ class CartFragment : BaseFragment(), KodeinAware, CartListener, ConfirmDeleteDia
 
     private fun caculateDiscount(){
         val totalDiscount = totalOrder * (percent / 100f)
-        totalOrder -= totalDiscount
-        binding.tvTotalDiscount.text = convertMoney(totalDiscount)
+        if (percent > 0){
+            binding.tvTotalDiscount.text = "-" + convertMoney(totalDiscount)
+        }else {
+            binding.tvTotalDiscount.text = convertMoney(totalDiscount)
+        }
         binding.tvTotalTemp.text = convertMoney(totalOrder)
-        binding.tvTotal.text = convertMoney(totalOrder)
-        binding.tvTotalEnd.text = convertMoney(totalOrder)
+        binding.tvTotal.text = convertMoney(totalOrder - totalDiscount)
+        binding.tvTotalEnd.text = convertMoney(totalOrder - totalDiscount)
     }
 
     fun showConfirmDelete(cart: Cart){
@@ -126,6 +131,8 @@ class CartFragment : BaseFragment(), KodeinAware, CartListener, ConfirmDeleteDia
 
     fun continueOrder(){
         closeKeyBoard()
+        val bundle = bundleOf("percent" to percent)
+        findNavController(this).navigate(R.id.action_cartFragment_to_paymentFragment, bundle)
     }
 
     override fun onStarted() {
@@ -148,6 +155,7 @@ class CartFragment : BaseFragment(), KodeinAware, CartListener, ConfirmDeleteDia
     override fun onFailure(message: String) {
         binding.rlLoading.visibility = View.GONE
         binding.tvErrCode.visibility = View.VISIBLE
+        binding.tvErrCode.setTextColor(resources.getColor(R.color.text_color_error))
         when(message) {
             Constant.CODE_NULL -> tv_err_code.text = resources.getString(R.string.code_is_blank)
             Constant.CODE_OK -> tv_err_code.text = ""

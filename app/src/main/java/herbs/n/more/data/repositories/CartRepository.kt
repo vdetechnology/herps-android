@@ -11,6 +11,8 @@ class CartRepository(
     private val db: AppDatabase
 ) : SafeApiRequest() {
 
+    fun getUser() = db.getUserDao().getuser()
+
     fun getAllCart() = db.getCartDao().getAllCart()
 
     fun getSumOrder() = db.getCartDao().getSumOrder()
@@ -18,6 +20,8 @@ class CartRepository(
     fun updateCart(cart: Cart) = db.getCartDao().updateCart(cart)
 
     fun deleteCart(cart: Cart) = db.getCartDao().deleteCart(cart)
+
+    fun deleteAllCart() = db.getCartDao().deleteAllCart()
 
     suspend fun getDiscountCode(
         email: String

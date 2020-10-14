@@ -54,6 +54,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     private var mViewPager: BannerViewPager<String, BaseViewHolder<String>>? = null
     var user : User? = null
     var product: DetailProduct? = null
+    private var seeLess : Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,11 +110,13 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
                     loadmore = true
                     loadMorePopular()
                 }
-            }else{
+            }
+            if (seeLess) {
                 if (scrollY == (binding.llDescription.parent as View).top + binding.llDescription.top) {
                     binding.tvDescription.maxLines = 6
                     binding.tvSeeMore.visibility = View.VISIBLE
                     binding.tvSeeLess.visibility = View.GONE
+                    seeLess = false
                 }
             }
         })
@@ -267,6 +270,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     }
 
     fun onSeeLessClick(view: View){
+        seeLess = true
         val scrollTo: Int =
             (binding.llDescription.parent as View).top + binding.llDescription.top
         binding.svHome.smoothScrollTo(0, scrollTo);

@@ -161,5 +161,22 @@
     <string name="payment_methods">Phương thức thanh toán</string>
     <string name="payment_on_delivery">Thanh toán khi nhận hàng</string>
     <string name="complete_order">Hoàn tất đặt hàng</string>
+    <string name="address_is_blank">Vui lòng nhập địa chỉ</string>
+    <string name="phone_is_blank">Vui lòng nhập số điện thoại</string>
+    <string name="phone_shorter">Số điện thoại tối thiểu phải 10 số</string>
+    <string name="phone_not_contain_space">Số điện thoại không được chứa khoảng trắng</string>
+
+    <!-- Payment Result-->
+    <string name="success">Hoàn tất</string>
+    <string name="thank_trust">Cảm ơn bạn đã tin tưởng</string>
+    <string name="order_success">Đơn hàng của bạn đã được đặt thành công (*)</string>
+    <string name="code_orders">Mã đơn hàng:</string>
+    <string name="date_order">Đặt ngày:</string>
+    <string name="total_orders">Tổng cộng:</string>
+    <string name="payment_methods_lb">Phương thức thanh toán:</string>
+    <string name="note_orders">(*) Sẽ có một email gửi cho bạn, bạn vui lòng kiểm tra hộp thư để kiểm tra chi tiết về thông tin Đơn hàng.
+        \n- Trường hợp bạn đã thanh toán bằng các phương thức thanh toán do chúng tôi cung cấp bạn vùi lòng chờ email xác nhận trong vòng
+        24h tính từ thời gian bạn hoàn tất đặt hàng hoặc liên hệ hotline 0989588553 | 0902717858.</string>
+    <string name="back_to_purchase">Quay lại trang mua hàng</string>
 
 </resources>

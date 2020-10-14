@@ -38,11 +38,11 @@
 
             <ImageView
                 android:id="@+id/image_view_logo"
-                android:layout_width="@dimen/dp_165"
+                android:layout_width="@dimen/dp_170"
                 android:layout_height="@dimen/dp_65"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dp_50"
-                android:scaleType="fitXY"
+                android:scaleType="centerInside"
                 android:src="@drawable/ic_logo" />
 
             <LinearLayout

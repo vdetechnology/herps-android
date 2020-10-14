@@ -23,5 +23,13 @@ class Constant {
 
         const val CODE_NULL = "1012"
         const val CODE_OK = "1013"
+
+        const val ADDRESS_NULL = "1014"
+        const val ADDRESS_OK = "1015"
+
+        const val PHONE_NULL = "1016"
+        const val PHONE_SHORTER = "1017"
+        const val PHONE_OK = "1018"
+        const val PHONE_INVALID = "1019"
     }
 }

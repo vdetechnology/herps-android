@@ -14,7 +14,7 @@
 
         <variable
             name="fragment"
-            type="herbs.n.more.ui.payment.PaymentFragment" />
+            type="herbs.n.more.ui.cart.PaymentFragment" />
     </data>
 
     <RelativeLayout
@@ -34,7 +34,7 @@
                 android:layout_height="@dimen/dp_40"
                 android:layout_centerVertical="true"
                 android:background="?actionBarItemBackground"
-                android:onClick="@{fragment::onBackActivity}"
+                android:onClick="@{fragment::onBackNavController}"
                 android:padding="@dimen/dp_15"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_arrow_back" />
@@ -105,7 +105,6 @@
                         style="@style/ColorMainTextRegular12"
                         android:layout_gravity="center_vertical"
                         android:layout_marginTop="@dimen/dp_15"
-                        android:layout_marginBottom="@dimen/dp_5"
                         android:text="@string/lb_name"
                         android:textColor="@color/colorBlack" />
 
@@ -118,16 +117,21 @@
                         android:hint="@string/name_hint"
                         android:inputType="textPersonName"
                         android:nextFocusDown="@id/et_address"
-                        android:text=""
+                        android:text="@={cart.name}"
                         android:textColor="@color/colorBlack"
                         android:textColorHint="@color/text_color_hint"
                         android:textSize="@dimen/sp_10" />
 
                     <TextView
+                        android:id="@+id/tv_err_name"
+                        style="@style/TextNameProductRegular10"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/dp_7"
+                        android:textColor="@color/text_color_error" />
+
+                    <TextView
                         style="@style/ColorMainTextRegular12"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_marginBottom="@dimen/dp_5"
                         android:text="@string/delivery_address"
                         android:textColor="@color/colorBlack" />
 
@@ -140,16 +144,21 @@
                         android:hint="@string/delivery_address_hint"
                         android:inputType="text"
                         android:nextFocusDown="@id/et_phone_number"
-                        android:text=""
+                        android:text="@={cart.address}"
                         android:textColor="@color/colorBlack"
                         android:textColorHint="@color/text_color_hint"
                         android:textSize="@dimen/sp_10" />
 
                     <TextView
+                        android:id="@+id/tv_err_address"
+                        style="@style/TextNameProductRegular10"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/dp_7"
+                        android:textColor="@color/text_color_error" />
+
+                    <TextView
                         style="@style/ColorMainTextRegular12"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_marginBottom="@dimen/dp_5"
                         android:text="@string/delivery_phone"
                         android:textColor="@color/colorBlack" />
 
@@ -162,16 +171,21 @@
                         android:hint="@string/delivery_phone_hint"
                         android:inputType="number|phone"
                         android:nextFocusDown="@id/et_email"
-                        android:text=""
+                        android:text="@={cart.phone}"
                         android:textColor="@color/colorBlack"
                         android:textColorHint="@color/text_color_hint"
                         android:textSize="@dimen/sp_10" />
 
                     <TextView
+                        android:id="@+id/tv_err_phone"
+                        style="@style/TextNameProductRegular10"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/dp_7"
+                        android:textColor="@color/text_color_error" />
+
+                    <TextView
                         style="@style/ColorMainTextRegular12"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_marginBottom="@dimen/dp_5"
                         android:text="@string/lb_email_requiment"
                         android:textColor="@color/colorBlack" />
 
@@ -184,10 +198,16 @@
                         android:hint="@string/email_hint"
                         android:inputType="textEmailAddress"
                         android:nextFocusDown="@id/et_note"
-                        android:text=""
+                        android:text="@={cart.email}"
                         android:textColor="@color/colorBlack"
                         android:textColorHint="@color/text_color_hint"
                         android:textSize="@dimen/sp_10" />
+
+                    <TextView
+                        android:id="@+id/tv_err_email"
+                        style="@style/TextNameProductRegular10"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/text_color_error" />
 
                 </LinearLayout>
 
@@ -228,13 +248,13 @@
                         android:gravity="top"
                         android:hint="@string/note_order_hint"
                         android:imeOptions="actionDone"
-                        android:inputType="textMultiLine"
+                        android:inputType="text"
                         android:maxLength="250"
                         android:maxLines="4"
                         android:paddingLeft="@dimen/dp_15"
                         android:paddingTop="@dimen/dp_10"
                         android:paddingRight="@dimen/dp_15"
-                        android:text=""
+                        android:text="@={cart.note}"
                         android:textColor="@color/colorBlack"
                         android:textColorHint="@color/text_color_hint"
                         android:textSize="@dimen/sp_10" />
@@ -272,7 +292,7 @@
                         android:id="@+id/rv_cart"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_10"
                         android:nestedScrollingEnabled="false"
                         android:paddingLeft="@dimen/dp_10"
                         android:paddingRight="@dimen/dp_10"
@@ -399,12 +419,14 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_methods"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_20"
                     android:background="@drawable/bg_item"
                     android:orientation="vertical"
-                    android:padding="@dimen/dp_15">
+                    android:paddingTop="@dimen/dp_15"
+                    android:paddingBottom="@dimen/dp_15">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -412,6 +434,8 @@
                         android:background="@drawable/border_bottom_white"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_marginRight="@dimen/dp_15"
                         android:paddingBottom="@dimen/dp_10">
 
                         <ImageView
@@ -426,25 +450,18 @@
                             android:textSize="@dimen/sp_12" />
                     </LinearLayout>
 
-                    <LinearLayout
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/rb_cod"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.radiobutton.MaterialRadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_m_74"
-                            android:button="@drawable/checkbox"
-                            android:fontFamily="@font/utm_avo"
-                            android:paddingHorizontal="@dimen/dp_20"
-                            android:scaleX="0.5"
-                            android:scaleY="0.5"
-                            android:text="@string/payment_on_delivery"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/sp_23"
-                            app:buttonTint="@color/colorBlack" />
-                    </LinearLayout>
+                        android:button="@drawable/checkbox"
+                        android:fontFamily="@font/utm_avo"
+                        android:paddingHorizontal="@dimen/dp_5"
+                        android:layout_marginLeft="@dimen/dp_3"
+                        android:text="@string/payment_on_delivery"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp_12"
+                        app:buttonTint="@color/colorBlack" />
 
                 </LinearLayout>
 
@@ -497,8 +514,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_50"
                     android:backgroundTint="@color/text_color_error"
-                    android:fontFamily="@font/utm_avo"
                     android:text="@string/complete_order"
+                    android:onClick="@{() -> fragment.continueOrder()}"
                     app:cornerRadius="@dimen/dp_5" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

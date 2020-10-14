@@ -141,7 +141,7 @@
     <string name="continue_buy">Tiếp tục mua sắm</string>
     <string name="title_delete">Bạn chắc chắn muốn bỏ sản phẩm này?</string>
     <string name="btn_ok">OK</string>
-    <string name="code_is_blank">Please enter discount code</string>
+    <string name="code_is_blank">Please input discount code</string>
     <string name="code_error">Discount code error</string>
     <string name="code_success">Apply discount code success, you will get <b><u>%s</u></b></string>
     <string name="percent">&#37; off</string>
@@ -149,10 +149,10 @@
     <!-- Payment-->
     <string name="payment">Payment</string>
     <string name="note_order">Order note</string>
-    <string name="note_order_hint">Ghi chú về đơn hàng\n(ví dụ: Thời gian giao hàng hoặc chỉ đẫn chi tiết địa điểm)</string>
+    <string name="note_order_hint">Order note\n(Ex: Time delivery or detail address)</string>
     <string name="receiving_information">Receiving information</string>
     <string name="delivery_address">Delivery address*</string>
-    <string name="delivery_address_hint">Nhập địa chỉ (nên ghi rõ tên đường, số nhà)</string>
+    <string name="delivery_address_hint">Input address(street, home number,...)</string>
     <string name="delivery_phone">Phone number*</string>
     <string name="delivery_phone_hint">Input your phone number</string>
     <string name="details_order">Details order</string>
@@ -161,5 +161,22 @@
     <string name="payment_methods">Payment methods</string>
     <string name="payment_on_delivery">Payment on delivery</string>
     <string name="complete_order">Complete your order</string>
+    <string name="address_is_blank">Please enter your address</string>
+    <string name="phone_is_blank">Please enter your phone number</string>
+    <string name="phone_shorter">Phone number must be at least 10 characters</string>
+    <string name="phone_not_contain_space">Phone number must not contain space</string>
+
+    <!-- Payment Result-->
+    <string name="success">Success</string>
+    <string name="thank_trust">Thank you for your trust</string>
+    <string name="order_success">Your order has been successfully placed (*)</string>
+    <string name="code_orders">Code orders:</string>
+    <string name="date_order">Date of order:</string>
+    <string name="total_orders">Total:</string>
+    <string name="payment_methods_lb">Payment methods:</string>
+    <string name="note_orders">(*) Sẽ có một email gửi cho bạn, bạn vui lòng kiểm tra hộp thư để kiểm tra chi tiết về thông tin Đơn hàng.
+        \n- Trường hợp bạn đã thanh toán bằng các phương thức thanh toán do chúng tôi cung cấp bạn vùi lòng chờ email xác nhận trong vòng
+        24h tính từ thời gian bạn hoàn tất đặt hàng hoặc liên hệ hotline 0989588553 | 0902717858.</string>
+    <string name="back_to_purchase">Back to purchase</string>
 
 </resources>
