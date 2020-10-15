@@ -12,6 +12,7 @@
     </data>
 
     <RelativeLayout
+        android:id="@+id/rl_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_transparent">
@@ -142,11 +143,9 @@
                     android:background="@drawable/border_bottom_input_number"
                     android:fontFamily="@font/utm_avo"
                     android:gravity="center"
-                    android:hint="0"
                     android:imeOptions="actionDone"
                     android:inputType="number"
                     android:maxLength="3"
-                    android:text="@{cart.amount.toString()}"
                     android:textColor="@color/colorBlack"
                     android:textColorHint="@color/text_color_hint"
                     android:textSize="@dimen/sp_12" />

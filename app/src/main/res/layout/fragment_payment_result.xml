@@ -187,6 +187,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_note"
                 style="@style/TextSubRegular10"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="@dimen/dp_35"

@@ -1,155 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.category.CategoryFragment">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="herbs.n.more.ui.category.CategoryFragment" />
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/sp_25"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginBottom="@dimen/dp_10">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_36"
-            android:layout_toLeftOf="@+id/tv_cancel"
-            android:background="@drawable/search_box"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/dp_50"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/dp_20">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageView"
-                android:layout_width="@dimen/dp_36"
+            <TextView
+                style="@style/ColorMainTextRegular15"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_toRightOf="@+id/ib_back"
+                android:text="@string/success" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/searchButton"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_toLeftOf="@+id/cart_container"
+                android:background="@color/colorWhite"
+                android:padding="@dimen/dp_5"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_search" />
+
+
+            <RelativeLayout
+                android:id="@+id/cart_container"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:elevation="15dp"
+                android:onClick="@{() -> fragment.goToCart()}">
+
+                <ImageView
+                    android:id="@+id/bt_cart"
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_centerInParent="true"
+                    android:background="?actionBarItemBackground"
+                    android:padding="@dimen/dp_2"
+                    android:src="@drawable/ic_cart" />
+
+                <TextView
+                    android:id="@+id/tv_number_in_cart"
+                    android:layout_width="@dimen/dp_18"
+                    android:layout_height="@dimen/dp_18"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_cart_text"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_8"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/sv_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/header">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginStart="@dimen/dp_8"
-                app:srcCompat="@drawable/ic_search"
-                android:padding="@dimen/dp_7"/>
+                android:orientation="vertical"
+                android:onClick="@{() -> fragment.closeKeyBoard()}">
 
-            <EditText
-                android:id="@+id/txtSearch"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_8"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:hint="@string/search_hint"
-                android:inputType="textPersonName"
-                android:maxLines="1"
-                android:textColor="@color/colorBlack"
-                android:textSize="@dimen/dp_16" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp_20"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_20">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/btnClearSearch"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_45"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/ll_filter"
+                        android:background="@drawable/bg_edit_text">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="@dimen/dp_36"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_7"
+                            android:padding="@dimen/dp_8"
+                            app:srcCompat="@drawable/ic_search" />
+
+                        <EditText
+                            android:id="@+id/txtSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_toLeftOf="@+id/btnClearSearch"
+                            android:layout_toRightOf="@+id/imageView"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/utm_avo"
+                            android:hint="@string/search_hint"
+                            android:inputType="text"
+                            android:paddingLeft="@dimen/dp_10"
+                            android:paddingRight="@dimen/dp_10"
+                            android:textColor="@color/colorBlack"
+                            android:textColorHint="@color/text_color_hint"
+                            android:textSize="@dimen/dp_12" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/btnClearSearch"
+                            android:layout_width="@dimen/dp_40"
+                            android:layout_height="@dimen/dp_45"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="center_vertical"
+                            android:background="?actionBarItemBackground"
+                            android:padding="@dimen/dp_12"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/ic_close" />
+                    </RelativeLayout>
+
+                    <!--<com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cv_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:outlineAmbientShadowColor="@color/colorPrimary"
+                        android:outlineSpotShadowColor="@color/colorPrimary"
+                        app:cardBackgroundColor="@color/colorPrimary"
+                        app:cardCornerRadius="@dimen/dp_10"
+                        app:cardElevation="@dimen/dp_3"
+                        app:cardUseCompatPadding="true">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_45"
+                            android:layout_height="@dimen/dp_45"
+                            android:padding="@dimen/dp_10"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_filter" />
+                    </com.google.android.material.card.MaterialCardView>-->
+                    <LinearLayout
+                        android:id="@+id/ll_filter"
+                        android:layout_width="@dimen/dp_55"
+                        android:layout_height="@dimen/dp_55"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:background="@mipmap/shadow">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?actionBarItemBackground"
+                            android:padding="@dimen/dp_5"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_filter" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <TextView
+                    style="@style/ColorMainTextRegular15"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:text="@string/product_category"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="@dimen/dp_10"
+                    app:cardElevation="@dimen/dp_0"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_15"
+                    app:cardBackgroundColor="@color/colorWhite">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_92"
+                        android:background="@mipmap/category1"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="@dimen/dp_10"
+                    app:cardElevation="@dimen/dp_0"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_15"
+                    app:cardBackgroundColor="@color/colorWhite">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_92"
+                        android:background="@mipmap/category2"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="@dimen/dp_10"
+                    app:cardElevation="@dimen/dp_0"
+                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    app:cardBackgroundColor="@color/colorWhite">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_92"
+                        android:background="@mipmap/category3"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    style="@style/ColorMainTextRegular15"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:text="@string/product" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_15"
+                    android:layout_marginRight="@dimen/dp_15"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:scrollbars="none"/>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:id="@+id/rl_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBlack20"
+            android:visibility="gone">
+
+            <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/dp_8"
-                android:layout_marginRight="@dimen/dp_8"
-                android:visibility="invisible"
-                app:srcCompat="@drawable/ic_close" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginRight="@dimen/sp_25"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Cancel"
-            android:textSize="@dimen/dp_16" />
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
     </RelativeLayout>
-
-    <TextView
-        style="@style/ColorMainTextBold15"
-        android:layout_marginLeft="@dimen/sp_25"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:text="@string/recent_searches" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:layout_marginLeft="@dimen/sp_25"
-        android:layout_marginRight="@dimen/dp_13"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:layout_marginRight="@dimen/dp_10"
-            android:background="@mipmap/ic_history_black_48dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Xương khớp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/black" />
-
-        <ImageView
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:background="?attr/selectableItemBackground"
-            android:padding="@dimen/dp_10"
-            android:src="@drawable/ic_close" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:layout_marginLeft="@dimen/sp_25"
-        android:layout_marginRight="@dimen/dp_13"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="@dimen/dp_25"
-            android:layout_height="@dimen/dp_25"
-            android:layout_marginRight="@dimen/dp_10"
-            android:background="@mipmap/ic_history_black_48dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Canxi"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@android:color/black" />
-
-        <ImageView
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:background="?attr/selectableItemBackground"
-            android:padding="@dimen/dp_10"
-            android:src="@drawable/ic_close" />
-    </LinearLayout>
-
-    <TextView
-        style="@style/ColorMainTextBold15"
-        android:layout_marginLeft="@dimen/sp_25"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:text="@string/lable_category" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_category"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:nestedScrollingEnabled="false"
-        android:scrollbars="none"/>
-
-</LinearLayout>
+</layout>

@@ -142,8 +142,6 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
         mViewPagerCampaign?.apply {
             setIndicatorView(mIndicatorView2)
             setLifecycleRegistry(lifecycle)
-            setPageMargin(getResources().getDimensionPixelOffset(R.dimen.dp_0))
-            setRevealWidth(getResources().getDimensionPixelOffset(R.dimen.dp_30))
             setIndicatorSliderRadius(resources.getDimensionPixelOffset(R.dimen.dp_3), resources.getDimensionPixelOffset(R.dimen.dp_3))
             setOnPageClickListener{ position: Int -> pageClick(position) }
             setAdapter(CampaignAdapter())
@@ -165,6 +163,7 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindDataBestSelling() = Coroutines.main {
         binding.rlLoading.visibility = View.VISIBLE
+        viewModel.bestSelling.await()?.removeObservers(this)
         val bestSelling = viewModel.bestSelling.await()
         bestSelling?.observe(this, androidx.lifecycle.Observer {
             binding.rlLoading.visibility = View.GONE
@@ -220,7 +219,7 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindDataPopular() = Coroutines.main {
-        viewModel.getPopular(pageindex)?.removeObservers(this);
+        viewModel.getPopular(pageindex)?.removeObservers(this)
         viewModel.getPopular(pageindex)?.observe(this, androidx.lifecycle.Observer {
             if (!loadmore) {
                 mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
@@ -247,7 +246,7 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun loadMorePopular() = Coroutines.main {
-        viewModel.getPopular(pageindex)?.removeObservers(this);
+        viewModel.getPopular(pageindex)?.removeObservers(this)
         viewModel.getPopular(pageindex)?.observe(this, androidx.lifecycle.Observer {
             if (loadmore) {
                 if (it.isNotEmpty()) {

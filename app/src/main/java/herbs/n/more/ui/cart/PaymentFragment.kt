@@ -53,7 +53,7 @@ class PaymentFragment : BaseFragment(), KodeinAware, CartListener{
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         percent = arguments?.getInt("percent")!!
-        binding.rbCod.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.rbCod.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked)
                 binding.llMethods.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_item))
         }
@@ -68,8 +68,10 @@ class PaymentFragment : BaseFragment(), KodeinAware, CartListener{
 
     private fun getUser(){
         viewModel.user.observe(viewLifecycleOwner, androidx.lifecycle.Observer { user ->
-            binding.etName.setText(user.displayName)
-            binding.etEmail.setText(user.email)
+            if (user != null) {
+                binding.etName.setText(user.displayName)
+                binding.etEmail.setText(user.email)
+            }
         })
     }
 
@@ -133,7 +135,7 @@ class PaymentFragment : BaseFragment(), KodeinAware, CartListener{
             if (!binding.rbCod.isChecked) {
                 binding.llMethods.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_error))
                 val scrollTo: Int = (binding.llMethods.parent as View).top + binding.llMethods.top
-                binding.svHome.smoothScrollTo(0, scrollTo);
+                binding.svHome.smoothScrollTo(0, scrollTo)
             } else {
                 binding.llMethods.setBackgroundDrawable(resources.getDrawable(R.drawable.bg_item))
                 deleteCart()

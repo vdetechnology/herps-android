@@ -221,8 +221,10 @@
                         app:bvp_indicator_visibility="gone"
                         app:bvp_interval="5000"
                         app:bvp_page_margin="@dimen/dp_0"
-                        app:bvp_page_style="multi_page_scale"
-                        app:bvp_reveal_width="@dimen/dp_30" />
+                        app:bvp_page_style="normal"
+                        app:bvp_reveal_width="@dimen/dp_0"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:layout_marginRight="@dimen/dp_20"/>
 
                     <com.zhpan.indicator.IndicatorView
                         android:id="@+id/indicator_view_2"

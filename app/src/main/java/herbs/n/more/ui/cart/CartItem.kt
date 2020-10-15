@@ -6,6 +6,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import com.xwray.groupie.databinding.BindableItem
 import herbs.n.more.R
@@ -56,9 +57,11 @@ class CartItem(
             .centerCrop()
             .into(viewBinding.ivProductImage);
         viewBinding.btDelete.setOnClickListener {
+            context.closeKeyBoardAndClearFocus()
             context.viewModel.deleteCart(cart)
         }
         viewBinding.ivBuyLate.setOnClickListener {
+            context.closeKeyBoardAndClearFocus()
             Toast.makeText(
                 context.activity,
                 context.resources.getString(R.string.comming_soon),
@@ -66,6 +69,7 @@ class CartItem(
             ).show()
         }
         viewBinding.tvBuyLate.setOnClickListener {
+            context.closeKeyBoardAndClearFocus()
             Toast.makeText(
                 context.activity,
                 context.resources.getString(R.string.comming_soon),
@@ -73,8 +77,9 @@ class CartItem(
             ).show()
         }
         viewBinding.cvMinus.setOnClickListener {
+            context.closeKeyBoardAndClearFocus()
             if (cart.amount == 1){
-                context.showConfirmDelete(cart)
+                context.showConfirmDelete(cart, viewBinding.etAmount)
             }else{
                 cart.amount = cart.amount?.minus(1)
                 if (cart?.total_sales!! > 0) {
@@ -86,8 +91,9 @@ class CartItem(
             }
         }
         viewBinding.cvPlus.setOnClickListener {
+            context.closeKeyBoardAndClearFocus()
             cart.amount = cart.amount?.plus(1)
-            if (cart?.total_sales!! > 0) {
+            if (cart.total_sales!! > 0) {
                 cart.total_order = cart.amount?.times(cart.sale_price!!)
             }else{
                 cart.total_order = cart.amount?.times(cart.price!!)
@@ -95,8 +101,20 @@ class CartItem(
             context.viewModel.updateCart(cart)
         }
 
-        viewBinding.etAmount.setOnFocusChangeListener { v, hasFocus ->
+        viewBinding.etAmount.setText(cart.amount.toString())
+
+        viewBinding.etAmount.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus){
+                if (viewBinding.etAmount.text.isEmpty()){
+                    context.showConfirmDelete(cart, viewBinding.etAmount)
+                }
+            }
+        }
+
+        viewBinding.etAmount.addTextChangedListener {
+            if (viewBinding.etAmount.text.toString() == "0"){
+                context.showConfirmDelete(cart, viewBinding.etAmount)
+            }else{
                 saveAmount(viewBinding)
             }
         }
@@ -107,20 +125,24 @@ class CartItem(
             }
             false
         })
+
+        viewBinding.rlCart.setOnClickListener {
+            context.closeKeyBoardAndClearFocus()
+        }
     }
 
     private fun saveAmount(viewBinding: ItemCartBinding){
         val number = viewBinding.etAmount.text.toString()
-        if (viewBinding.etAmount.text.isNotEmpty()){
+        if (number.isNotEmpty() && number != "0"){
             cart.amount = number.toInt()
-            if (cart?.total_sales!! > 0) {
+            if (cart.total_sales!! > 0) {
                 cart.total_order = cart.amount?.times(cart.sale_price!!)
             }else{
                 cart.total_order = cart.amount?.times(cart.price!!)
             }
-            context.viewModel.updateCart(cart)
-        }else{
-            viewBinding.etAmount.setText(cart.amount.toString())
+            context.viewModel.updateCart(cart).apply {
+               viewBinding.etAmount.clearFocus()
+            }
         }
     }
 }

@@ -59,7 +59,7 @@
     <string name="close">Đóng</string>
     <string name="continute_account">Tiếp tục với tài khoản vừa tạo</string>
     <string name="back_to_login">Trở lại trang đăng nhập</string>
-    <string name="forgot_text1">Email hướng dẫn tạo mật khẩu đã được gửi đến địa chỉ <b><u>%s</u></b>. Hãy kiểm tra email và làm theo hướng đẫn.</string>
+    <string name="forgot_text1">Email hướng dẫn tạo mật khẩu đã được gửi đến địa chỉ <![CDATA[<b><font color=#FF3945>%s</font></b>]]>. Hãy kiểm tra email và làm theo hướng đẫn.</string>
     <string name="forgot_text2">Trong trường hợp không tìm thấy email trong hộp thư đến (inbox), vui lòng kiểm tra hộp thư Spam hoặc Junk.</string>
     <string name="network_error">Kết nối mạng của bạn hiện không hoạt động. Vui lòng kiểm tra và thử lại</string>
     <string name="network_error_title">Lỗi mạng</string>
@@ -91,8 +91,8 @@
 
     <!-- Category-->
     <string name="search_hint">Tìm kiếm...</string>
-    <string name="recent_searches">Lịch sử tìm kiếm</string>
-    <string name="lable_category">Danh mục</string>
+    <string name="product_category">Danh mục sản phẩm</string>
+    <string name="product">Sản phẩm</string>
 
     <!-- Category-->
     <string name="profile_name">Họ tên</string>
@@ -143,7 +143,7 @@
     <string name="btn_ok">Đồng ý</string>
     <string name="code_is_blank">Bạn chưa nhập mã giảm giá</string>
     <string name="code_error">Mã giảm giá lỗi</string>
-    <string name="code_success">Áp dụng thành công, bạn được giảm <b><u>%s</u></b></string>
+    <string name="code_success">Áp dụng thành công, bạn được giảm <![CDATA[<b>%s</b>]]></string>
     <string name="percent">&#37;</string>
 
     <!-- Payment-->
@@ -174,9 +174,9 @@
     <string name="date_order">Đặt ngày:</string>
     <string name="total_orders">Tổng cộng:</string>
     <string name="payment_methods_lb">Phương thức thanh toán:</string>
-    <string name="note_orders">(*) Sẽ có một email gửi cho bạn, bạn vui lòng kiểm tra hộp thư để kiểm tra chi tiết về thông tin Đơn hàng.
-        \n- Trường hợp bạn đã thanh toán bằng các phương thức thanh toán do chúng tôi cung cấp bạn vùi lòng chờ email xác nhận trong vòng
-        24h tính từ thời gian bạn hoàn tất đặt hàng hoặc liên hệ hotline 0989588553 | 0902717858.</string>
+    <string name="note_orders">(*) Sẽ có một email gửi cho bạn, bạn vui lòng kiểm tra hộp thư để kiểm tra chi tiết về thông tin đơn hàng.
+        <![CDATA[<br/>]]>- Trường hợp bạn đã thanh toán bằng các phương thức thanh toán do chúng tôi cung cấp bạn vùi lòng chờ email xác nhận trong vòng
+        24h tính từ thời gian bạn hoàn tất đặt hàng <![CDATA[<b>hoặc</b>]]> liên hệ hotline <![CDATA[<b>0989588553</b>]]> | <![CDATA[<b>0902717858</b>]]></string>
     <string name="back_to_purchase">Quay lại trang mua hàng</string>
 
 </resources>

@@ -28,7 +28,7 @@
             android:src="@drawable/ic_arrow_back"
             android:scaleType="centerCrop"
             android:padding="@dimen/dp_15"
-            android:onClick="@{fragment::onBack}"
+            android:onClick="@{() -> fragment.onBack()}"
             android:background="?actionBarItemBackground"/>
 
         <RelativeLayout
@@ -200,7 +200,7 @@
                         android:layout_width="@dimen/dp_45"
                         android:layout_height="@dimen/dp_45"
                         android:background="?selectableItemBackgroundBorderless"
-                        android:onClick="@{fragment::commingSoon}"
+                        android:onClick="@{() -> fragment.commingSoon()}"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/ic_zalo" />
 
@@ -211,7 +211,7 @@
                         android:layout_marginLeft="@dimen/dp_25"
                         android:layout_marginRight="@dimen/dp_25"
                         android:background="?selectableItemBackgroundBorderless"
-                        android:onClick="@{fragment::commingSoon}"
+                        android:onClick="@{() -> fragment.commingSoon()}"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/ic_google" />
 
@@ -220,7 +220,7 @@
                         android:layout_width="@dimen/dp_45"
                         android:layout_height="@dimen/dp_45"
                         android:background="?selectableItemBackgroundBorderless"
-                        android:onClick="@{fragment::commingSoon}"
+                        android:onClick="@{() -> fragment.commingSoon()}"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/ic_face" />
 

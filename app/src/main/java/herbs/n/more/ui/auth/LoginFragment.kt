@@ -39,7 +39,7 @@ class LoginFragment : BaseFragment(), AuthListener, KodeinAware {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left);
+        activity?.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false)
         viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
         binding.viewmodel = viewModel
@@ -58,7 +58,7 @@ class LoginFragment : BaseFragment(), AuthListener, KodeinAware {
                             activity?.overridePendingTransition(
                                 R.anim.anim_slide_in_right,
                                 R.anim.anim_slide_out_left
-                            );
+                            )
                         }
                     }
                 }
@@ -104,13 +104,13 @@ class LoginFragment : BaseFragment(), AuthListener, KodeinAware {
         view.findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
     }
 
-    fun commingSoon(view: View){
+    fun commingSoon() {
         activity?.toast(resources.getString(R.string.comming_soon))
     }
 
-    fun onBack(view: View){
+    fun onBack() {
         activity?.finish()
-        activity?.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
+        activity?.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right)
     }
 
     fun onShowPassword(view: View){
@@ -119,12 +119,12 @@ class LoginFragment : BaseFragment(), AuthListener, KodeinAware {
             binding.etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
             view.setImageResource(R.drawable.ic_show_pass_off)
             isShow = true
-            binding.etPassword.setSelection(binding.etPassword.text.length);
+            binding.etPassword.setSelection(binding.etPassword.text.length)
         } else{
             binding.etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
             view.setImageResource(R.drawable.ic_show_pass)
             isShow = false
-            binding.etPassword.setSelection(binding.etPassword.text.length);
+            binding.etPassword.setSelection(binding.etPassword.text.length)
         }
     }
 }

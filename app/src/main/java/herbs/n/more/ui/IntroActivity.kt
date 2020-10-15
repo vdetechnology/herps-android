@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.zhpan.bannerview.BannerViewPager
@@ -22,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_intro.*
 import net.simplifiedcoding.mvvmsampleapp.data.preferences.PreferenceProvider
 import kotlin.collections.ArrayList
 
-class IntroActivity : AppCompatActivity() {
+class IntroActivity : BaseActivity() {
 
     private lateinit var mViewPager: BannerViewPager<CustomBean, CustomPageViewHolder>
     protected var mDrawableList: MutableList<Int> = ArrayList()
@@ -53,7 +52,6 @@ class IntroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
-        supportActionBar?.hide()
         setupViewPager()
         updateUI(0)
     }

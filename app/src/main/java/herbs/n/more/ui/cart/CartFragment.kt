@@ -2,14 +2,15 @@ package herbs.n.more.ui.cart
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
@@ -18,7 +19,6 @@ import herbs.n.more.R
 import herbs.n.more.data.db.entities.Cart
 import herbs.n.more.databinding.FragmentCartBinding
 import herbs.n.more.ui.BaseFragment
-import herbs.n.more.ui.auth.AuthActivity
 import herbs.n.more.ui.dialog.ConfirmDeleteDialog
 import herbs.n.more.util.Constant
 import herbs.n.more.util.Coroutines
@@ -120,9 +120,9 @@ class CartFragment : BaseFragment(), KodeinAware, CartListener, ConfirmDeleteDia
         binding.tvTotalEnd.text = convertMoney(totalOrder - totalDiscount)
     }
 
-    fun showConfirmDelete(cart: Cart){
+    fun showConfirmDelete(cart: Cart, editText: EditText){
         val dialog : ConfirmDeleteDialog? = ConfirmDeleteDialog(this)
-        dialog?.show(cart)
+        dialog?.show(cart, editText)
     }
 
     override fun onOKClicked(cart: Cart) {
@@ -147,7 +147,7 @@ class CartFragment : BaseFragment(), KodeinAware, CartListener, ConfirmDeleteDia
         this.percent = percent
         binding.rlLoading.visibility = View.GONE
         binding.tvErrCode.visibility = View.VISIBLE
-        binding.tvErrCode.text = String.format(resources.getString(R.string.code_success),percent.toString()) + resources.getString(R.string.percent)
+        binding.tvErrCode.text = Html.fromHtml(String.format(resources.getString(R.string.code_success),percent.toString()) + resources.getString(R.string.percent))
         binding.tvErrCode.setTextColor(resources.getColor(R.color.colorPrimary))
         caculateDiscount()
     }
@@ -159,10 +159,7 @@ class CartFragment : BaseFragment(), KodeinAware, CartListener, ConfirmDeleteDia
         when(message) {
             Constant.CODE_NULL -> tv_err_code.text = resources.getString(R.string.code_is_blank)
             Constant.CODE_OK -> tv_err_code.text = ""
-            else -> (activity as CartActivity).showMessage(
-                resources.getString(R.string.discount_code),
-                message
-            )
+            else -> tv_err_code.text = message
         }
     }
 }

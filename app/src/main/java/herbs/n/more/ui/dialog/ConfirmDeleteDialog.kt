@@ -8,6 +8,7 @@ import android.graphics.drawable.InsetDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.Cart
@@ -18,7 +19,7 @@ class ConfirmDeleteDialog(private var mContext: CartFragment) {
 
     private var onDialogClick: OnDialogClick? = null
 
-    fun show(cart: Cart) {
+    fun show(cart: Cart, editText: EditText) {
         onDialogClick = mContext
         val factory = LayoutInflater.from(mContext.requireContext())
         val view: View = factory.inflate(R.layout.dialog_confirm_delete, null)
@@ -31,7 +32,12 @@ class ConfirmDeleteDialog(private var mContext: CartFragment) {
         val btnConfirm: Button = view.findViewById(R.id.btnAgree)
         val btnClose: Button = view.findViewById(R.id.btnNo)
         //txtMessage.text = message
-        btnClose.setOnClickListener { dialog.dismiss() }
+        btnClose.setOnClickListener {
+            editText.setText(cart.amount.toString())
+            editText.requestFocus()
+            editText.setSelection(editText.text.length)
+            dialog.dismiss()
+        }
         btnConfirm.setOnClickListener {
             onDialogClick?.onOKClicked(cart)
             dialog.dismiss()
