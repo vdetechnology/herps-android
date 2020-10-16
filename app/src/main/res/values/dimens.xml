@@ -1,5 +1,36 @@
 <resources>
 
+    <dimen name="dp_m_130">-130dp</dimen>
+    <dimen name="dp_m_110">-110dp</dimen>
+    <dimen name="dp_m_100">-100dp</dimen>
+    <dimen name="dp_m_90">-90dp</dimen>
+    <dimen name="dp_m_80">-80dp</dimen>
+    <dimen name="dp_m_70">-70dp</dimen>
+    <dimen name="dp_m_60">-60dp</dimen>
+    <dimen name="dp_m_50">-50dp</dimen>
+    <dimen name="dp_m_40">-40dp</dimen>
+    <dimen name="dp_m_35">-35dp</dimen>
+    <dimen name="dp_m_30">-30dp</dimen>
+    <dimen name="dp_m_20">-20dp</dimen>
+    <dimen name="dp_m_19">-19dp</dimen>
+    <dimen name="dp_m_18">-18dp</dimen>
+    <dimen name="dp_m_17">-17dp</dimen>
+    <dimen name="dp_m_16">-16dp</dimen>
+    <dimen name="dp_m_15">-15dp</dimen>
+    <dimen name="dp_m_14">-14dp</dimen>
+    <dimen name="dp_m_13">-13dp</dimen>
+    <dimen name="dp_m_12">-12dp</dimen>
+    <dimen name="dp_m_11">-11dp</dimen>
+    <dimen name="dp_m_10">-10dp</dimen>
+    <dimen name="dp_m_9">-9dp</dimen>
+    <dimen name="dp_m_8">-8dp</dimen>
+    <dimen name="dp_m_7">-7dp</dimen>
+    <dimen name="dp_m_6">-6dp</dimen>
+    <dimen name="dp_m_5">-5dp</dimen>
+    <dimen name="dp_m_4">-4dp</dimen>
+    <dimen name="dp_m_3">-3dp</dimen>
+    <dimen name="dp_m_2">-2dp</dimen>
+    <dimen name="dp_m_1">-1dp</dimen>
     <dimen name="dp_0">0dp</dimen>
     <dimen name="dp_0_1">0.1dp</dimen>
     <dimen name="dp_0_5">0.5dp</dimen>
@@ -27,7 +58,6 @@
     <dimen name="dp_18">18dp</dimen>
     <dimen name="dp_19">19dp</dimen>
     <dimen name="dp_20">20dp</dimen>
-    <dimen name="dp_m_20">-20dp</dimen>
     <dimen name="dp_21">21dp</dimen>
     <dimen name="dp_22">22dp</dimen>
     <dimen name="dp_23">23dp</dimen>
@@ -82,7 +112,6 @@
     <dimen name="dp_72">72dp</dimen>
     <dimen name="dp_73">73dp</dimen>
     <dimen name="dp_74">74dp</dimen>
-    <dimen name="dp_m_74">-74dp</dimen>
     <dimen name="dp_75">75dp</dimen>
     <dimen name="dp_76">76dp</dimen>
     <dimen name="dp_77">77dp</dimen>
@@ -387,7 +416,6 @@
     <dimen name="dp_640">640dp</dimen>
     <dimen name="dp_720">720dp</dimen>
 
-    <!--字体大小-->
     <dimen name="sp_6">6sp</dimen>
     <dimen name="sp_7">7sp</dimen>
     <dimen name="sp_8">8sp</dimen>

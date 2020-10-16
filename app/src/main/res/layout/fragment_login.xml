@@ -154,6 +154,9 @@
                     android:fontFamily="@font/utm_avo_bold"
                     android:onClick="@{viewmodel::onLoginButtonClick}"
                     android:text="@string/lb_log_in"
+                    android:outlineSpotShadowColor="@color/colorPrimary"
+                    android:outlineAmbientShadowColor="@color/colorPrimary"
+                    android:elevation="@dimen/dp_5"
                     android:textAllCaps="false"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/sp_15" />

@@ -206,7 +206,8 @@
                         android:layout_gravity="center_vertical|right"
                         android:layout_marginRight="@dimen/dp_20"
                         android:layout_marginBottom="@dimen/dp_25"
-                        android:text="@string/see_more" />
+                        android:text="@string/see_more"
+                        android:onClick="@{fragment::seeMoreBestSelling}"/>
 
                     <com.zhpan.bannerview.BannerViewPager
                         android:id="@+id/banner_view_advertisement"
@@ -258,7 +259,8 @@
                         android:layout_gravity="center_vertical|right"
                         android:layout_marginRight="@dimen/dp_20"
                         android:layout_marginBottom="@dimen/dp_25"
-                        android:text="@string/see_more" />
+                        android:text="@string/see_more"
+                        android:onClick="@{fragment::seeMoreRecently}"/>
 
                     <TextView
                         android:id="@+id/tv_suggested"
@@ -278,6 +280,12 @@
                         android:layout_marginBottom="@dimen/dp_10"
                         android:nestedScrollingEnabled="false"
                         android:scrollbars="none"/>
+
+                    <ProgressBar
+                        android:id="@+id/pb_load_more"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_30"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>

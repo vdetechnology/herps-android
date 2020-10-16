@@ -37,7 +37,7 @@ class CartFragment : BaseFragment(), KodeinAware, CartListener, ConfirmDeleteDia
     override val kodein by kodein()
     private val factory: CartViewModelFactory by instance()
     lateinit var viewModel: CartViewModel
-    private var totalOrder: Double = 0.0
+    var totalOrder: Double = 0.0
     private var percent: Int = 0
 
     override fun onCreateView(
@@ -71,6 +71,10 @@ class CartFragment : BaseFragment(), KodeinAware, CartListener, ConfirmDeleteDia
             if (it.isNullOrEmpty()) {
                 binding.rvCart.visibility = View.GONE
                 binding.llEmpty.visibility = View.VISIBLE
+                binding.llDiscount.visibility = View.GONE
+                binding.llTotal.visibility = View.GONE
+                binding.cvBottom.visibility = View.GONE
+                binding.viewBottom.visibility = View.GONE
             } else {
                 val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
                     addAll(it.toCartItem())

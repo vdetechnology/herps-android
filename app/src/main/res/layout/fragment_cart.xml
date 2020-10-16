@@ -85,44 +85,7 @@
                     android:paddingRight="@dimen/dp_10" />
 
                 <LinearLayout
-                    android:id="@+id/ll_empty"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_20"
-                    android:layout_marginBottom="@dimen/dp_20"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="@dimen/dp_60"
-                        android:layout_height="@dimen/dp_60"
-                        android:background="@drawable/ic_cart_plus" />
-
-                    <TextView
-                        style="@style/TextNameProductRegular15"
-                        android:layout_marginTop="@dimen/dp_20"
-                        android:text="@string/cart_empty"
-                        android:textColor="@color/text_color_error"
-                        android:textSize="@dimen/sp_14" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/bt_buy"
-                        android:layout_width="@dimen/dp_200"
-                        android:layout_height="@dimen/dp_35"
-                        android:layout_marginTop="@dimen/dp_15"
-                        android:layout_marginBottom="@dimen/dp_10"
-                        android:background="@drawable/bg_next"
-                        android:fontFamily="@font/utm_avo"
-                        android:onClick="@{fragment::onBackActivity}"
-                        android:text="@string/continue_buy"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/sp_12"
-                        app:cornerRadius="@dimen/dp_10" />
-                </LinearLayout>
-
-                <LinearLayout
+                    android:id="@+id/ll_discount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_20"
@@ -195,6 +158,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_total"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_20"
@@ -313,11 +277,12 @@
         </androidx.cardview.widget.CardView>
 
         <View
+            android:id="@+id/view_bottom"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_23"
             android:layout_alignParentBottom="true"
             android:background="@color/colorWhite"
-            android:elevation="10dp" />
+            android:elevation="@dimen/dp_10" />
 
         <RelativeLayout
             android:id="@+id/rl_loading"
@@ -331,5 +296,45 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60"
+                android:background="@drawable/ic_cart_plus" />
+
+            <TextView
+                style="@style/TextNameProductRegular15"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/cart_empty"
+                android:textColor="@color/text_color_error"
+                android:textSize="@dimen/sp_14" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bt_buy"
+                android:layout_width="@dimen/dp_200"
+                android:layout_height="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:background="@drawable/bg_next"
+                android:fontFamily="@font/utm_avo"
+                android:onClick="@{fragment::onBackActivity}"
+                android:outlineSpotShadowColor="@color/colorPrimary"
+                android:outlineAmbientShadowColor="@color/colorPrimary"
+                android:text="@string/continue_buy"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp_12"
+                app:cornerRadius="@dimen/dp_10" />
+        </LinearLayout>
     </RelativeLayout>
 </layout>

@@ -84,6 +84,8 @@
         android:textSize="@dimen/sp_12"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_20"
+        android:outlineSpotShadowColor="@color/colorPrimary"
+        android:outlineAmbientShadowColor="@color/colorPrimary"
         android:layout_gravity="bottom"
         android:layout_marginTop="@dimen/dp_70"
         android:layout_marginBottom="@dimen/sp_20"/>

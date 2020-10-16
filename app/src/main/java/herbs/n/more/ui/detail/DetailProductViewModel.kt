@@ -66,7 +66,7 @@ class DetailProductViewModel (
         }
     }
 
-    suspend fun getPopular(pageindex : Int): LiveData<List<Product>> {
+    suspend fun getPopular(pageindex : Int): List<Product> {
         return  repository.getPopular(pageindex)
     }
 

@@ -219,8 +219,7 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindDataPopular() = Coroutines.main {
-        viewModel.getPopular(pageindex)?.removeObservers(this)
-        viewModel.getPopular(pageindex)?.observe(this, androidx.lifecycle.Observer {
+        viewModel.getPopular(pageindex)?.let {
             if (!loadmore) {
                 mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
                     if (it.isNotEmpty()) {
@@ -236,26 +235,27 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
                         if (!loadmoreDisable) {
                             pageindex += 1
                             loadmore = true
+                            binding.pbLoadMore.visibility = View.VISIBLE
                             loadMorePopular()
                         }
                     }
                 })
             }
-        })
+        }
     }
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun loadMorePopular() = Coroutines.main {
-        viewModel.getPopular(pageindex)?.removeObservers(this)
-        viewModel.getPopular(pageindex)?.observe(this, androidx.lifecycle.Observer {
+        viewModel.getPopular(pageindex)?.let {
             if (loadmore) {
                 if (it.isNotEmpty()) {
                     mSuggestedAdapter.addAll(it.toProductItem())
                 } else {
                     loadmoreDisable = true
                 }
+                binding.pbLoadMore.visibility = View.GONE
             }
-        })
+        }
     }
 
     private fun List<Product>.toProductItem() : List<ProductItem>{
@@ -288,16 +288,24 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
         })
     }
 
-    private fun onClickSearch(v: View) {
+    fun onClickSearch(v: View) {
         v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
     }
 
-    private fun seeMoreBestSelling(v: View) {
+    fun seeMoreBestSelling(v: View) {
         v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
+        val intent = Intent(activity, SeeMoreActivity::class.java).apply {
+            putExtra("type_see_more", Constant.SEE_MORE_BEST_SELLING)
+        }
+        startActivity(intent)
     }
 
-    private fun seeMoreBestRecently(v: View) {
+    fun seeMoreRecently(v: View) {
         v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
+        val intent = Intent(activity, SeeMoreActivity::class.java).apply {
+            putExtra("type_see_more", Constant.SEE_MORE_RECENT)
+        }
+        startActivity(intent)
     }
 
     fun goToLogin() {

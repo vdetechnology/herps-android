@@ -19,6 +19,7 @@
         android:outlineAmbientShadowColor="@color/colorPrimary"
         android:outlineSpotShadowColor="@color/colorPrimary"
         card_view:cardBackgroundColor="@color/color_bg_item"
+        card_view:rippleColor="@color/colorItemClick"
         card_view:cardCornerRadius="@dimen/dp_10"
         card_view:cardElevation="@dimen/dp_0">
 

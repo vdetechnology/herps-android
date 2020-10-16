@@ -58,7 +58,7 @@ class CartItem(
             .into(viewBinding.ivProductImage);
         viewBinding.btDelete.setOnClickListener {
             context.closeKeyBoardAndClearFocus()
-            context.viewModel.deleteCart(cart)
+            context.showConfirmDelete(cart, viewBinding.etAmount)
         }
         viewBinding.ivBuyLate.setOnClickListener {
             context.closeKeyBoardAndClearFocus()
@@ -78,9 +78,7 @@ class CartItem(
         }
         viewBinding.cvMinus.setOnClickListener {
             context.closeKeyBoardAndClearFocus()
-            if (cart.amount == 1){
-                context.showConfirmDelete(cart, viewBinding.etAmount)
-            }else{
+            if (cart.amount!! > 1){
                 cart.amount = cart.amount?.minus(1)
                 if (cart?.total_sales!! > 0) {
                     cart.total_order = cart.amount?.times(cart.sale_price!!)

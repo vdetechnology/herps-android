@@ -329,6 +329,8 @@
             android:background="@drawable/bg_button"
             android:text="@string/sign_out"
             android:onClick="@{fragment :: logOut}"
+            android:outlineSpotShadowColor="@color/colorPrimary"
+            android:outlineAmbientShadowColor="@color/colorPrimary"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent" />
 

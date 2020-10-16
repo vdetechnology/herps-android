@@ -34,6 +34,12 @@ interface MyApi {
     @GET("product/bestseller/")
     suspend fun getBestSelling() : Response<GetBestSellingResponse>
 
+    @GET("product/bestseller/")
+    suspend fun getBestSellingFull(
+        @Query("pagesize") pagesize: String
+    ) : Response<GetBestSellingResponse>
+
+
     @GET("product/popular/")
     suspend fun getPopular(
         @Query("pageindex") pageindex : Int,

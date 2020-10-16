@@ -21,7 +21,7 @@ class BestSellingRepository(
 ) : SafeApiRequest(){
 
     private val bestSelling = MutableLiveData<List<Product>>()
-    private val popular = MutableLiveData<List<Product>>()
+    private val bestSellingAll = MutableLiveData<List<Product>>()
     private val banners = MutableLiveData<List<SlideImage>>()
     private val campaigns = MutableLiveData<List<SlideImage>>()
 
@@ -29,7 +29,7 @@ class BestSellingRepository(
 
     fun deleteUser() = db.getUserDao().deleteUser()
 
-    fun getProducts() = db.getProductDao().getProducts()
+    fun getProducts(int: Int) = db.getProductDao().getProducts(int)
 
     fun getAllProducts() = db.getProductDao().getAllProducts()
 
@@ -56,21 +56,42 @@ class BestSellingRepository(
         }
     }
 
-    suspend fun getPopular(pageindex : Int): LiveData<List<Product>> {
-        return withContext(Dispatchers.IO) {
-            fetchPopular(pageindex)
-            popular
+    suspend fun getBestSellingFull(bestSellingListener: BestSellingListener): LiveData<List<Product>> {
+        return withContext(Dispatchers.Main) {
+            fetchProductsFull(bestSellingListener)
+            bestSellingAll
         }
     }
 
-    private suspend fun fetchPopular(pageindex : Int) {
+    private suspend fun fetchProductsFull(bestSellingListener: BestSellingListener) {
+        try {
+            val response = apiRequest { api.getBestSellingFull("20") }
+            bestSellingAll.postValue(response.data)
+        } catch (e: ApiException){
+            bestSellingListener?.onFailure(Constant.API_ERROR)
+        } catch (e: NoInternetException){
+            bestSellingListener?.onFailure(Constant.NO_INTERNET)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            bestSellingListener?.onFailure(Constant.API_ERROR)
+        }
+    }
+
+    suspend fun getPopular(pageindex : Int): List<Product> {
+        return withContext(Dispatchers.IO) {
+            val response = apiRequest { api.getPopular(pageindex,8) }
+            response.data
+        }
+    }
+
+    /*private suspend fun fetchPopular(pageindex : Int) {
         try {
             val response = apiRequest { api.getPopular(pageindex,8) }
             popular.postValue(response.data)
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
+    }*/
 
     suspend fun getBanners(): LiveData<List<SlideImage>> {
         return withContext(Dispatchers.IO) {

@@ -128,7 +128,7 @@
                         android:layout_height="@dimen/dp_20"
                         android:background="@color/colorWhite"
                         android:padding="@dimen/dp_4"
-                        android:scaleType="fitCenter"
+                        android:scaleType="centerInside"
                         android:src="@drawable/ic_minus" />
 
                 </com.google.android.material.card.MaterialCardView>

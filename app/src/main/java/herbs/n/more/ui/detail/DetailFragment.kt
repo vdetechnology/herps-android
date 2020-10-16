@@ -37,7 +37,6 @@ import kotlinx.coroutines.async
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
-import java.text.DecimalFormat
 import java.util.*
 
 class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItemListener{
@@ -109,6 +108,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
                     pageindex += 1
                     loadmore = true
                     loadMorePopular()
+                    binding.pbLoadMore.visibility = View.VISIBLE
                 }
             }
             if (seeLess) {
@@ -164,7 +164,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
                 .load(it.image)
                 .error(R.mipmap.ic_logo)
                 .centerCrop()
-                .into(binding.ivMoveCart);
+                .into(binding.ivMoveCart)
             if (it.images.isNullOrEmpty()){
                 binding.ivNoImage.visibility = View.VISIBLE
                 mViewPager?.visibility = View.GONE
@@ -177,7 +177,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
                         .load(it.image)
                         .error(R.mipmap.ic_logo)
                         .centerCrop()
-                        .into(binding.ivNoImage);
+                        .into(binding.ivNoImage)
                 }
             }else {
                 binding.ivNoImage.visibility = View.GONE
@@ -202,7 +202,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
                         binding.tvPrice.height //height is ready
                         val params: ViewGroup.LayoutParams = binding.line.layoutParams
                         params.width = binding.tvPrice.width
-                        binding.line.layoutParams = params;
+                        binding.line.layoutParams = params
                     }
                 })
             }else{
@@ -212,8 +212,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     }
 
     private fun bindDataPopular() = Coroutines.main {
-        viewModel.getPopular(pageindex).removeObservers(this);
-        viewModel.getPopular(pageindex).observe(viewLifecycleOwner, Observer {
+        viewModel.getPopular(pageindex).let{
             if (!loadmore) {
                 mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
                     if (it.isNotEmpty()) {
@@ -225,20 +224,20 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
                     adapter = mSuggestedAdapter
                 }
             }
-        })
+        }
     }
 
     private fun loadMorePopular() = Coroutines.main {
-        viewModel.getPopular(pageindex - 1).removeObservers(this);
-        viewModel.getPopular(pageindex).observe(viewLifecycleOwner, Observer {
+        viewModel.getPopular(pageindex).let{
             if (loadmore) {
                 if (it.isNotEmpty()) {
                     mSuggestedAdapter.addAll(it.toProductItem())
                 } else {
                     loadmoreDisable = true
                 }
+                binding.pbLoadMore.visibility = View.GONE
             }
-        })
+        }
     }
 
     private fun List<Product>.toProductItem() : List<ProductItem>{
@@ -273,7 +272,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
         seeLess = true
         val scrollTo: Int =
             (binding.llDescription.parent as View).top + binding.llDescription.top
-        binding.svHome.smoothScrollTo(0, scrollTo);
+        binding.svHome.smoothScrollTo(0, scrollTo)
     }
 
     override fun onItemClicked(product: Product) {
@@ -316,7 +315,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
         animSet.fillAfter = true
         animSet.duration = 700
         val translate: Animation = TranslateAnimation(0F, cartLocation.x.toFloat()*4, 0F, (cartLocation.y.toFloat() - imgLocation.y.toFloat())*4)
-        animSet.addAnimation(translate);
+        animSet.addAnimation(translate)
         val aniSlide = AnimationUtils.loadAnimation(requireActivity(), R.anim.anim_zoom_out)
         animSet.addAnimation(aniSlide)
         val alphaAnim = AlphaAnimation(1f, 0.5f)
@@ -354,7 +353,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
             viewModel.saveCart(cart)
         }else{
             val calendar = Calendar.getInstance()
-            var cartNew = Cart()
+            val cartNew = Cart()
             cartNew.id = binding.product?.id
             cartNew.title = binding.product?.title
             cartNew.image = binding.product?.image

@@ -330,6 +330,8 @@
                         android:background="@drawable/bg_next"
                         android:fontFamily="@font/utm_avo"
                         android:onClick="@{fragment::onBackActivity}"
+                        android:outlineSpotShadowColor="@color/colorPrimary"
+                        android:outlineAmbientShadowColor="@color/colorPrimary"
                         android:text="@string/continue_buy"
                         android:textAllCaps="false"
                         android:textColor="@color/colorPrimary"

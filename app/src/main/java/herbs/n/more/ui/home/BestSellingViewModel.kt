@@ -17,6 +17,10 @@ class BestSellingViewModel(
         bestSellingListener?.let { repository.getBestSelling(it) }
     }
 
+    val bestSellingFull by lazyDeferred {
+        bestSellingListener?.let { repository.getBestSellingFull(it) }
+    }
+
     val user = repository.getUser()
 
     val banners by lazyDeferred {
@@ -31,7 +35,7 @@ class BestSellingViewModel(
         repository.deleteUser()
     }
 
-    suspend fun getPopular(pageindex : Int): LiveData<List<Product>> {
+    suspend fun getPopular(pageindex : Int): List<Product> {
         return  repository.getPopular(pageindex)
     }
 

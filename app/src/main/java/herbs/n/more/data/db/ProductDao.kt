@@ -13,9 +13,9 @@ interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveProduct(product : Product)
 
-    @Query("SELECT * FROM Product ORDER BY update_date DESC LIMIT 4")
-    fun getProducts() : LiveData<List<Product>>
+    @Query("SELECT * FROM Product ORDER BY update_date DESC LIMIT :int")
+    fun getProducts(int: Int) : LiveData<List<Product>>
 
-    @Query("SELECT * FROM Product ORDER BY update_date DESC")
+    @Query("SELECT * FROM Product ORDER BY update_date DESC LIMIT 10")
     fun getAllProducts() : LiveData<List<Product>>
 }

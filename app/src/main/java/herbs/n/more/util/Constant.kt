@@ -31,5 +31,8 @@ class Constant {
         const val PHONE_SHORTER = "1017"
         const val PHONE_OK = "1018"
         const val PHONE_INVALID = "1019"
+
+        const val SEE_MORE_BEST_SELLING = "3001"
+        const val SEE_MORE_RECENT = "3002"
     }
 }

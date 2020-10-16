@@ -28,5 +28,6 @@
     <color name="icon_color">#7E7C7C</color>
     <color name="text_color_hint">#616161</color>
     <color name="text_color_error">#FF3945</color>
+    <color name="colorItemClick">#BDE496</color>
 
 </resources>
