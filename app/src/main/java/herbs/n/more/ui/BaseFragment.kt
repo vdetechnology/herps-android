@@ -1,5 +1,6 @@
 package herbs.n.more.ui
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
@@ -11,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.ui.cart.CartActivity
+import herbs.n.more.ui.search.SearchActivity
 import herbs.n.more.util.Coroutines
 import java.text.DecimalFormat
 
@@ -43,8 +45,13 @@ open class BaseFragment : Fragment() {
     }
 
     fun goToCart() {
-        val intent = Intent(activity, CartActivity::class.java).apply {
-        }
+        val intent = Intent(activity, CartActivity::class.java)
+        startActivity(intent)
+
+    }
+
+    fun goToSearch() {
+        val intent = Intent(activity, SearchActivity::class.java)
         startActivity(intent)
 
     }

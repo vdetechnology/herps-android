@@ -3,6 +3,7 @@ package herbs.n.more.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import herbs.n.more.data.db.entities.Product
+import herbs.n.more.data.db.entities.SlideImage
 import herbs.n.more.data.repositories.BestSellingRepository
 import herbs.n.more.util.Coroutines
 import herbs.n.more.util.transform.lazyDeferred
@@ -13,8 +14,8 @@ class BestSellingViewModel(
 
     var bestSellingListener: BestSellingListener? = null
 
-    val bestSelling by lazyDeferred {
-        bestSellingListener?.let { repository.getBestSelling(it) }
+    suspend fun bestSelling(): LiveData<List<Product>>? {
+        return  bestSellingListener?.let { repository.getBestSelling(it) }
     }
 
     val bestSellingFull by lazyDeferred {
@@ -23,24 +24,24 @@ class BestSellingViewModel(
 
     val user = repository.getUser()
 
-    val banners by lazyDeferred {
-        repository.getBanners()
+    suspend fun banners(): LiveData<List<SlideImage>>? {
+        return  repository.getBanners()
     }
 
-    val campaigns by lazyDeferred {
-        repository.getCampaigns()
+    suspend fun campaigns(): LiveData<List<SlideImage>>? {
+        return  repository.getCampaigns()
     }
 
     val deleteUser by lazyDeferred {
         repository.deleteUser()
     }
 
-    suspend fun getPopular(pageindex : Int): List<Product> {
+    suspend fun getPopular(pageindex : Int): List<Product>? {
         return  repository.getPopular(pageindex)
     }
 
-    val recentlys by lazyDeferred {
-        repository.getAllProducts()
+    suspend fun recentlys(): LiveData<List<Product>>? {
+        return  repository.getAllProducts()
     }
 
     fun saveRecentlys(product: Product) {

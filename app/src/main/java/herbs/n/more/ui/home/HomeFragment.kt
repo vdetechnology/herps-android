@@ -92,6 +92,7 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
             loadmore = false
             pageindex = 1
             initData()
+            binding.swiperefresh.isRefreshing = false
         }
         initData()
     }
@@ -163,9 +164,8 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindDataBestSelling() = Coroutines.main {
         binding.rlLoading.visibility = View.VISIBLE
-        viewModel.bestSelling.await()?.removeObservers(this)
-        val bestSelling = viewModel.bestSelling.await()
-        bestSelling?.observe(this, androidx.lifecycle.Observer {
+        val bestSelling = viewModel.bestSelling()
+        bestSelling?.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             binding.rlLoading.visibility = View.GONE
             swiperefresh.isRefreshing = false
             val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
@@ -181,8 +181,8 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindDataRecently() = Coroutines.main {
-        val recentlys = viewModel.recentlys.await()
-        recentlys.observe(this, androidx.lifecycle.Observer {
+        val recentlys = viewModel.recentlys()
+        recentlys?.observe(this, androidx.lifecycle.Observer {
             if (it.isNotEmpty()) {
                 if (it.size <= 4){
                     tv_more_recently.visibility = View.GONE
@@ -272,7 +272,7 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindBanners() = Coroutines.main {
-        val banners = viewModel.banners.await()
+        val banners = viewModel.banners()
         banners?.observe(this, androidx.lifecycle.Observer {
             swiperefresh.isRefreshing = false
             mViewPager?.refreshData(it)
@@ -281,15 +281,11 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindCampaigns() = Coroutines.main {
-        val campaigns = viewModel.campaigns.await()
+        val campaigns = viewModel.campaigns()
         campaigns?.observe(this, androidx.lifecycle.Observer {
             swiperefresh.isRefreshing = false
             mViewPagerCampaign?.refreshData(it)
         })
-    }
-
-    fun onClickSearch(v: View) {
-        v.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
     }
 
     fun seeMoreBestSelling(v: View) {

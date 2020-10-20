@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.detail.DetailActivity">
+
+    <data>
+
+        <variable
+            name="history"
+            type="herbs.n.more.data.db.entities.SearchHistory" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_bottom">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextNameProductRegular10"
+            android:layout_width="match_parent"
+            android:paddingRight="@dimen/dp_25"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:background="?selectableItemBackground"
+            android:singleLine="true"
+            android:text="@{history.title}" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_9"
+            android:layout_height="@dimen/dp_9"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_15"
+            android:background="@drawable/ic_arrow_up" />
+    </RelativeLayout>
+</layout>

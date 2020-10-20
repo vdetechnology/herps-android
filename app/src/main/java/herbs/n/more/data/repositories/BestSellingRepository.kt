@@ -10,6 +10,7 @@ import herbs.n.more.data.network.SafeApiRequest
 import herbs.n.more.ui.home.BestSellingListener
 import herbs.n.more.util.ApiException
 import herbs.n.more.util.Constant
+import herbs.n.more.util.Coroutines
 import herbs.n.more.util.NoInternetException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -29,8 +30,6 @@ class BestSellingRepository(
 
     fun deleteUser() = db.getUserDao().deleteUser()
 
-    fun getProducts(int: Int) = db.getProductDao().getProducts(int)
-
     fun getAllProducts() = db.getProductDao().getAllProducts()
 
     fun saveProducts(product: Product) = db.getProductDao().saveProduct(product)
@@ -43,16 +42,18 @@ class BestSellingRepository(
     }
 
     private suspend fun fetchProducts(bestSellingListener: BestSellingListener) {
-        try {
-            val response = apiRequest { api.getBestSelling() }
-            bestSelling.postValue(response.data)
-        } catch (e: ApiException){
-            bestSellingListener?.onFailure(Constant.API_ERROR)
-        } catch (e: NoInternetException){
-            bestSellingListener?.onFailure(Constant.NO_INTERNET)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            bestSellingListener?.onFailure(Constant.API_ERROR)
+        Coroutines.main {
+            try {
+                val response = apiRequest { api.getBestSelling() }
+                bestSelling.postValue(response.data)
+            } catch (e: ApiException) {
+                bestSellingListener?.onFailure(Constant.API_ERROR)
+            } catch (e: NoInternetException) {
+                bestSellingListener?.onFailure(Constant.NO_INTERNET)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                bestSellingListener?.onFailure(Constant.API_ERROR)
+            }
         }
     }
 
@@ -64,34 +65,30 @@ class BestSellingRepository(
     }
 
     private suspend fun fetchProductsFull(bestSellingListener: BestSellingListener) {
-        try {
-            val response = apiRequest { api.getBestSellingFull("20") }
-            bestSellingAll.postValue(response.data)
-        } catch (e: ApiException){
-            bestSellingListener?.onFailure(Constant.API_ERROR)
-        } catch (e: NoInternetException){
-            bestSellingListener?.onFailure(Constant.NO_INTERNET)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            bestSellingListener?.onFailure(Constant.API_ERROR)
+        Coroutines.main {
+            try {
+                val response = apiRequest { api.getBestSellingFull("20") }
+                bestSellingAll.postValue(response.data)
+            } catch (e: ApiException) {
+                bestSellingListener?.onFailure(Constant.API_ERROR)
+            } catch (e: NoInternetException) {
+                bestSellingListener?.onFailure(Constant.NO_INTERNET)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                bestSellingListener?.onFailure(Constant.API_ERROR)
+            }
         }
     }
 
-    suspend fun getPopular(pageindex : Int): List<Product> {
-        return withContext(Dispatchers.IO) {
-            val response = apiRequest { api.getPopular(pageindex,8) }
-            response.data
-        }
-    }
-
-    /*private suspend fun fetchPopular(pageindex : Int) {
+    suspend fun getPopular(pageindex : Int): List<Product>? {
         try {
-            val response = apiRequest { api.getPopular(pageindex,8) }
-            popular.postValue(response.data)
+            val response = apiRequest{ api.getPopular(pageindex,8) }
+            return response.data
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }*/
+        return null
+    }
 
     suspend fun getBanners(): LiveData<List<SlideImage>> {
         return withContext(Dispatchers.IO) {

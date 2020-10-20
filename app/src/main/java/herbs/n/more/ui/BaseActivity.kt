@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import herbs.n.more.R
 import herbs.n.more.ui.cart.CartActivity
 import herbs.n.more.ui.dialog.MessageDialogFragment
+import herbs.n.more.ui.search.SearchActivity
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -26,9 +27,23 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun goToCart() {
-        val intent = Intent(this, CartActivity::class.java).apply {
+    fun closeKeyBoardAndClearFocus() {
+        val view: View? = this.currentFocus
+        if (view != null) {
+            val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
+        window?.decorView?.clearFocus()
+    }
+
+    fun goToCart() {
+        val intent = Intent(this, CartActivity::class.java)
+        startActivity(intent)
+
+    }
+
+    fun goToSearch() {
+        val intent = Intent(this, SearchActivity::class.java)
         startActivity(intent)
 
     }

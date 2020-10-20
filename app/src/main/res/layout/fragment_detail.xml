@@ -47,7 +47,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_toLeftOf="@+id/cart_container"
-                android:background="@color/colorWhite"
+                android:background="?actionBarItemBackground"
+                android:onClick="@{(frag)->activity.goToSearch()}"
                 android:padding="@dimen/dp_5"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_search" />
@@ -925,13 +926,17 @@
             android:layout_height="@dimen/dp_23"
             android:layout_alignParentBottom="true"
             android:background="@color/colorWhite"
-            android:elevation="10dp" />
+            android:outlineSpotShadowColor="@color/colorWhite"
+            android:outlineAmbientShadowColor="@color/colorWhite"
+            android:elevation="@dimen/dp_11" />
 
         <RelativeLayout
             android:id="@+id/rl_loading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorBlack20"
+            android:clickable="true"
+            android:elevation="@dimen/dp_12"
             android:visibility="gone">
 
             <ProgressBar

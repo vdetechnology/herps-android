@@ -19,15 +19,9 @@ class DetailProductRepository (
         return apiRequest { api.getDetailProduct(id) }
     }
 
-    suspend fun getPopulars(pageindex : Int):  GetBestSellingResponse{
-        return apiRequest { api.getPopular(pageindex, 4) }
-    }
-
     suspend fun getPopular(pageindex : Int): List<Product> {
-        return withContext(Dispatchers.IO) {
-            val response = apiRequest { api.getPopular(pageindex,4) }
-            response.data
-        }
+        val response = apiRequest { api.getPopular(pageindex,4) }
+        return response.data
     }
 
     fun saveProducts(product: Product) = db.getProductDao().saveProduct(product)

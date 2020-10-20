@@ -30,20 +30,6 @@
                 android:layout_toRightOf="@+id/ib_back"
                 android:text="@string/success" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/searchButton"
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/dp_10"
-                android:layout_toLeftOf="@+id/cart_container"
-                android:background="@color/colorWhite"
-                android:padding="@dimen/dp_5"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_search" />
-
-
             <RelativeLayout
                 android:id="@+id/cart_container"
                 android:layout_width="@dimen/dp_40"
@@ -93,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/sp_20"
-                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_15"
                     android:layout_marginBottom="@dimen/dp_20">
 
                     <RelativeLayout
@@ -101,7 +87,8 @@
                         android:layout_height="@dimen/dp_45"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/ll_filter"
-                        android:background="@drawable/bg_edit_text">
+                        android:background="@drawable/bg_edit_text"
+                        android:onClick="@{()->fragment.goToSearch()}">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imageView"
@@ -121,6 +108,8 @@
                             android:fontFamily="@font/utm_avo"
                             android:hint="@string/search_hint"
                             android:inputType="text"
+                            android:focusable="false"
+                            android:onClick="@{()->fragment.goToSearch()}"
                             android:paddingLeft="@dimen/dp_10"
                             android:paddingRight="@dimen/dp_10"
                             android:textColor="@color/colorBlack"

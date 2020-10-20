@@ -282,6 +282,8 @@
             android:layout_height="@dimen/dp_23"
             android:layout_alignParentBottom="true"
             android:background="@color/colorWhite"
+            android:outlineSpotShadowColor="@color/colorWhite"
+            android:outlineAmbientShadowColor="@color/colorWhite"
             android:elevation="@dimen/dp_10" />
 
         <RelativeLayout

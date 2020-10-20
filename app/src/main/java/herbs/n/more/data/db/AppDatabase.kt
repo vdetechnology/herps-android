@@ -6,17 +6,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import herbs.n.more.data.db.entities.Cart
 import herbs.n.more.data.db.entities.Product
+import herbs.n.more.data.db.entities.SearchHistory
 import herbs.n.more.data.db.entities.User
 
 @Database(
-    entities = [User::class, Product::class, Cart::class],
-    version = 1
+    entities = [User::class, Product::class, Cart::class, SearchHistory::class],
+    version = 2
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getUserDao(): UserDao
     abstract fun getProductDao(): ProductDao
     abstract fun getCartDao(): CartDao
+    abstract fun getSearchDao(): SearchDao
     companion object {
 
         @Volatile

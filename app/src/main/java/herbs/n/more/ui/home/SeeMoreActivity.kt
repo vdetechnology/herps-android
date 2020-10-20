@@ -67,7 +67,6 @@ class SeeMoreActivity : BaseActivity() , KodeinAware, BestSellingListener, Produ
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindDataBestSelling() = Coroutines.main {
         bind.rlLoading.visibility = View.VISIBLE
-        viewModel.bestSelling.await()?.removeObservers(this)
         val bestSelling = viewModel.bestSellingFull.await()
         bestSelling?.observe(this, androidx.lifecycle.Observer {
             bind.rlLoading.visibility = View.GONE
@@ -83,8 +82,8 @@ class SeeMoreActivity : BaseActivity() , KodeinAware, BestSellingListener, Produ
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindDataRecently() = Coroutines.main {
-        val recentlys = viewModel.recentlys.await()
-        recentlys.observe(this, androidx.lifecycle.Observer {
+        val recentlys = viewModel.recentlys()
+        recentlys?.observe(this, androidx.lifecycle.Observer {
             if (it.isNotEmpty()) {
                 val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
                     addAll(it.toProductItem())

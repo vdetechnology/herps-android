@@ -27,10 +27,12 @@ import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentDetailBinding
 import herbs.n.more.ui.BaseFragment
+import herbs.n.more.ui.MainActivity
 import herbs.n.more.ui.adapter.DetailImagesAdapter
 import herbs.n.more.ui.dialog.ConfirmLoginDialog
 import herbs.n.more.ui.home.ProductItem
 import herbs.n.more.ui.home.ProductItemListener
+import herbs.n.more.util.Constant
 import herbs.n.more.util.Coroutines
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -80,6 +82,16 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
 
     override fun onFailure(message: String) {
         binding.rlLoading.visibility = View.GONE
+        when(message) {
+            Constant.API_ERROR -> (activity as DetailActivity).showMessage(
+                resources.getString(R.string.server_error_title),
+                resources.getString(R.string.server_error)
+            )
+            Constant.NO_INTERNET -> (activity as DetailActivity).showMessage(
+                resources.getString(R.string.network_error_title),
+                resources.getString(R.string.network_error)
+            )
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -91,6 +103,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
             loadmore = false
             pageindex = 1
             initData()
+            binding.swipeRefresh.isRefreshing = false
         }
 
         mViewPager = binding.root?.findViewById(R.id.banner_view)
@@ -149,16 +162,15 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     private fun initData(){
         user = activity?.intent?.getSerializableExtra("user") as User?
         GlobalScope.async{bindCountCart()}
+        GlobalScope.async{bindDataDetail()}
         GlobalScope.async{bindDataPopular()}
-        GlobalScope.also{bindDataDetail()}
     }
 
-    private fun bindDataDetail(){
-        viewModel.getDetail(activity?.intent?.getStringExtra("id").toString()).removeObservers(this)
-        viewModel.getDetail(activity?.intent?.getStringExtra("id").toString()).observe(viewLifecycleOwner, Observer {
+    private fun bindDataDetail() = Coroutines.main {
+        val detail = viewModel.getDetail(activity?.intent?.getStringExtra("id").toString())
+        detail?.observe(viewLifecycleOwner, Observer {
             binding.product = it
             product = it
-            binding.swipeRefresh.isRefreshing = false
             Glide
                 .with(this)
                 .load(it.image)
@@ -212,7 +224,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     }
 
     private fun bindDataPopular() = Coroutines.main {
-        viewModel.getPopular(pageindex).let{
+        viewModel.getPopular(pageindex)?.let{
             if (!loadmore) {
                 mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
                     if (it.isNotEmpty()) {
@@ -228,7 +240,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     }
 
     private fun loadMorePopular() = Coroutines.main {
-        viewModel.getPopular(pageindex).let{
+        viewModel.getPopular(pageindex)?.let{
             if (loadmore) {
                 if (it.isNotEmpty()) {
                     mSuggestedAdapter.addAll(it.toProductItem())
@@ -307,68 +319,76 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     }
 
     fun flyToCart(){
+        if (product != null) {
+            val cartLocation = binding.btCart.getLocationOnScreen()
+            val imgLocation = binding.ivMoveCart.getLocationOnScreen()
 
-        val cartLocation = binding.btCart.getLocationOnScreen()
-        val imgLocation = binding.ivMoveCart.getLocationOnScreen()
+            val animSet = AnimationSet(true)
+            animSet.fillAfter = true
+            animSet.duration = 700
+            val translate: Animation = TranslateAnimation(
+                0F,
+                cartLocation.x.toFloat() * 4,
+                0F,
+                (cartLocation.y.toFloat() - imgLocation.y.toFloat()) * 4
+            )
+            animSet.addAnimation(translate)
+            val aniSlide = AnimationUtils.loadAnimation(requireActivity(), R.anim.anim_zoom_out)
+            animSet.addAnimation(aniSlide)
+            val alphaAnim = AlphaAnimation(1f, 0.5f)
+            animSet.addAnimation(alphaAnim)
+            binding.ivMoveCart.startAnimation(animSet)
+            animSet.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationRepeat(animation: Animation?) {
+                }
 
-        val animSet = AnimationSet(true)
-        animSet.fillAfter = true
-        animSet.duration = 700
-        val translate: Animation = TranslateAnimation(0F, cartLocation.x.toFloat()*4, 0F, (cartLocation.y.toFloat() - imgLocation.y.toFloat())*4)
-        animSet.addAnimation(translate)
-        val aniSlide = AnimationUtils.loadAnimation(requireActivity(), R.anim.anim_zoom_out)
-        animSet.addAnimation(aniSlide)
-        val alphaAnim = AlphaAnimation(1f, 0.5f)
-        animSet.addAnimation(alphaAnim)
-        binding.ivMoveCart.startAnimation(animSet)
-        animSet.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationRepeat(animation: Animation?) {
-            }
+                override fun onAnimationEnd(animation: Animation?) {
+                    Handler().postDelayed({
+                        binding.ivMoveCart.alpha = 0f
+                    }, 200)
+                    saveCart()
+                }
 
-            override fun onAnimationEnd(animation: Animation?) {
-                Handler().postDelayed({
-                    binding.ivMoveCart.alpha = 0f
-                }, 200)
-                saveCart()
-            }
+                override fun onAnimationStart(animation: Animation?) {
+                    binding.ivMoveCart.alpha = 1f
+                    binding.ivMoveCart.scaleX = 1f
+                    binding.ivMoveCart.scaleY = 1f
+                }
 
-            override fun onAnimationStart(animation: Animation?) {
-                binding.ivMoveCart.alpha = 1f
-                binding.ivMoveCart.scaleX = 1f
-                binding.ivMoveCart.scaleY = 1f
-            }
-
-        })
+            })
+        }
     }
 
     private fun saveCart()  = Coroutines.main {
-        var cart = viewModel.cartByID(product?.id!!)
-        if (cart != null){
-            cart.amount  = cart.amount?.plus(1)
-            if (binding.product?.total_sales!! > 0) {
-                cart.total_order = cart.amount?.times(cart.sale_price!!)
-            }else{
-                cart.total_order = cart.amount?.times(cart.price!!)
+        if (product != null) {
+            var cart = viewModel.cartByID(product?.id!!)
+            if (cart != null) {
+                cart.amount = cart.amount?.plus(1)
+                if (binding.product?.total_sales!! > 0) {
+                    cart.total_order = cart.amount?.times(cart.sale_price!!)
+                } else {
+                    cart.total_order = cart.amount?.times(cart.price!!)
+                }
+                viewModel.saveCart(cart)
+            } else {
+                val calendar = Calendar.getInstance()
+                val cartNew = Cart()
+                cartNew.id = binding.product?.id
+                cartNew.title = binding.product?.title
+                cartNew.image = binding.product?.image
+                cartNew.price = binding.product?.price?.toDouble()
+                cartNew.total_sales = binding.product?.total_sales
+                cartNew.total_sales_percent = binding.product?.total_sales_percent
+                cartNew.amount = 1
+                cartNew.update_date = calendar.timeInMillis
+                if (binding.product?.total_sales!! > 0) {
+                    cartNew.total_order = binding.product?.sale_price?.toDouble()
+                    cartNew.sale_price = binding.product?.sale_price?.toDouble()
+                } else {
+                    cartNew.total_order = binding.product?.price?.toDouble()
+                }
+                viewModel.saveCart(cartNew)
             }
-            viewModel.saveCart(cart)
-        }else{
-            val calendar = Calendar.getInstance()
-            val cartNew = Cart()
-            cartNew.id = binding.product?.id
-            cartNew.title = binding.product?.title
-            cartNew.image = binding.product?.image
-            cartNew.price = binding.product?.price?.toDouble()
-            cartNew.total_sales = binding.product?.total_sales
-            cartNew.total_sales_percent = binding.product?.total_sales_percent
-            cartNew.amount = 1
-            cartNew.update_date = calendar.timeInMillis
-            if (binding.product?.total_sales!! > 0) {
-                cartNew.total_order = binding.product?.sale_price?.toDouble()
-                cartNew.sale_price = binding.product?.sale_price?.toDouble()
-            }else{
-                cartNew.total_order = binding.product?.price?.toDouble()
-            }
-            viewModel.saveCart(cartNew)
         }
     }
 

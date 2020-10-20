@@ -179,4 +179,32 @@
         24h tính từ thời gian bạn hoàn tất đặt hàng <![CDATA[<b>hoặc</b>]]> liên hệ hotline <![CDATA[<b>0989588553</b>]]> | <![CDATA[<b>0902717858</b>]]></string>
     <string name="back_to_purchase">Back to purchase</string>
 
+    <!-- Search-->
+    <string name="search_hint_page">Sản phẩm, thương hiệu và mọi thứ bạn cần ...</string>
+    <string name="search_history">Search history</string>
+    <string name="most_searched">Most Search</string>
+    <string name="clear_history">Clear history</string>
+
+    <!-- Filter-->
+    <string name="filter">Filter</string>
+    <string name="sort_by">Sort by</string>
+    <string name="newest">Newest product</string>
+    <string name="high_low">Price high to low</string>
+    <string name="low_high">Price low to high</string>
+    <string name="according_popularity">According to popularity</string>
+    <string name="according_rating">According to rating</string>
+    <string name="category_title">Category</string>
+    <string name="functional_foods">Functional foods</string>
+    <string name="american_ginseng">American ginseng</string>
+    <string name="gift_set">Gift set</string>
+    <string name="price">Price</string>
+    <string-array name="filter_array">
+        <item>Newest product</item>
+        <item>According to popularity</item>
+        <item>According to rating</item>
+        <item>Price low to high</item>
+        <item>Price high to low</item>
+    </string-array>
+    <string name="clear_filter">Clear filter</string>
+
 </resources>

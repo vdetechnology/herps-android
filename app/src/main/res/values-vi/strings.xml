@@ -179,4 +179,32 @@
         24h tính từ thời gian bạn hoàn tất đặt hàng <![CDATA[<b>hoặc</b>]]> liên hệ hotline <![CDATA[<b>0989588553</b>]]> | <![CDATA[<b>0902717858</b>]]></string>
     <string name="back_to_purchase">Quay lại trang mua hàng</string>
 
+    <!-- Search-->
+    <string name="search_hint_page">Sản phẩm, thương hiệu và mọi thứ bạn cần ...</string>
+    <string name="search_history">Lịch sử tìm kiếm</string>
+    <string name="most_searched">Tìm kiếm phổ biến</string>
+    <string name="clear_history">Xóa lịch sử tìm kiếm</string>
+
+    <!-- Filter-->
+    <string name="filter">Lọc</string>
+    <string name="sort_by">Sắp xếp theo</string>
+    <string name="newest">Mới nhất</string>
+    <string name="high_low">Giá: Cao đến Thấp</string>
+    <string name="low_high">Giá: Thấp đến cao</string>
+    <string name="according_popularity">Theo mức độ phổ biến</string>
+    <string name="according_rating">Theo điểm đánh giá</string>
+    <string name="category_title">Danh mục</string>
+    <string name="functional_foods">Thực phẩm chức năng</string>
+    <string name="american_ginseng">Sâm mỹ</string>
+    <string name="gift_set">Bộ quà tặng</string>
+    <string name="price">Mức giá</string>
+    <string-array name="filter_array">
+        <item>Mới nhất</item>
+        <item>Theo mức độ phổ biến</item>
+        <item>Theo điểm đánh giá</item>
+        <item>Giá: Thấp đến cao</item>
+        <item>Giá: Cao đến Thấp</item>
+    </string-array>
+    <string name="clear_filter">Bỏ lọc</string>
+
 </resources>
