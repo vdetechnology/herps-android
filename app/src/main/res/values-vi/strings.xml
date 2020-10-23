@@ -184,6 +184,7 @@
     <string name="search_history">Lịch sử tìm kiếm</string>
     <string name="most_searched">Tìm kiếm phổ biến</string>
     <string name="clear_history">Xóa lịch sử tìm kiếm</string>
+    <string name="search_result">Kết quả tìm kiếm</string>
 
     <!-- Filter-->
     <string name="filter">Lọc</string>

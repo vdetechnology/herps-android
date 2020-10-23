@@ -19,7 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="hardwareAccelerated,label,allowBackup,theme">
-        <activity android:name=".ui.search.FilterActivity"></activity>
         <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,6 +46,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.search.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.search.FilterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.search.ResultActivity"
             android:screenOrientation="portrait" />
     </application>
 

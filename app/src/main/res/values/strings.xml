@@ -182,8 +182,9 @@
     <!-- Search-->
     <string name="search_hint_page">Sản phẩm, thương hiệu và mọi thứ bạn cần ...</string>
     <string name="search_history">Search history</string>
-    <string name="most_searched">Most Search</string>
+    <string name="most_searched">Most search</string>
     <string name="clear_history">Clear history</string>
+    <string name="search_result">Search result</string>
 
     <!-- Filter-->
     <string name="filter">Filter</string>
@@ -202,8 +203,8 @@
         <item>Newest product</item>
         <item>According to popularity</item>
         <item>According to rating</item>
-        <item>Price low to high</item>
-        <item>Price high to low</item>
+        <item>Price: Low to high</item>
+        <item>Price: High to low</item>
     </string-array>
     <string name="clear_filter">Clear filter</string>
 

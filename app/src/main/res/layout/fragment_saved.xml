@@ -60,7 +60,7 @@
                 android:layout_alignParentRight="true"
                 android:background="@drawable/bg_cart_text"
                 android:gravity="center"
-                android:text="10"
+                android:visibility="gone"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/sp_8" />
         </RelativeLayout>

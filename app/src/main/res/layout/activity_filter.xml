@@ -51,8 +51,8 @@
 
             <TextView
                 style="@style/ColorMainTextBold15"
-                android:layout_marginTop="@dimen/dp_20"
-                android:text="@string/product_category" />
+                android:layout_marginTop="@dimen/dp_15"
+                android:text="@string/sort_by" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/sn_filter"
@@ -62,72 +62,92 @@
 
             <TextView
                 style="@style/ColorMainTextBold15"
-                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_20"
                 android:text="@string/category_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dp_15">
+                android:layout_marginTop="@dimen/dp_15"
+                android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatToggleButton
+                    android:id="@+id/tb_functional_foods"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_45"
                     android:background="@drawable/toggle_selector"
                     android:fontFamily="@font/utm_avo_bold"
+                    android:outlineAmbientShadowColor="@color/colorWhite"
+                    android:outlineSpotShadowColor="@color/colorWhite"
                     android:paddingLeft="@dimen/dp_15"
                     android:paddingRight="@dimen/dp_15"
                     android:textAllCaps="false"
                     android:textColor="@color/text_color_hint"
                     android:textOff="@string/functional_foods"
-                    android:outlineAmbientShadowColor="@color/colorWhite"
-                    android:outlineSpotShadowColor="@color/colorWhite"
                     android:textOn="@string/functional_foods"
                     android:textSize="@dimen/sp_12" />
 
                 <androidx.appcompat.widget.AppCompatToggleButton
+                    android:id="@+id/tb_american_ginseng"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_45"
+                    android:layout_marginLeft="@dimen/dp_15"
                     android:background="@drawable/toggle_selector"
                     android:fontFamily="@font/utm_avo_bold"
+                    android:outlineAmbientShadowColor="@color/colorWhite"
+                    android:outlineSpotShadowColor="@color/colorWhite"
                     android:paddingLeft="@dimen/dp_15"
                     android:paddingRight="@dimen/dp_15"
                     android:textAllCaps="false"
-                    android:layout_marginLeft="@dimen/dp_15"
                     android:textColor="@color/text_color_hint"
-                    android:outlineAmbientShadowColor="@color/colorWhite"
-                    android:outlineSpotShadowColor="@color/colorWhite"
                     android:textOff="@string/american_ginseng"
                     android:textOn="@string/american_ginseng"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatToggleButton
+                android:id="@+id/tb_gift_set"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_45"
+                android:layout_marginTop="@dimen/dp_15"
                 android:background="@drawable/toggle_selector"
                 android:fontFamily="@font/utm_avo_bold"
+                android:outlineAmbientShadowColor="@color/colorWhite"
+                android:outlineSpotShadowColor="@color/colorWhite"
                 android:paddingLeft="@dimen/dp_15"
                 android:paddingRight="@dimen/dp_15"
                 android:textAllCaps="false"
-                android:layout_marginTop="@dimen/dp_15"
                 android:textColor="@color/text_color_hint"
-                android:outlineAmbientShadowColor="@color/colorWhite"
-                android:outlineSpotShadowColor="@color/colorWhite"
                 android:textOff="@string/gift_set"
                 android:textOn="@string/gift_set"
                 android:textSize="@dimen/sp_12" />
 
             <TextView
                 style="@style/ColorMainTextBold15"
-                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_20"
                 android:text="@string/price" />
 
-            <SeekBar
-                android:id="@+id/seekBar"
+            <com.jaygoo.widget.RangeSeekBar
+                android:id="@+id/sb_range"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:rsb_indicator_background_color="@color/colorPrimary"
+                app:rsb_indicator_height="@dimen/dp_30"
+                app:rsb_indicator_margin="@dimen/dp_5"
+                app:rsb_indicator_radius="@dimen/dp_5"
+                app:rsb_indicator_show_mode="alwaysShow"
+                app:rsb_indicator_text_size="@dimen/sp_10"
+                app:rsb_indicator_width="wrap_content"
+                app:rsb_indicator_padding_left="@dimen/dp_10"
+                app:rsb_indicator_padding_right="@dimen/dp_10"
+                app:rsb_mode="range"
+                app:rsb_min_interval="1000000"
+                app:rsb_progress_color="@color/colorPrimary"
+                app:rsb_progress_default_color="@color/text_sub_color"
+                app:rsb_thumb_drawable="@drawable/ic_ranger"
+                app:rsb_thumb_height="@dimen/dp_25"
+                app:rsb_thumb_width="@dimen/dp_25"
+                android:layout_marginTop="@dimen/dp_15"/>
 
         </LinearLayout>
 
@@ -136,7 +156,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:elevation="@dimen/dp_3"
             android:outlineAmbientShadowColor="@color/colorBlack"
             android:outlineSpotShadowColor="@color/colorBlack"
             app:cardBackgroundColor="@color/colorWhite"
@@ -161,10 +180,11 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.8"
                     android:backgroundTint="@color/colorWhite"
+                    android:fontFamily="@font/utm_avo_bold"
                     android:text="@string/clear_filter"
-                    app:cornerRadius="@dimen/dp_10"
+                    android:onClick="@{()->activity.clearFilter()}"
                     android:textColor="@color/colorPrimary"
-                    android:fontFamily="@font/utm_avo_bold"/>
+                    app:cornerRadius="@dimen/dp_10" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/bt_apply"
@@ -174,10 +194,11 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_weight="2.2"
+                    android:onClick="@{()->activity.goToSearchResult()}"
                     android:backgroundTint="@color/colorPrimary"
+                    android:fontFamily="@font/utm_avo_bold"
                     android:text="@string/apply"
-                    app:cornerRadius="@dimen/dp_10"
-                    android:fontFamily="@font/utm_avo_bold"/>
+                    app:cornerRadius="@dimen/dp_10" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -186,8 +207,8 @@
             android:layout_height="@dimen/dp_23"
             android:layout_alignParentBottom="true"
             android:background="@color/colorWhite"
-            android:outlineSpotShadowColor="@color/colorWhite"
+            android:elevation="@dimen/dp_11"
             android:outlineAmbientShadowColor="@color/colorWhite"
-            android:elevation="@dimen/dp_11" />
+            android:outlineSpotShadowColor="@color/colorWhite" />
     </RelativeLayout>
 </layout>

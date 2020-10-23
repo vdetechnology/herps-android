@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import herbs.n.more.R
 import herbs.n.more.ui.cart.CartActivity
 import herbs.n.more.ui.dialog.MessageDialogFragment
+import herbs.n.more.ui.search.FilterActivity
+import herbs.n.more.ui.search.ResultActivity
 import herbs.n.more.ui.search.SearchActivity
 
 open class BaseActivity : AppCompatActivity() {
@@ -42,10 +44,53 @@ open class BaseActivity : AppCompatActivity() {
 
     }
 
-    fun goToSearch() {
-        val intent = Intent(this, SearchActivity::class.java)
+    fun goToFilter(
+        q: String,
+        sort: Int,
+        category: ArrayList<String>?,
+        price_from: Float,
+        price_to: Float
+    ) {
+        val intent = Intent(this, FilterActivity::class.java)
+        intent.putExtra("q", q)
+        intent.putExtra("sort", sort)
+        intent.putStringArrayListExtra("category", category)
+        intent.putExtra("price_from", price_from)
+        intent.putExtra("price_to", price_to)
         startActivity(intent)
+    }
 
+    fun goToSearchResult(
+        q: String,
+        sort: Int,
+        category: ArrayList<String>?,
+        price_from: Float,
+        price_to: Float
+    ) {
+        val intent = Intent(this, ResultActivity::class.java)
+            intent.putExtra("q", q)
+            intent.putExtra("sort", sort)
+            intent.putStringArrayListExtra("category", category)
+            intent.putExtra("price_from", price_from)
+            intent.putExtra("price_to", price_to)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+    }
+
+    fun goToSearchWithData(
+        q: String,
+        sort: Int,
+        category: ArrayList<String>?,
+        price_from: Float,
+        price_to: Float
+    ) {
+        val intent = Intent(this, SearchActivity::class.java)
+        intent.putExtra("q", q)
+        intent.putExtra("sort", sort)
+        intent.putStringArrayListExtra("category", category)
+        intent.putExtra("price_from", price_from)
+        intent.putExtra("price_to", price_to)
+        startActivity(intent)
     }
 
     fun onBackActivity(){
@@ -53,13 +98,14 @@ open class BaseActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
     }
 
-    fun showMessage(title: String, message : String) {
+    fun showMessage(title: String, message: String) {
         MessageDialogFragment(title, message).apply {show(supportFragmentManager, "TAG") }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right
+        overridePendingTransition(
+            R.anim.anim_slide_in_left, R.anim.anim_slide_out_right
         )
     }
 }

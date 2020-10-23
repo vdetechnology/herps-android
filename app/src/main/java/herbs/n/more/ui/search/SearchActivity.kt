@@ -1,11 +1,13 @@
 package herbs.n.more.ui.search
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
@@ -19,7 +21,6 @@ import herbs.n.more.data.db.entities.SearchHistory
 import herbs.n.more.databinding.ActivitySearchBinding
 import herbs.n.more.ui.BaseActivity
 import herbs.n.more.util.Coroutines
-import herbs.n.more.util.toast
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import org.kodein.di.KodeinAware
@@ -33,6 +34,12 @@ class SearchActivity : BaseActivity(), KodeinAware, SearchHistoryItemListener {
     private val factory: SearchViewModelFactory by instance()
     private lateinit var viewModel: SearchViewModel
     private lateinit var bind: ActivitySearchBinding
+
+    private var q: String = ""
+    private var sort: Int = -1
+    private var listCategory = arrayListOf<String>()
+    private var fromValue: Float = 0f
+    private var toValue: Float = 10000000f
 
     var searchs = arrayOf(
         "Đường huyết",
@@ -55,6 +62,9 @@ class SearchActivity : BaseActivity(), KodeinAware, SearchHistoryItemListener {
     }
 
     private fun initView() {
+        bind.etSearch.requestFocus()
+        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(bind.etSearch, InputMethodManager.SHOW_IMPLICIT)
         bind.etSearch.doAfterTextChanged {
             if (bind.etSearch.text.isNotEmpty()) {
                 bind.ivClear.visibility = View.VISIBLE
@@ -67,8 +77,16 @@ class SearchActivity : BaseActivity(), KodeinAware, SearchHistoryItemListener {
             if (event != null && event.keyCode === KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_SEARCH) {
                 closeKeyBoard()
                 v.clearFocus()
+                q = v.text.toString()
                 if (!v.text.isNullOrEmpty()) {
-                    getHistory(v.text.toString())
+                    GlobalScope.async { getHistory(v.text.toString()) }
+                    GlobalScope.async {
+                        goToSearchResult(q, sort, listCategory, fromValue, toValue)
+                        finish()
+                    }
+                }else{
+                    goToSearchResult(q, sort, listCategory, fromValue, toValue)
+                    finish()
                 }
             }
             false
@@ -82,7 +100,9 @@ class SearchActivity : BaseActivity(), KodeinAware, SearchHistoryItemListener {
             val chip = LayoutInflater.from(this).inflate(R.layout.item_chip, null) as Chip
             chip.text = text
             chip.setOnClickListener {
-                toast(chip.text.toString())
+                q = chip.text.toString()
+                goToSearchResult(q, sort, listCategory, fromValue, toValue)
+                finish()
             }
             bind.chipGroup.addView(chip)
         }
@@ -101,6 +121,15 @@ class SearchActivity : BaseActivity(), KodeinAware, SearchHistoryItemListener {
     }
 
     private fun initData() {
+        q = intent.getStringExtra("q").toString()
+        bind.etSearch.setText(q)
+        bind.etSearch.setSelection(bind.etSearch.text.length)
+        sort = intent.getIntExtra("sort", -1)
+        if(intent.getStringArrayListExtra("category") != null) {
+            listCategory = intent.getStringArrayListExtra("category") as ArrayList<String>
+        }
+        fromValue = intent.getFloatExtra("price_from", 0f)
+        toValue = intent.getFloatExtra("price_to", 10000000f)
         GlobalScope.async { bindDataHistory() }
         GlobalScope.async { bindCount() }
     }
@@ -184,6 +213,10 @@ class SearchActivity : BaseActivity(), KodeinAware, SearchHistoryItemListener {
 
     override fun onItemClicked(searchHistory: SearchHistory) {
         bind.etSearch.setText(searchHistory.title)
+        bind.etSearch.requestFocus()
+        bind.etSearch.setSelection(bind.etSearch.text.length)
+        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(bind.etSearch, InputMethodManager.SHOW_IMPLICIT)
     }
 
     /*override fun onFailure(message: String) {

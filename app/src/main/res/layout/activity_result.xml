@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.search.ResultActivity">
+
+    <data>
+
+        <variable
+            name="activity"
+            type="herbs.n.more.ui.search.ResultActivity" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/dp_20">
+
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_centerVertical="true"
+                android:background="?actionBarItemBackground"
+                android:onClick="@{()->activity.onBackPressed()}"
+                android:padding="@dimen/dp_15"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_arrow_back" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/ColorMainTextRegular15"
+                android:layout_width="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_40"
+                android:singleLine="true"
+                android:layout_toRightOf="@+id/ib_back"
+                android:text="@string/search_result" />
+
+            <RelativeLayout
+                android:id="@+id/cart_container"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:elevation="15dp"
+                android:onClick="@{() -> activity.goToCart()}">
+
+                <ImageView
+                    android:id="@+id/bt_cart"
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_centerInParent="true"
+                    android:background="?actionBarItemBackground"
+                    android:padding="@dimen/dp_2"
+                    android:src="@drawable/ic_cart" />
+
+                <TextView
+                    android:id="@+id/tv_number_in_cart"
+                    android:layout_width="@dimen/dp_18"
+                    android:layout_height="@dimen/dp_18"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/bg_cart_text"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/sp_8"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/header"
+            android:onClick="@{() -> activity.closeKeyBoard()}"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sp_20"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_20">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/ll_filter"
+                    android:background="@drawable/bg_edit_text"
+                    android:onClick="@{()->activity.goToSearchData()}">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="@dimen/dp_36"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_7"
+                        android:padding="@dimen/dp_8"
+                        app:srcCompat="@drawable/ic_search" />
+
+                    <EditText
+                        android:id="@+id/et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/btnClearSearch"
+                        android:layout_toRightOf="@+id/imageView"
+                        android:background="@android:color/transparent"
+                        android:focusable="false"
+                        android:fontFamily="@font/utm_avo"
+                        android:hint="@string/search_hint"
+                        android:inputType="text"
+                        android:onClick="@{()->activity.goToSearchData()}"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10"
+                        android:textColor="@color/colorBlack"
+                        android:textColorHint="@color/text_color_hint"
+                        android:textSize="@dimen/dp_12" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/btnClearSearch"
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_45"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center_vertical"
+                        android:background="?actionBarItemBackground"
+                        android:padding="@dimen/dp_12"
+                        android:visibility="invisible"
+                        app:srcCompat="@drawable/ic_close" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/dp_3"
+                    android:layout_marginRight="@dimen/dp_8">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp_57"
+                        android:layout_height="@dimen/dp_57"
+                        android:background="@mipmap/shadow"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_42"
+                            android:layout_height="@dimen/dp_42"
+                            android:background="?selectableItemBackground"
+                            android:padding="@dimen/dp_7"
+                            android:src="@drawable/ic_filter"
+                            android:onClick="@{()->activity.goToFilterData()}"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_product"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_10" />
+
+            <ProgressBar
+                android:id="@+id/pb_load_more"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBlack20"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

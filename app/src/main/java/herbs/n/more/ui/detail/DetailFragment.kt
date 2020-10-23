@@ -8,6 +8,7 @@ import android.os.Handler
 import android.view.*
 import android.view.animation.*
 import android.widget.ImageView
+import android.widget.ScrollView
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -131,6 +132,11 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
                     binding.tvSeeLess.visibility = View.GONE
                     seeLess = false
                 }
+            }
+            if(scrollY > 5000){
+                binding.fbTop.visibility = View.VISIBLE
+            }else{
+                binding.fbTop.visibility = View.GONE
             }
         })
 
@@ -402,5 +408,9 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     fun buyNow(){
         saveCart()
         goToCart()
+    }
+
+    fun scrollTop(){
+        binding.svHome.fullScroll(ScrollView.FOCUS_UP);
     }
 }

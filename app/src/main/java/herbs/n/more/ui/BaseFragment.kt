@@ -12,6 +12,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.ui.cart.CartActivity
+import herbs.n.more.ui.search.FilterActivity
+import herbs.n.more.ui.search.ResultActivity
 import herbs.n.more.ui.search.SearchActivity
 import herbs.n.more.util.Coroutines
 import java.text.DecimalFormat
@@ -35,12 +37,12 @@ open class BaseFragment : Fragment() {
         activity?.window?.decorView?.clearFocus()
     }
 
-    fun onBackActivity(view: View){
+    fun onBackActivity(view: View) {
         activity?.finish()
         activity?.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right);
     }
 
-    fun onBackNavController(view: View){
+    fun onBackNavController(view: View) {
         view.findNavController().popBackStack()
     }
 
@@ -52,12 +54,32 @@ open class BaseFragment : Fragment() {
 
     fun goToSearch() {
         val intent = Intent(activity, SearchActivity::class.java)
+        intent.putExtra("q", "")
         startActivity(intent)
 
     }
 
-    fun convertMoney(double: Double) : String{
+    fun goToFilter() {
+        val intent = Intent(activity, FilterActivity::class.java)
+        intent.putExtra("q", "")
+        startActivity(intent)
+
+    }
+
+    fun convertMoney(double: Double): String {
         val mDecimalFormat = DecimalFormat("###,###,##0")
-        return mDecimalFormat.format(double).replace(",", ".") + context?.resources?.getString(R.string.vnd)
+        return mDecimalFormat.format(double)
+            .replace(",", ".") + context?.resources?.getString(R.string.vnd)
+    }
+
+    fun goToSearchResult(q: String, sort: Int, category: ArrayList<String>?, price_from: Float, price_to: Float
+    ) {
+        val intent = Intent(activity, ResultActivity::class.java)
+        intent.putExtra("q", q)
+        intent.putExtra("sort", sort)
+        intent.putStringArrayListExtra("category", category)
+        intent.putExtra("price_from", price_from)
+        intent.putExtra("price_to", price_to)
+        startActivity(intent)
     }
 }

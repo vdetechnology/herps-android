@@ -28,7 +28,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/dp_20"
                 android:layout_toRightOf="@+id/ib_back"
-                android:text="@string/success" />
+                android:text="@string/category_title" />
 
             <RelativeLayout
                 android:id="@+id/cart_container"
@@ -64,7 +64,7 @@
         </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/sv_home"
+            android:id="@+id/sv_category"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/header">
@@ -127,23 +127,28 @@
                             android:visibility="invisible"
                             app:srcCompat="@drawable/ic_close" />
                     </RelativeLayout>
-
                     <LinearLayout
                         android:id="@+id/ll_filter"
-                        android:layout_width="@dimen/dp_55"
-                        android:layout_height="@dimen/dp_55"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:layout_marginRight="@dimen/dp_15"
-                        android:background="@mipmap/shadow">
+                        android:layout_marginLeft="@dimen/dp_3"
+                        android:layout_marginRight="@dimen/dp_8">
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="?actionBarItemBackground"
-                            android:padding="@dimen/dp_5"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/ic_filter" />
+                        <LinearLayout
+                            android:layout_width="@dimen/dp_57"
+                            android:layout_height="@dimen/dp_57"
+                            android:background="@mipmap/shadow"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="@dimen/dp_42"
+                                android:layout_height="@dimen/dp_42"
+                                android:background="?selectableItemBackground"
+                                android:padding="@dimen/dp_7"
+                                android:src="@drawable/ic_filter"
+                                android:onClick="@{()->fragment.goToFilter()}"/>
+                        </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -161,8 +166,7 @@
                     android:layout_marginLeft="@dimen/dp_20"
                     android:layout_marginBottom="@dimen/dp_15"
                     android:layout_marginTop="@dimen/dp_15"
-                    android:clickable="true"
-                    app:rippleColor="@color/colorWhite"
+                    android:onClick="@{()->fragment.goToResult(String.valueOf(1))}"
                     app:cardBackgroundColor="@color/colorItemClick">
 
                     <ImageView
@@ -180,6 +184,7 @@
                     android:layout_marginRight="@dimen/dp_20"
                     android:layout_marginLeft="@dimen/dp_20"
                     android:layout_marginBottom="@dimen/dp_15"
+                    android:onClick="@{()->fragment.goToResult(String.valueOf(2))}"
                     app:cardBackgroundColor="@color/colorItemClick">
 
                     <ImageView
@@ -197,6 +202,7 @@
                     android:layout_marginRight="@dimen/dp_20"
                     android:layout_marginLeft="@dimen/dp_20"
                     android:layout_marginBottom="@dimen/dp_20"
+                    android:onClick="@{()->fragment.goToResult(String.valueOf(3))}"
                     app:cardBackgroundColor="@color/colorItemClick">
 
                     <ImageView
@@ -243,5 +249,25 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
         </RelativeLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fb_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabCustomSize="@dimen/dp_35"
+            app:maxImageSize="@dimen/dp_15"
+            android:layout_margin="@dimen/dp_15"
+            android:clickable="true"
+            android:backgroundTint="@color/colorWhite"
+            app:backgroundTint="@color/colorPrimary"
+            android:background="?actionBarItemBackground"
+            android:src="@drawable/ic_top_alignment"
+            android:layout_alignParentBottom="true"
+            app:tint="@color/colorPrimary"
+            android:outlineSpotShadowColor="@color/colorPrimary"
+            android:layout_above="@+id/cv_bottom"
+            android:onClick="@{()->fragment.scrollTop()}"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"/>
     </RelativeLayout>
 </layout>

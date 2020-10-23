@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import androidx.annotation.RequiresApi
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
@@ -63,7 +64,12 @@ class CategoryFragment : BaseFragment(), KodeinAware, BestSellingListener, Produ
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initView()
         initData()
+    }
+
+    private fun initView(){
+
     }
 
     private fun initData(){
@@ -95,7 +101,7 @@ class CategoryFragment : BaseFragment(), KodeinAware, BestSellingListener, Produ
                     layoutManager = GridLayoutManager(activity, 2, LinearLayoutManager.VERTICAL, false)
                     adapter = mSuggestedAdapter
                 }
-                binding.svHome.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                binding.svCategory.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
                     if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                         if (!loadmoreDisable) {
                             pageindex += 1
@@ -103,6 +109,11 @@ class CategoryFragment : BaseFragment(), KodeinAware, BestSellingListener, Produ
                             binding.pbLoadMore.visibility = View.VISIBLE
                             loadMorePopular()
                         }
+                    }
+                    if(scrollY > 5000){
+                        binding.fbTop.visibility = View.VISIBLE
+                    }else{
+                        binding.fbTop.visibility = View.GONE
                     }
                 })
             }
@@ -163,5 +174,13 @@ class CategoryFragment : BaseFragment(), KodeinAware, BestSellingListener, Produ
                 resources.getString(R.string.network_error)
             )
         }
+    }
+
+    fun goToResult(category: String){
+        goToSearchResult("",-1, arrayListOf(category),0f,10000000f)
+    }
+
+    fun scrollTop(){
+        binding.svCategory.fullScroll(ScrollView.FOCUS_UP);
     }
 }
