@@ -32,8 +32,8 @@ class LoginFragment : BaseFragment(), AuthListener, KodeinAware {
     override val kodein by kodein()
     private val factory: AuthViewModelFactory by instance()
     private lateinit var binding: FragmentLoginBinding
-    private lateinit var viewModel : AuthViewModel
-    private var isShow : Boolean = false
+    private lateinit var viewModel: AuthViewModel
+    private var isShow: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,7 +77,7 @@ class LoginFragment : BaseFragment(), AuthListener, KodeinAware {
 
     override fun onFailure(message: String) {
         binding.progressBar.hide()
-        when(message) {
+        when (message) {
             Constant.EMAIL_NULL -> tv_err_mail.text = resources.getString(R.string.email_is_blank)
             Constant.EMAIL_OK -> tv_err_mail.text = ""
             Constant.EMAIL_ISVALID -> tv_err_mail.text =
@@ -94,12 +94,12 @@ class LoginFragment : BaseFragment(), AuthListener, KodeinAware {
         }
     }
 
-    fun onSingup(view: View){
+    fun onSingup(view: View) {
         view.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
         view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
     }
 
-    fun onForgotPassword(view: View){
+    fun onForgotPassword(view: View) {
         view.startAnimation(AnimationUtils.loadAnimation(activity, R.anim.image_click))
         view.findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
     }
@@ -108,19 +108,23 @@ class LoginFragment : BaseFragment(), AuthListener, KodeinAware {
         activity?.toast(resources.getString(R.string.comming_soon))
     }
 
+    fun loginZalo() {
+        (activity as AuthActivity).loginZalo()
+    }
+
     fun onBack() {
         activity?.finish()
         activity?.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right)
     }
 
-    fun onShowPassword(view: View){
+    fun onShowPassword(view: View) {
         val view = view as ImageButton
-        if(!isShow){
+        if (!isShow) {
             binding.etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
             view.setImageResource(R.drawable.ic_show_pass_off)
             isShow = true
             binding.etPassword.setSelection(binding.etPassword.text.length)
-        } else{
+        } else {
             binding.etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
             view.setImageResource(R.drawable.ic_show_pass)
             isShow = false

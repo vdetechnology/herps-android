@@ -34,4 +34,8 @@ class UserRepository(
     fun saveUserIO(user: User) = db.getUserDao().save(user)
 
     fun getUser() = db.getUserDao().getuser()
+
+    suspend fun userLoginZalo(zaloId: String, username: String, picture: String): AuthResponse{
+        return apiRequest { api.userLoginByZalo(zaloId , username, picture) }
+    }
 }

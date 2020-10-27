@@ -5,19 +5,14 @@ import herbs.n.more.data.db.entities.Cart
 import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.network.MyApi
 import herbs.n.more.data.network.SafeApiRequest
-import herbs.n.more.data.network.responses.DetailProductResponse
 
-class DetailProductRepository (
+class SavedRepository (
     private val api: MyApi,
     private val db: AppDatabase
 ) : SafeApiRequest() {
 
-    suspend fun getDetailProduct(id: String): DetailProductResponse {
-        return apiRequest { api.getDetailProduct(id) }
-    }
-
     suspend fun getPopular(pageindex : Int): List<Product> {
-        val response = apiRequest { api.getPopular(pageindex,4) }
+        val response = apiRequest { api.getPopular(pageindex,8) }
         return response.data
     }
 

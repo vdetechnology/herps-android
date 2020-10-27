@@ -203,7 +203,7 @@
                         android:layout_width="@dimen/dp_45"
                         android:layout_height="@dimen/dp_45"
                         android:background="?selectableItemBackgroundBorderless"
-                        android:onClick="@{() -> fragment.commingSoon()}"
+                        android:onClick="@{() -> fragment.loginZalo()}"
                         android:scaleType="centerCrop"
                         android:src="@mipmap/ic_zalo" />
 

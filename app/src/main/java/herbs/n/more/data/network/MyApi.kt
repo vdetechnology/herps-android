@@ -63,6 +63,14 @@ interface MyApi {
         @Field("email") email: String
     ) : Response<GetDiscountCodeResponse>
 
+    @FormUrlEncoded
+    @POST("users/LoginByZalo")
+    suspend fun userLoginByZalo(
+        @Field("zaloId") zaloId: String,
+        @Field("username") username: String,
+        @Field("picture") picture: String
+    ): Response<AuthResponse>
+
     companion object{
         operator fun invoke(
             networkConnectionInterceptor: NetworkConnectionInterceptor

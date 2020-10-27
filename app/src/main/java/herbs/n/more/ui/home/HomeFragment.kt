@@ -91,7 +91,8 @@ class HomeFragment : BaseFragment(), KodeinAware, BestSellingListener, ProductIt
             loadmoreDisable = false
             loadmore = false
             pageindex = 1
-            initData()
+            //initData()
+            (activity as MainActivity).initData()
             binding.swiperefresh.isRefreshing = false
         }
         initData()

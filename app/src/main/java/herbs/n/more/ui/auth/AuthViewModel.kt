@@ -2,7 +2,6 @@ package herbs.n.more.ui.auth
 
 import android.view.View
 import androidx.lifecycle.ViewModel
-import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.data.repositories.UserRepository
 import herbs.n.more.util.*
@@ -151,6 +150,25 @@ class AuthViewModel(
                     return@main
                 }
                 authListener?.onFailure(authResponse.message)
+            }catch (e: ApiException){
+                authListener?.onFailure(e.message!!)
+            }catch (e: NoInternetException){
+                authListener?.onFailure(e.message!!)
+            }
+        }
+    }
+
+    fun onLoginZaloClick(zaloId: String, username: String, picture: String){
+        authListener?.onStarted()
+        Coroutines.main {
+            try {
+                var authResponse = userRepository.userLoginZalo(zaloId, username, picture)
+                authResponse.data?.let {
+                    authListener?.onSuccess(it, authResponse.message)
+                    userRepository.saveUser(it)
+                    return@main
+                }
+                authListener?.onFailure(authResponse.message!!)
             }catch (e: ApiException){
                 authListener?.onFailure(e.message!!)
             }catch (e: NoInternetException){

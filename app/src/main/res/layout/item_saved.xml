@@ -1,81 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_100"
-    android:layout_marginBottom="@dimen/dp_15"
-    android:background="@drawable/bg_item">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_product"
-        android:layout_width="@dimen/dp_100"
-        android:layout_height="@dimen/dp_100"
-        android:padding="@dimen/dp_15" />
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="product"
+            type="herbs.n.more.data.db.entities.Product" />
+    </data>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cv_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_toLeftOf="@id/context_button"
-        android:layout_toRightOf="@id/iv_product"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:layout_height="@dimen/dp_305"
+        android:layout_margin="@dimen/dp_5"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:outlineAmbientShadowColor="@color/colorPrimary"
+        android:outlineSpotShadowColor="@color/colorPrimary"
+        card_view:cardBackgroundColor="@color/color_bg_item"
+        card_view:rippleColor="@color/colorItemClick"
+        card_view:cardCornerRadius="@dimen/dp_10"
+        card_view:cardElevation="@dimen/dp_0">
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:maxLines="1"
-            android:text="Sức khỏe gan Neo SILY-VITA"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/dp_16" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_305"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_3">
 
-        <TextView
-            android:id="@+id/tv_category_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
-            android:maxLines="1"
-            android:text="Thực phẩm chức năng"
-            android:textColor="@color/text_sub_color"
-            android:textSize="@dimen/dp_13" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="@dimen/dp_10"
+                card_view:cardElevation="0dp">
 
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:fontFamily="@font/roboto_medium"
-            android:maxLines="1"
-            android:text="295.000đ"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/dp_18" />
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_product_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_140"
+                    android:scaleType="centerCrop" />
+                <ImageView
+                    android:id="@+id/iv_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_140"
+                    android:scaleType="centerCrop"/>
+            </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:id="@+id/context_button"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:gravity="center"
-        android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_product_name"
+                style="@style/TextNameProductRegular10"
+                android:layout_height="@dimen/dp_30"
+                android:layout_below="@+id/cv_image"
+                android:layout_marginTop="@dimen/dp_10"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{product.title}" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="@dimen/dp_35"
-            android:layout_height="@dimen/dp_35"
-            android:background="@drawable/bg_button_add"
-            android:padding="@dimen/dp_10"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_add_to_cart"
-            android:tint="@color/colorWhite" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_below="@id/tv_product_name">
+                <LinearLayout
+                    android:id="@+id/ll_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="@dimen/dp_35"
-            android:layout_height="@dimen/dp_35"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@drawable/bg_button_bin"
-            android:padding="@dimen/dp_10"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_bin"
-            android:tint="@color/icon_color" />
-    </LinearLayout>
-</RelativeLayout>
+                    <com.willy.ratingbar.ScaleRatingBar
+                        android:id="@+id/rb_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_clearRatingEnabled="false"
+                        app:srb_clickable="false"
+                        app:srb_drawableEmpty="@drawable/ic_star"
+                        app:srb_drawableFilled="@drawable/ic_star_filled"
+                        app:srb_isIndicator="false"
+                        app:srb_minimumStars="0"
+                        app:srb_numStars="5"
+                        app:srb_scrollable="false"
+                        app:srb_starHeight="@dimen/dp_10"
+                        app:srb_starPadding="@dimen/dp_1"
+                        app:srb_starWidth="@dimen/dp_10"
+                        app:srb_stepSize="1" />
+
+                    <TextView
+                        android:id="@+id/tv_number_rating"
+                        style="@style/TextSubRegular10"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="@{String.format(@string/number_comment, product.comment)}" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        style="@style/TextSubRegular10"
+                        android:visibility="@{product.total_sales == 0 ? View.INVISIBLE : View.VISIBLE}"/>
+
+                    <View
+                        android:id="@+id/line"
+                        android:layout_width="@dimen/dp_43"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_centerVertical="true"
+                        android:visibility="@{product.total_sales == 0 ? View.INVISIBLE : View.VISIBLE}"
+                        android:background="@color/text_sub_color" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_price_sale"
+                    style="@style/ColorMainTextRegular12"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/dp_60"
+                android:layout_gravity="center"
+                card_view:cardCornerRadius="@dimen/dp_5"
+                card_view:rippleColor="@color/text_color_error"
+                android:background="@color/colorWhite"
+                card_view:cardElevation="0dp">
+
+                <ImageButton
+                    android:id="@+id/bt_delete"
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:background="@color/colorWhite"
+                    android:padding="@dimen/dp_6"
+                    android:clickable="false"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_trash" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_add_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_cart"
+                android:textSize="@dimen/sp_8"
+                android:textAllCaps="false"
+                app:icon="@drawable/ic_cart_black"
+                android:backgroundTint="@color/color_bg_item"
+                card_view:strokeWidth="@dimen/dp_1"
+                card_view:rippleColor="@color/colorPrimary"
+                android:textColor="@color/colorBlack"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                card_view:iconTint="@color/colorBlack"
+                card_view:iconPadding="@dimen/dp_5"
+                android:fontFamily="@font/utm_avo"
+                card_view:iconSize="@dimen/dp_13"
+                card_view:cornerRadius="@dimen/dp_5"
+                android:layout_centerHorizontal="true"
+                android:outlineSpotShadowColor="@color/color_bg_item"
+                android:outlineAmbientShadowColor="@color/color_bg_item"
+                android:layout_alignParentBottom="true"/>
+
+            <TextView
+                android:id="@+id/tv_percent_sale"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_17"
+                android:background="@drawable/bg_percent_sale_home"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@{product.total_sales_percent.toString()}"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sp_10"
+                android:visibility="@{product.total_sales == 0 ? View.INVISIBLE : View.VISIBLE}" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

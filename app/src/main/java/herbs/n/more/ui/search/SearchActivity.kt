@@ -13,7 +13,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.chip.Chip
+import com.google.android.material.card.MaterialCardView
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import herbs.n.more.R
@@ -97,10 +97,10 @@ class SearchActivity : BaseActivity(), KodeinAware, SearchHistoryItemListener {
         }
 
         for (text in searchs) {
-            val chip = LayoutInflater.from(this).inflate(R.layout.item_chip, null) as Chip
-            chip.text = text
+            val chip: MaterialCardView = LayoutInflater.from(this).inflate(R.layout.item_chip, null) as MaterialCardView
+            (chip.getChildAt(0) as TextView).text = text
             chip.setOnClickListener {
-                q = chip.text.toString()
+                q = (chip.getChildAt(0) as TextView).text.toString()
                 goToSearchResult(q, sort, listCategory, fromValue, toValue)
                 finish()
             }

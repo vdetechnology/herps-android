@@ -23,6 +23,7 @@
             android:paddingRight="@dimen/dp_25"
             android:paddingTop="@dimen/dp_10"
             android:paddingBottom="@dimen/dp_10"
+            android:textSize="@dimen/sp_12"
             android:background="?selectableItemBackground"
             android:singleLine="true"
             android:text="@{history.title}" />

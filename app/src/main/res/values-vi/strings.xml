@@ -1,4 +1,6 @@
 <resources>
+    <!--key-->
+    <string name="appID">55242768268623807</string>
 
     <!-- Onboarding-->
     <string name="title0">Herbs ® Thảo Dược Cao Cấp</string>

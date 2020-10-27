@@ -90,6 +90,10 @@ class RegisterFragment : BaseFragment(), AuthListener, KodeinAware{
         activity?.toast(resources.getString(R.string.comming_soon))
     }
 
+    fun loginZalo() {
+        (activity as AuthActivity).loginZalo()
+    }
+
     fun onBack(view: View){
         view.findNavController().popBackStack()
     }

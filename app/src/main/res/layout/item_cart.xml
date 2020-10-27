@@ -63,6 +63,7 @@
                     android:id="@+id/tv_price_sale"
                     style="@style/ColorMainTextRegular15"
                     android:layout_marginLeft="@dimen/dp_5"
+                    android:fontFamily="@font/roboto_regular"
                     android:textColor="@color/colorBlack" />
 
                 <RelativeLayout

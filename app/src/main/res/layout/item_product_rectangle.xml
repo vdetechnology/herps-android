@@ -109,7 +109,6 @@
                         <TextView
                             android:id="@+id/tv_price"
                             style="@style/TextSubRegular10"
-                            android:fontFamily="@font/roboto_regular"
                             android:visibility="@{product.total_sales == 0 ? View.INVISIBLE : View.VISIBLE}" />
 
                         <View
@@ -137,8 +136,7 @@
 
                 <TextView
                     android:id="@+id/tv_price_sale"
-                    style="@style/ColorMainTextBold12"
-                    android:fontFamily="@font/roboto_medium"
+                    style="@style/ColorMainTextRegular12"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>
