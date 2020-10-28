@@ -186,7 +186,8 @@
                                 app:srb_starHeight="@dimen/dp_15"
                                 app:srb_starPadding="@dimen/dp_2"
                                 app:srb_starWidth="@dimen/dp_15"
-                                app:srb_stepSize="5" />
+                                app:srb_stepSize="5"
+                                android:visibility="@{product.comment == 0 ? View.GONE : View.VISIBLE}" />
 
                             <TextView
                                 android:id="@+id/tv_number_rating"
@@ -195,7 +196,15 @@
                                 android:background="@drawable/border_bottom"
                                 android:fontFamily="@font/roboto_regular"
                                 android:text="@{String.format(@string/number_comment_detail, product.comment)}"
+                                android:visibility="@{product.comment == 0 ? View.GONE : View.VISIBLE}"
                                 android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                style="@style/TextSubRegular10"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="@{String.format(@string/comment_empty, product.comment)}"
+                                android:textSize="@dimen/sp_12"
+                                android:visibility="@{product.comment == 0 ? View.VISIBLE : View.GONE}"/>
                         </LinearLayout>
 
                         <RelativeLayout
@@ -425,7 +434,8 @@
                         android:layout_marginRight="@dimen/dp_20"
                         android:background="@drawable/bg_item"
                         android:orientation="vertical"
-                        android:padding="@dimen/dp_15">
+                        android:padding="@dimen/dp_15"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -641,7 +651,8 @@
                         android:layout_marginRight="@dimen/dp_20"
                         android:background="@drawable/bg_item"
                         android:orientation="vertical"
-                        android:paddingBottom="@dimen/dp_15">
+                        android:paddingBottom="@dimen/dp_15"
+                        android:visibility="@{product.comment == 0 ? View.GONE : View.VISIBLE}">
 
                         <TextView
                             style="@style/TextNameProductRegular10"
@@ -693,9 +704,12 @@
                             android:layout_marginTop="@dimen/dp_15"
                             android:background="@color/colorWhite" />
 
-                        <include layout="@layout/item_rating" />
-
-                        <include layout="@layout/item_rating" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_rating"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false"
+                            android:scrollbars="none"/>
 
                         <TextView
                             android:id="@+id/tv_see_all"
@@ -704,7 +718,7 @@
                             android:layout_marginTop="@dimen/dp_15"
                             android:background="@drawable/border_bottom_primary"
                             android:text="@string/see_all"
-                            android:textSize="@dimen/sp_12" />
+                            android:textSize="@dimen/sp_12"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -746,7 +760,7 @@
                             app:srb_drawableEmpty="@drawable/ic_star_yellow"
                             app:srb_drawableFilled="@drawable/ic_star_filled_yellow"
                             app:srb_isIndicator="false"
-                            app:srb_minimumStars="0"
+                            app:srb_minimumStars="1"
                             app:srb_numStars="5"
                             app:srb_rating="5"
                             app:srb_scrollable="true"
@@ -764,7 +778,7 @@
                             android:fontFamily="@font/utm_avo"
                             android:gravity="top"
                             android:hint="@string/rating_hint"
-                            android:inputType="textMultiLine"
+                            android:inputType="text"
                             android:nextFocusDown="@id/et_mail"
                             android:overScrollMode="always"
                             android:padding="@dimen/dp_15"
@@ -774,11 +788,18 @@
                             android:textColorHint="@color/text_color_hint"
                             android:textSize="@dimen/sp_10" />
 
+                        <TextView
+                            android:id="@+id/tv_err_comment"
+                            style="@style/TextSubRegular10"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="@dimen/dp_2"
+                            android:layout_marginBottom="@dimen/dp_2"
+                            android:textColor="@color/text_color_error" />
+
                         <EditText
                             android:id="@+id/et_mail"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_30"
-                            android:layout_marginTop="@dimen/dp_15"
                             android:background="@drawable/bg_rating_form"
                             android:fontFamily="@font/utm_avo"
                             android:hint="@string/rating_email_hint"
@@ -791,11 +812,18 @@
                             android:textColorHint="@color/text_color_hint"
                             android:textSize="@dimen/sp_10" />
 
+                        <TextView
+                            android:id="@+id/tv_err_mail"
+                            style="@style/TextSubRegular10"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="@dimen/dp_2"
+                            android:layout_marginBottom="@dimen/dp_2"
+                            android:textColor="@color/text_color_error" />
+
                         <EditText
                             android:id="@+id/et_name"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dp_30"
-                            android:layout_marginTop="@dimen/dp_15"
                             android:background="@drawable/bg_rating_form"
                             android:fontFamily="@font/utm_avo"
                             android:hint="@string/rating_name_hint"
@@ -808,6 +836,14 @@
                             android:textColorHint="@color/text_color_hint"
                             android:textSize="@dimen/sp_10" />
 
+                        <TextView
+                            android:id="@+id/tv_err_name"
+                            style="@style/TextSubRegular10"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="@dimen/dp_2"
+                            android:layout_marginBottom="@dimen/dp_2"
+                            android:textColor="@color/text_color_error" />
+
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_submit"
                             style="@style/App.Button.Text"
@@ -815,10 +851,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginLeft="@dimen/dp_5"
-                            android:layout_marginTop="@dimen/dp_20"
+                            android:layout_marginTop="@dimen/dp_5"
                             android:layout_marginRight="@dimen/dp_15"
                             android:layout_marginBottom="@dimen/dp_5"
                             android:backgroundTint="@color/colorPrimary"
+                            android:onClick="@{()->activity.onRatingButtonClick()}"
                             android:text="@string/rating" />
                     </LinearLayout>
 

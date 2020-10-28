@@ -71,6 +71,25 @@ interface MyApi {
         @Field("picture") picture: String
     ): Response<AuthResponse>
 
+    @GET("product/comments/")
+    suspend fun getComments(
+        @Query("productid") productid : String,
+        @Query("pageindex") pageindex : Int,
+        @Query("pagesize") pagesize : Int
+    ) : Response<GetCommentsResponse>
+
+    @FormUrlEncoded
+    @POST("product/addcomment")
+    suspend fun addComment(
+        @Field("productid") productid: String,
+        @Field("userid") userid: String,
+        @Field("email") email: String,
+        @Field("reviewer") reviewer: String,
+        @Field("rating") rating: Int,
+        @Field("comment") comment: String,
+        @Field("agent") agent: String
+    ): Response<AddCommentResponse>
+
     companion object{
         operator fun invoke(
             networkConnectionInterceptor: NetworkConnectionInterceptor

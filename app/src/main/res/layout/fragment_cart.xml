@@ -271,8 +271,7 @@
                     android:layout_height="@dimen/dp_50"
                     android:backgroundTint="@color/text_color_error"
                     android:onClick="@{() -> fragment.continueOrder()}"
-                    android:text="@string/proceed_to_order"
-                    app:cornerRadius="@dimen/dp_5" />
+                    android:text="@string/proceed_to_order"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -291,6 +290,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorBlack20"
+            android:clickable="true"
             android:visibility="gone">
 
             <ProgressBar

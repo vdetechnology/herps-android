@@ -319,20 +319,21 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_logout"
+            style="@style/App.Button.Text"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
+            android:layout_height="@dimen/dp_50"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_10"
+            android:fontFamily="@font/utm_avo_bold"
+            android:text="@string/sign_out"
+            android:onClick="@{fragment::logOut}"
+            android:textSize="@dimen/sp_15"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_20"
-            android:layout_marginBottom="@dimen/dp_20"
-            android:background="@drawable/bg_button"
-            android:text="@string/sign_out"
-            android:onClick="@{fragment :: logOut}"
-            android:outlineSpotShadowColor="@color/colorPrimary"
-            android:outlineAmbientShadowColor="@color/colorPrimary"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_marginBottom="@dimen/dp_20"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

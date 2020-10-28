@@ -109,6 +109,7 @@
     <string name="add_to_cart">Add to cart</string>
     <string name="buy_now">Buy now</string>
     <string name="number_comment_detail">(%s Comment)</string>
+    <string name="comment_empty">No reviews yet</string>
     <string name="policy1">Bồi thường 200% nếu không dạt hay kém chất lượng</string>
     <string name="policy2">Bồi thường 500% nếu không đúng xuất sứ</string>
     <string name="policy3">Sản phẩm được miễn phí vận chuyển</string>
@@ -124,7 +125,8 @@
     <string name="rating_product">Rating product</string>
     <string name="see_all">See all</string>
     <string name="your_rating">Your rating</string>
-    <string name="rating_hint">Input your email</string>
+    <string name="rating_hint">Input your comment</string>
+    <string name="rating_is_blank">Please enter your comment</string>
     <string name="rating_email_hint">Input email (require)</string>
     <string name="rating_name_hint">Your name display (require)</string>
     <string name="rating">Rating</string>

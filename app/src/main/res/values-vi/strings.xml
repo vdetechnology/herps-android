@@ -109,6 +109,7 @@
     <string name="add_to_cart">Thêm vào giỏ hàng</string>
     <string name="buy_now">Mua ngay</string>
     <string name="number_comment_detail">(%s Nhận xét)</string>
+    <string name="comment_empty">Chưa có đánh giá</string>
     <string name="policy1">Bồi thường 200% nếu không dạt hay kém chất lượng</string>
     <string name="policy2">Bồi thường 500% nếu không đúng xuất sứ</string>
     <string name="policy3">Sản phẩm được miễn phí vận chuyển</string>
@@ -125,6 +126,7 @@
     <string name="see_all">Xem tất cả</string>
     <string name="your_rating">Đánh giá của bạn</string>
     <string name="rating_hint">Viết đánh giá của bạn</string>
+    <string name="rating_is_blank">Vui lòng nhập đánh giá</string>
     <string name="rating_email_hint">Nhập Email (bắt buộc)</string>
     <string name="rating_name_hint">Tên hiển thị của bạn (bắt buộc)</string>
     <string name="rating">Đánh giá</string>

@@ -44,15 +44,33 @@ class RegisterFragment : BaseFragment(), AuthListener, KodeinAware{
         binding.fragment = this
         binding.lifecycleOwner = this
         viewModel.authListener = this
+        viewModel.getLoggedInUser().observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer { user ->
+                if (user != null) {
+                    activity?.let { it ->
+                        Intent(it, MainActivity::class.java).also {
+                            it.flags =
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(it)
+                            activity?.overridePendingTransition(
+                                R.anim.anim_slide_in_right,
+                                R.anim.anim_slide_out_left
+                            )
+                        }
+                    }
+                }
+            })
+
         return binding.root
     }
 
     override fun onStarted() {
-        binding.progressBar.show()
+        binding.rlLoading.visibility = View.VISIBLE
     }
 
     override fun onSuccess(user: User?, message: String) {
-        binding.progressBar.hide()
+        binding.rlLoading.visibility = View.GONE
         if (user != null) {
             activity?.let {it ->
                 Intent(it, MainActivity::class.java).also {
@@ -65,7 +83,7 @@ class RegisterFragment : BaseFragment(), AuthListener, KodeinAware{
     }
 
     override fun onFailure(message: String) {
-        binding.progressBar.hide()
+        binding.rlLoading.visibility = View.GONE
         when(message) {
             Constant.EMAIL_NULL -> tv_err_mail.text = resources.getString(R.string.email_is_blank)
             Constant.EMAIL_OK -> tv_err_mail.text = ""

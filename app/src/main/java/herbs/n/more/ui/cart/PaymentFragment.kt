@@ -80,22 +80,17 @@ class PaymentFragment : BaseFragment(), KodeinAware, CartListener{
         binding.rlLoading.visibility = View.VISIBLE
         viewModel.getAllCart().observe(this, androidx.lifecycle.Observer {
             binding.rlLoading.visibility = View.GONE
-            if (it.isNullOrEmpty()) {
-                binding.rvCart.visibility = View.GONE
-                binding.llEmpty.visibility = View.VISIBLE
-            } else {
-                val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
-                    addAll(it.toPaymentItem())
-                }
+            val mAdapter = GroupAdapter<GroupieViewHolder>().apply {
+                addAll(it.toPaymentItem())
+            }
 
-                binding.rvCart.apply {
-                    layoutManager = LinearLayoutManager(
-                        activity,
-                        LinearLayoutManager.VERTICAL,
-                        false
-                    )
-                    adapter = mAdapter
-                }
+            binding.rvCart.apply {
+                layoutManager = LinearLayoutManager(
+                    activity,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+                adapter = mAdapter
             }
         })
     }

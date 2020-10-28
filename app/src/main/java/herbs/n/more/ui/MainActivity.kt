@@ -81,6 +81,14 @@ class MainActivity : AppCompatActivity(), KodeinAware, BottomNavigationView.OnNa
     }
 
     /**
+     * go to home screen
+     */
+    fun goHome() {
+        // set listener to do something then item selected
+        bind?.bottomBar?.currentItem = 0
+    }
+
+    /**
      * set listeners
      */
     private fun initEvent() {
@@ -92,6 +100,9 @@ class MainActivity : AppCompatActivity(), KodeinAware, BottomNavigationView.OnNa
         MessageDialogFragment(title, message).apply {show(supportFragmentManager, "TAG") }
     }
 
+    /**
+     * add badge to item notification
+     */
     private fun addBadgeAt(position: Int, number: Int): Badge? {
         // add badge
         return QBadgeView(this)
@@ -100,6 +111,9 @@ class MainActivity : AppCompatActivity(), KodeinAware, BottomNavigationView.OnNa
             .bindTarget(bind?.bottomBar?.getBottomNavigationItemView(position))
     }
 
+    /**
+     * on Navigation Item Selected
+     */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.profileFragment, R.id.savedFragment, R.id.notifiFragment -> {

@@ -5,6 +5,6 @@ import herbs.n.more.data.db.entities.DetailProduct
 interface DetailListener {
 
     fun onStarted()
-    fun onSuccess(detailProduct: DetailProduct)
+    fun onSuccess()
     fun onFailure(message: String)
 }

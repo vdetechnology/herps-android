@@ -18,8 +18,6 @@ import herbs.n.more.databinding.FragmentLoginBinding
 import herbs.n.more.ui.BaseFragment
 import herbs.n.more.ui.MainActivity
 import herbs.n.more.util.Constant
-import herbs.n.more.util.hide
-import herbs.n.more.util.show
 import herbs.n.more.util.toast
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.kodein.di.KodeinAware
@@ -68,15 +66,15 @@ class LoginFragment : BaseFragment(), AuthListener, KodeinAware {
     }
 
     override fun onStarted() {
-        binding.progressBar.show()
+        binding.rlLoading.visibility = View.VISIBLE
     }
 
     override fun onSuccess(user: User?, message: String) {
-        binding.progressBar.hide()
+        binding.rlLoading.visibility = View.GONE
     }
 
     override fun onFailure(message: String) {
-        binding.progressBar.hide()
+        binding.rlLoading.visibility = View.GONE
         when (message) {
             Constant.EMAIL_NULL -> tv_err_mail.text = resources.getString(R.string.email_is_blank)
             Constant.EMAIL_OK -> tv_err_mail.text = ""

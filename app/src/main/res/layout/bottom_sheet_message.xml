@@ -50,22 +50,13 @@
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_close"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:background="@drawable/bg_button"
-        android:fontFamily="@font/utm_avo"
+        style="@style/App.Button.Text"
         android:text="@string/close"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/sp_12"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_20"
-        android:layout_gravity="bottom"
-        android:outlineSpotShadowColor="@color/colorPrimary"
-        android:outlineAmbientShadowColor="@color/colorPrimary"
         android:layout_marginTop="@dimen/dp_70"
-        android:layout_marginBottom="@dimen/sp_20"/>
+        android:layout_marginBottom="@dimen/dp_20"/>
 
 </LinearLayout>

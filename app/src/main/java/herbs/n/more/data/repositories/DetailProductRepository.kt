@@ -2,9 +2,11 @@ package herbs.n.more.data.repositories
 
 import herbs.n.more.data.db.AppDatabase
 import herbs.n.more.data.db.entities.Cart
+import herbs.n.more.data.db.entities.Comment
 import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.network.MyApi
 import herbs.n.more.data.network.SafeApiRequest
+import herbs.n.more.data.network.responses.AddCommentResponse
 import herbs.n.more.data.network.responses.DetailProductResponse
 
 class DetailProductRepository (
@@ -19,6 +21,16 @@ class DetailProductRepository (
     suspend fun getPopular(pageindex : Int): List<Product> {
         val response = apiRequest { api.getPopular(pageindex,4) }
         return response.data
+    }
+
+    suspend fun getComments(productid : String, pageindex : Int, pagesize: Int): List<Comment>? {
+        val response = apiRequest { api.getComments(productid, pageindex, pagesize) }
+        return response.data.comments
+    }
+
+    suspend fun addComment(productid: String, userid: String, email: String, reviewer: String,
+                           rating: Int, comment: String, agent: String): AddCommentResponse {
+        return apiRequest { api.addComment(productid, userid, email, reviewer, rating, comment, agent) }
     }
 
     fun saveProducts(product: Product) = db.getProductDao().saveProduct(product)

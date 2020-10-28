@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import herbs.n.more.data.db.entities.Cart
+import herbs.n.more.data.db.entities.Comment
 import herbs.n.more.data.db.entities.DetailProduct
 import herbs.n.more.data.db.entities.Product
+import herbs.n.more.data.network.responses.AddCommentResponse
 import herbs.n.more.data.repositories.DetailProductRepository
 import herbs.n.more.util.ApiException
 import herbs.n.more.util.Constant
@@ -20,6 +22,7 @@ class DetailProductViewModel (
 ) : ViewModel() {
     var detailListener : DetailListener? = null
     private val detail = MutableLiveData<DetailProduct>()
+    private val addComment = MutableLiveData<AddCommentResponse>()
 
     suspend fun getDetail(id: String): LiveData<DetailProduct> {
         return withContext(Dispatchers.Main) {
@@ -34,7 +37,7 @@ class DetailProductViewModel (
             try {
                 var authResponse = repository.getDetailProduct(id)
                 authResponse.data?.let {
-                    detailListener?.onSuccess(it)
+                    detailListener?.onSuccess()
                     detail.postValue(it)
                     return@main
                 }
@@ -75,5 +78,45 @@ class DetailProductViewModel (
 
     suspend fun cartByID(id: Int): Cart{
         return repository.getCartByID(id)
+    }
+
+    suspend fun getComments(productid: String, pageindex : Int, pagesize: Int): List<Comment>? {
+        try {
+            return repository.getComments(productid, pageindex, pagesize)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    suspend fun addComment(productid: String, userid: String, email: String,
+                           reviewer: String, rating: Int, comment: String, agent: String): LiveData<AddCommentResponse> {
+        return withContext(Dispatchers.Main) {
+            fetchAddComment(productid, userid, email, reviewer, rating, comment, agent)
+            addComment
+        }
+    }
+
+    private suspend fun fetchAddComment(productid: String, userid: String, email: String,
+                                        reviewer: String, rating: Int, comment: String, agent: String) {
+        detailListener?.onStarted()
+        Coroutines.main {
+            try {
+                val response = repository.addComment(productid, userid, email, reviewer, rating, comment, agent)
+                response.let {
+                    addComment.postValue(response)
+                    detailListener?.onSuccess()
+                    return@main
+                }
+                detailListener?.onFailure(response.message!!)
+            } catch (e: ApiException) {
+                detailListener?.onFailure(Constant.API_ERROR)
+            } catch (e: NoInternetException) {
+                detailListener?.onFailure(Constant.NO_INTERNET)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                detailListener?.onFailure(Constant.API_ERROR)
+            }
+        }
     }
 }

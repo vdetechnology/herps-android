@@ -159,7 +159,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/dp_10"
                     app:cardElevation="@dimen/dp_0"
                     android:layout_marginRight="@dimen/dp_20"
@@ -171,14 +171,14 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_92"
+                        android:layout_height="@dimen/dp_95"
                         android:background="@mipmap/category1"/>
 
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/dp_10"
                     app:cardElevation="@dimen/dp_0"
                     android:layout_marginRight="@dimen/dp_20"
@@ -189,14 +189,14 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_92"
+                        android:layout_height="@dimen/dp_95"
                         android:background="@mipmap/category2"/>
 
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/dp_10"
                     app:cardElevation="@dimen/dp_0"
                     android:layout_marginRight="@dimen/dp_20"
@@ -207,7 +207,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_92"
+                        android:layout_height="@dimen/dp_95"
                         android:background="@mipmap/category3"/>
 
                 </com.google.android.material.card.MaterialCardView>
@@ -242,6 +242,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorBlack20"
+            android:clickable="true"
             android:visibility="gone">
 
             <ProgressBar

@@ -203,8 +203,7 @@
                 android:layout_marginTop="@dimen/dp_50"
                 android:backgroundTint="@color/colorPrimary"
                 android:onClick="@{fragment::onBackHomeClick}"
-                android:text="@string/back_to_purchase"
-                app:cornerRadius="@dimen/dp_5" />
+                android:text="@string/back_to_purchase"/>
 
         </LinearLayout>
 

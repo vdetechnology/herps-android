@@ -4,20 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import com.zing.zalo.zalosdk.oauth.LoginVia
 import com.zing.zalo.zalosdk.oauth.OAuthCompleteListener
 import com.zing.zalo.zalosdk.oauth.OauthResponse
 import com.zing.zalo.zalosdk.oauth.ZaloSDK
 import herbs.n.more.R
+import herbs.n.more.data.db.entities.User
 import herbs.n.more.ui.BaseActivity
+import kotlinx.android.synthetic.main.activity_auth.*
 import org.kodein.di.generic.instance
 import org.json.JSONObject
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 
 
-class AuthActivity : BaseActivity(), KodeinAware {
+class AuthActivity : BaseActivity(), KodeinAware, AuthListener {
 
     override val kodein by kodein()
     private lateinit var viewModel: AuthViewModel
@@ -27,9 +30,7 @@ class AuthActivity : BaseActivity(), KodeinAware {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
         viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
-        if(ZaloSDK.Instance.isAuthenticate(null)) {
-            onLoginSuccess()
-        }
+        viewModel.authListener = this
     }
 
     fun loginZalo() {
@@ -69,5 +70,21 @@ class AuthActivity : BaseActivity(), KodeinAware {
 
     fun onLoginError(code: Int, message: String) {
         Log.e("Login Zalo error: ", "[$code] $message")
+    }
+
+    override fun onStarted() {
+        rl_loading.visibility = View.VISIBLE
+    }
+
+    override fun onSuccess(user: User?, message: String) {
+        rl_loading.visibility = View.GONE
+    }
+
+    override fun onFailure(message: String) {
+        rl_loading.visibility = View.GONE
+        showMessage(
+            resources.getString(R.string.login_error),
+            message
+        )
     }
 }

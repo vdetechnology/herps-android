@@ -51,39 +51,22 @@
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_continute"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:layout_gravity="bottom"
+        style="@style/App.Button.Text"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginTop="@dimen/dp_70"
         android:layout_marginRight="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/sp_15"
-        android:background="@drawable/bg_button"
-        android:outlineSpotShadowColor="@color/colorPrimary"
-        android:outlineAmbientShadowColor="@color/colorPrimary"
-        android:fontFamily="@font/utm_avo"
-        android:text="@string/continute_account"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/sp_12" />
+        android:layout_marginBottom="@dimen/dp_15"
+        android:text="@string/continute_account" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_back_login"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:layout_gravity="bottom"
+        style="@style/App.Button.Text"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/sp_20"
-        android:background="@drawable/bg_button_gray"
-        android:outlineSpotShadowColor="@color/colorPrimary"
-        android:outlineAmbientShadowColor="@color/colorPrimary"
-        android:fontFamily="@font/utm_avo"
-        android:text="@string/back_to_login"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/sp_12" />
+        android:layout_marginBottom="@dimen/dp_15"
+        android:backgroundTint="@color/icon_color"
+        android:text="@string/back_to_login" />
 
 </LinearLayout>

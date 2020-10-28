@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import com.zing.zalo.zalosdk.oauth.ZaloSDK
 import herbs.n.more.R
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentProfileBinding
+import herbs.n.more.ui.MainActivity
 import herbs.n.more.ui.home.BestSellingViewModel
 import herbs.n.more.ui.home.BestSellingViewModelFactory
 import herbs.n.more.util.Coroutines
@@ -47,7 +49,9 @@ class ProfileFragment : Fragment(), KodeinAware {
         Coroutines.main {
             val delete = viewModel.deleteUser.await()
             delete.let {
+                ZaloSDK.Instance.unauthenticate()
                 activity?.toast("Đăng xuất thành công")
+                (activity as MainActivity).goHome()
             }
         }
     }

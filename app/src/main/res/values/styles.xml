@@ -138,7 +138,7 @@
     </style>
 
     <style name="App.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dp_40</item>
         <item name="cornerRadius">@dimen/dp_10</item>
         <item name="android:textAllCaps">false</item>
@@ -147,8 +147,9 @@
         <item name="android:insetTop">@dimen/dp_0</item>
         <item name="android:insetBottom">@dimen/dp_0</item>
         <item name="android:padding">@dimen/dp_0</item>
-        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:letterSpacing">0</item>
+        <item name="android:backgroundTint">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="rippleColor">@color/colorWhite</item>
         <item name="strokeColor">@color/colorPrimary</item>
     </style>

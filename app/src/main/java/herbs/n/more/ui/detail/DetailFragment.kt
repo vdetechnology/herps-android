@@ -22,19 +22,16 @@ import com.xwray.groupie.GroupieViewHolder
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.BaseViewHolder
 import herbs.n.more.R
-import herbs.n.more.data.db.entities.Cart
-import herbs.n.more.data.db.entities.DetailProduct
-import herbs.n.more.data.db.entities.Product
-import herbs.n.more.data.db.entities.User
+import herbs.n.more.data.db.entities.*
 import herbs.n.more.databinding.FragmentDetailBinding
 import herbs.n.more.ui.BaseFragment
-import herbs.n.more.ui.MainActivity
 import herbs.n.more.ui.adapter.DetailImagesAdapter
 import herbs.n.more.ui.dialog.ConfirmLoginDialog
 import herbs.n.more.ui.home.ProductItem
 import herbs.n.more.ui.home.ProductItemListener
 import herbs.n.more.util.Constant
 import herbs.n.more.util.Coroutines
+import herbs.n.more.util.Validate
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import org.kodein.di.KodeinAware
@@ -50,6 +47,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     private lateinit var viewModel: DetailProductViewModel
 
     private var mSuggestedAdapter = GroupAdapter<GroupieViewHolder>()
+    private var mCommentAdapter = GroupAdapter<GroupieViewHolder>()
     private var pageindex : Int = 1
     private var loadmore : Boolean = false
     private var loadmoreDisable : Boolean = false
@@ -77,7 +75,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
         binding.rlLoading.visibility = View.VISIBLE
     }
 
-    override fun onSuccess(detailProduct: DetailProduct) {
+    override fun onSuccess() {
         binding.rlLoading.visibility = View.GONE
     }
 
@@ -170,6 +168,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
         GlobalScope.async{bindCountCart()}
         GlobalScope.async{bindDataDetail()}
         GlobalScope.async{bindDataPopular()}
+        GlobalScope.async{bindDataComment()}
     }
 
     private fun bindDataDetail() = Coroutines.main {
@@ -261,6 +260,26 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     private fun List<Product>.toProductItem() : List<ProductItem>{
         return this.map {
             ProductItem(requireActivity(), it, this@DetailFragment)
+        }
+    }
+
+    private fun bindDataComment() = Coroutines.main {
+        viewModel.getComments(activity?.intent?.getStringExtra("id").toString(), 1, 4)?.let{
+                mCommentAdapter = GroupAdapter<GroupieViewHolder>().apply {
+                    if (it.isNotEmpty()) {
+                        addAll(it.toCommentItem())
+                    }
+                }
+                binding.rvRating.apply {
+                    layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+                    adapter = mCommentAdapter
+                }
+        }
+    }
+
+    private fun List<Comment>.toCommentItem() : List<CommentItem>{
+        return this.map {
+            CommentItem(requireActivity(), it)
         }
     }
 
@@ -411,6 +430,58 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     }
 
     fun scrollTop(){
-        binding.svHome.fullScroll(ScrollView.FOCUS_UP);
+        binding.svHome.fullScroll(ScrollView.FOCUS_UP)
     }
+
+    private fun checkValidateRating() : Boolean{
+        var isComment = false
+        var isMail = false
+        var isName = false
+
+        if (Validate.isNull(binding.etComment.text.toString())) {
+            binding.tvErrComment.text = resources.getString(R.string.rating_is_blank)
+        } else {
+            binding.tvErrComment.text = ""
+            isComment = true
+        }
+
+        if (Validate.isNull(binding.etMail.text.toString())) {
+            binding.tvErrMail.text = resources.getString(R.string.email_is_blank)
+        } else if (!Validate.isValidEmail(binding.etMail.text.toString())) {
+            binding.tvErrMail.text = resources.getString(R.string.email_wrong_format)
+        } else {
+            binding.tvErrMail.text = ""
+            isMail = true
+        }
+
+        if (Validate.isNull(binding.etName.text.toString())) {
+            binding.tvErrName.text = resources.getString(R.string.name_is_blank)
+        } else if (Validate.isShorterThan(binding.etName.text.toString(), 2)) {
+            binding.tvErrName.text = resources.getString(R.string.name_shorter)
+        }else {
+            binding.tvErrName.text = ""
+            isName = true
+        }
+
+        return isComment && isMail && isName
+    }
+
+    fun onRatingButtonClick() {
+        if (!checkValidateRating())
+            return
+        addComment()
+    }
+
+    private fun addComment() = Coroutines.main {
+        viewModel.addComment(product?.id.toString(), user?.id.toString(), binding.etMail.text.toString(),
+            binding.etName.text.toString(), binding.rbYourRating.rating.toInt(), binding.etComment.text.toString(),
+            "").observe(viewLifecycleOwner, Observer {
+            if (it.code == 200){
+
+            }else{
+
+            }
+        })
+    }
+
 }

@@ -43,16 +43,16 @@ class ForgotPasswordFragment  : BaseFragment(), AuthListener, KodeinAware {
     }
 
     override fun onStarted() {
-        binding.progressBar.show()
+        binding.rlLoading.visibility = View.VISIBLE
     }
 
     override fun onSuccess(user: User?, message : String) {
-        binding.progressBar.hide()
+        binding.rlLoading.visibility = View.GONE
         openDialog(message)
     }
 
     override fun onFailure(message: String) {
-        binding.progressBar.hide()
+        binding.rlLoading.visibility = View.GONE
         when(message) {
             Constant.EMAIL_NULL -> tv_err_mail.text = resources.getString(R.string.email_is_blank)
             Constant.EMAIL_OK -> tv_err_mail.text = ""

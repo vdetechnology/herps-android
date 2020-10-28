@@ -12,7 +12,7 @@
     <com.google.android.material.card.MaterialCardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cv_item"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_305"
+        android:layout_height="@dimen/dp_295"
         android:layout_margin="@dimen/dp_5"
         android:layout_marginBottom="@dimen/dp_10"
         android:outlineAmbientShadowColor="@color/colorPrimary"
@@ -24,11 +24,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_305"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_3">
+            android:layout_height="@dimen/dp_295"
+            android:padding="@dimen/dp_10">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_image"
@@ -151,7 +148,9 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_add_cart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_25"
+                android:insetBottom="0dp"
+                android:insetTop="0dp"
                 android:text="@string/add_to_cart"
                 android:textSize="@dimen/sp_8"
                 android:textAllCaps="false"
