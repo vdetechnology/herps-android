@@ -91,7 +91,6 @@
                         android:id="@+id/tv_number_rating"
                         style="@style/TextSubRegular10"
                         android:layout_marginLeft="@dimen/dp_5"
-                        android:fontFamily="@font/roboto_regular"
                         android:text="@{String.format(@string/number_comment, product.comment)}" />
                 </LinearLayout>
 
@@ -126,7 +125,7 @@
                         android:layout_height="@dimen/dp_12"
                         android:layout_marginLeft="@dimen/dp_10"
                         android:background="@drawable/bg_percent_sale"
-                        android:fontFamily="@font/roboto_regular"
+                        android:fontFamily="@font/roboto_bold"
                         android:gravity="center"
                         android:text="@{product.total_sales_percent.toString()}"
                         android:textColor="@color/colorWhite"

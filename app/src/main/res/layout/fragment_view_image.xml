@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.detail.ViewImageFragment">
+
+    <data>
+        <variable
+            name="fragment"
+            type="herbs.n.more.ui.detail.ViewImageFragment" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/dp_20">
+
+            <ImageButton
+                android:id="@+id/ib_back"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:layout_centerVertical="true"
+                android:background="?actionBarItemBackground"
+                android:onClick="@{fragment::onBackNavController}"
+                android:padding="@dimen/dp_15"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_arrow_back" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/ColorMainTextRegular15"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_toRightOf="@+id/ib_back"
+                android:layout_marginRight="@dimen/dp_45"
+                android:singleLine="true"/>
+        </RelativeLayout>
+
+        <com.zhpan.bannerview.BannerViewPager
+            android:id="@+id/banner_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:bvp_auto_play="false"
+            app:bvp_can_loop="true"
+            app:bvp_indicator_checked_color="@color/colorPrimary"
+            app:bvp_indicator_normal_color="@color/colorIndicatorInActive"
+            app:bvp_indicator_radius="@dimen/dp_4"
+            app:bvp_indicator_slide_mode="worm"
+            android:layout_below="@id/header"/>
+
+    </RelativeLayout>
+</layout>

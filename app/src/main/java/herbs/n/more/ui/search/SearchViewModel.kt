@@ -93,4 +93,13 @@ class SearchViewModel(
         }
     }
 
+    suspend fun getPopularSearches(pageindex : Int): List<String>? {
+        try {
+            return repository.getPopularSearches(pageindex).data
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
 }

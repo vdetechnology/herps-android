@@ -90,6 +90,18 @@ interface MyApi {
         @Field("agent") agent: String
     ): Response<AddCommentResponse>
 
+    @GET("product/relatedproducts/")
+    suspend fun getRelatedProduct(
+        @Query("productid") productid : Int,
+        @Query("pagesize") pagesize : Int
+    ) : Response<GetBestSellingResponse>
+
+    @GET("product/popularSearches/")
+    suspend fun getPopularSearches(
+        @Query("pageindex") pageindex : Int,
+        @Query("pagesize") pagesize : Int
+    ) : Response<PopularSearchesResponse>
+
     companion object{
         operator fun invoke(
             networkConnectionInterceptor: NetworkConnectionInterceptor

@@ -41,15 +41,6 @@ class SearchActivity : BaseActivity(), KodeinAware, SearchHistoryItemListener {
     private var fromValue: Float = 0f
     private var toValue: Float = 10000000f
 
-    var searchs = arrayOf(
-        "Đường huyết",
-        "Nhân sâm",
-        "Quà tặng cao cấp",
-        "Ung thư",
-        "Sinh lý nam",
-        "Canxi NANO", "Gan"
-    )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bind = DataBindingUtil.setContentView(this, R.layout.activity_search)
@@ -96,17 +87,6 @@ class SearchActivity : BaseActivity(), KodeinAware, SearchHistoryItemListener {
             bind.etSearch.setText("")
         }
 
-        for (text in searchs) {
-            val chip: MaterialCardView = LayoutInflater.from(this).inflate(R.layout.item_chip, null) as MaterialCardView
-            (chip.getChildAt(0) as TextView).text = text
-            chip.setOnClickListener {
-                q = (chip.getChildAt(0) as TextView).text.toString()
-                goToSearchResult(q, sort, listCategory, fromValue, toValue)
-                finish()
-            }
-            bind.chipGroup.addView(chip)
-        }
-
     }
 
     fun seeMore() {
@@ -132,6 +112,7 @@ class SearchActivity : BaseActivity(), KodeinAware, SearchHistoryItemListener {
         toValue = intent.getFloatExtra("price_to", 10000000f)
         GlobalScope.async { bindDataHistory() }
         GlobalScope.async { bindCount() }
+        GlobalScope.async { bindDataPopularSearches() }
     }
 
     @SuppressLint("FragmentLiveDataObserve")
@@ -219,18 +200,19 @@ class SearchActivity : BaseActivity(), KodeinAware, SearchHistoryItemListener {
         imm.showSoftInput(bind.etSearch, InputMethodManager.SHOW_IMPLICIT)
     }
 
-    /*override fun onFailure(message: String) {
-        bind.rlLoading.visibility = View.GONE
-        when(message) {
-            Constant.API_ERROR -> showMessage(
-                resources.getString(R.string.server_error_title),
-                resources.getString(R.string.server_error)
-            )
-            Constant.NO_INTERNET -> showMessage(
-                resources.getString(R.string.network_error_title),
-                resources.getString(R.string.network_error)
-            )
+    private fun bindDataPopularSearches() = Coroutines.main {
+        viewModel.getPopularSearches(1)?.let {
+            for (text in it) {
+                val chip: MaterialCardView = LayoutInflater.from(this).inflate(R.layout.item_chip, null) as MaterialCardView
+                (chip.getChildAt(0) as TextView).text = text
+                chip.setOnClickListener {
+                    q = (chip.getChildAt(0) as TextView).text.toString()
+                    goToSearchResult(q, sort, listCategory, fromValue, toValue)
+                    finish()
+                }
+                bind.chipGroup.addView(chip)
+            }
         }
-    }*/
+    }
 
 }

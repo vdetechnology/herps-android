@@ -6,6 +6,7 @@ import herbs.n.more.data.db.entities.SearchHistory
 import herbs.n.more.data.network.MyApi
 import herbs.n.more.data.network.SafeApiRequest
 import herbs.n.more.data.network.responses.GetBestSellingResponse
+import herbs.n.more.data.network.responses.PopularSearchesResponse
 
 class SearchRepository(
     private val api: MyApi,
@@ -38,6 +39,10 @@ class SearchRepository(
         price_to: Float
     ) : GetBestSellingResponse {
         return apiRequest{ api.getBestSelling()}
+    }
+
+    suspend fun getPopularSearches(pageindex: Int) : PopularSearchesResponse {
+        return apiRequest{ api.getPopularSearches(pageindex, 15)}
     }
 
     fun saveProducts(product: Product) = db.getProductDao().saveProduct(product)

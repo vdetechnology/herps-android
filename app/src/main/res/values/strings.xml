@@ -131,6 +131,7 @@
     <string name="rating_name_hint">Your name display (require)</string>
     <string name="rating">Rating</string>
     <string name="hints_for_you">Hints for you</string>
+    <string name="rating_title">Thank for your rating!</string>
 
     <!-- Cart-->
     <string name="cart">Cart</string>

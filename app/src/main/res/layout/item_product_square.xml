@@ -85,7 +85,6 @@
                         android:id="@+id/tv_number_rating"
                         style="@style/TextSubRegular10"
                         android:layout_marginLeft="@dimen/dp_5"
-                        android:fontFamily="@font/roboto_regular"
                         android:text="@{String.format(@string/number_comment, product.comment)}" />
                 </LinearLayout>
 

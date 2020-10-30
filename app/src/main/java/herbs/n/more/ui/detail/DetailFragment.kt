@@ -9,14 +9,18 @@ import android.view.*
 import android.view.animation.*
 import android.widget.ImageView
 import android.widget.ScrollView
+import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.zhpan.bannerview.BannerViewPager
@@ -38,6 +42,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItemListener{
 
@@ -103,26 +108,27 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
             pageindex = 1
             initData()
             binding.swipeRefresh.isRefreshing = false
+            binding.etComment.setText("")
         }
 
         mViewPager = binding.root?.findViewById(R.id.banner_view)
         mViewPager?.apply {
             setIndicatorSliderRadius(resources.getDimensionPixelOffset(R.dimen.dp_4), resources.getDimensionPixelOffset(R.dimen.dp_4))
             setLifecycleRegistry(lifecycle)
-            //setOnPageClickListener{ position: Int -> pageClick(position) }
+            setOnPageClickListener{ position: Int -> pageClick(position) }
             setAdapter(DetailImagesAdapter())
         }?.create()
         setupIndicatorView()
 
         binding.svHome.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+            /*if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                 if (!loadmoreDisable) {
                     pageindex += 1
                     loadmore = true
                     loadMorePopular()
                     binding.pbLoadMore.visibility = View.VISIBLE
                 }
-            }
+            }*/
             if (seeLess) {
                 if (scrollY == (binding.llDescription.parent as View).top + binding.llDescription.top) {
                     binding.tvDescription.maxLines = 6
@@ -154,6 +160,14 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
         })
     }
 
+    private fun pageClick(position: Int){
+        val bundle = bundleOf("images" to product?.images,
+        "title" to product?.title,
+        "position" to position)
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_detailFragment_to_viewImageFragment, bundle)
+    }
+
     private fun setupIndicatorView() {
         mViewPager?.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -167,7 +181,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
         user = activity?.intent?.getSerializableExtra("user") as User?
         GlobalScope.async{bindCountCart()}
         GlobalScope.async{bindDataDetail()}
-        GlobalScope.async{bindDataPopular()}
+        GlobalScope.async{bindDataRelatedProduct()}
         GlobalScope.async{bindDataComment()}
     }
 
@@ -176,6 +190,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
         detail?.observe(viewLifecycleOwner, Observer {
             binding.product = it
             product = it
+            if(it.comment == 0) binding.tvCommentEmpty.visibility = View.VISIBLE
             Glide
                 .with(this)
                 .load(it.image)
@@ -225,11 +240,12 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
             }else{
                 binding.tvPriceSale.text = (convertMoney(it.price?.toDouble()!!).toString()).replace(",", ".")
             }
+            detail.removeObservers(this)
         })
     }
 
-    private fun bindDataPopular() = Coroutines.main {
-        viewModel.getPopular(pageindex)?.let{
+    private fun bindDataRelatedProduct() = Coroutines.main {
+        viewModel.getRelatedProduct(activity?.intent?.getStringExtra("id")?.toInt()!!)?.let{
             if (!loadmore) {
                 mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
                     if (it.isNotEmpty()) {
@@ -245,7 +261,7 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     }
 
     private fun loadMorePopular() = Coroutines.main {
-        viewModel.getPopular(pageindex)?.let{
+        viewModel.getRelatedProduct(pageindex)?.let{
             if (loadmore) {
                 if (it.isNotEmpty()) {
                     mSuggestedAdapter.addAll(it.toProductItem())
@@ -264,10 +280,19 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     }
 
     private fun bindDataComment() = Coroutines.main {
-        viewModel.getComments(activity?.intent?.getStringExtra("id").toString(), 1, 4)?.let{
+        viewModel.getComments(activity?.intent?.getStringExtra("id").toString(), 1, 5)?.let{
                 mCommentAdapter = GroupAdapter<GroupieViewHolder>().apply {
                     if (it.isNotEmpty()) {
-                        addAll(it.toCommentItem())
+                        if (it.size < 5){
+                            binding.tvSeeAll.visibility = View.GONE
+                            addAll(it.toCommentItem())
+                        }else {
+                            var comments: ArrayList<Comment> = ArrayList()
+                            for (x in 0..3) {
+                                comments.add(it[x])
+                            }
+                            addAll(comments.toCommentItem())
+                        }
                     }
                 }
                 binding.rvRating.apply {
@@ -475,13 +500,33 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     private fun addComment() = Coroutines.main {
         viewModel.addComment(product?.id.toString(), user?.id.toString(), binding.etMail.text.toString(),
             binding.etName.text.toString(), binding.rbYourRating.rating.toInt(), binding.etComment.text.toString(),
-            "").observe(viewLifecycleOwner, Observer {
-            if (it.code == 200){
-
+            "Android device " + android.os.Build.MODEL.toString()).let{
+            binding.rlLoading.visibility = View.GONE
+            if (it?.code == 200){
+                openDialog(it.message)
+                binding.etComment.setText("")
             }else{
-
+                binding.etComment.setText("")
             }
-        })
+        }
     }
 
+    private fun openDialog(message: String) {
+        val view: View = layoutInflater.inflate(R.layout.bottom_sheet_rating, null)
+        val dialog = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
+        dialog.setContentView(view)
+        val tvMessage = view.findViewById<View>(R.id.tv_message) as TextView
+        tvMessage.text = message
+        val btClose = view.findViewById<View>(R.id.bt_close) as TextView
+        btClose.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    fun scrollToComment(){
+        val scrollTo: Int =
+            (binding.llComment.parent as View).top + binding.llComment.top
+        binding.svHome.smoothScrollTo(0, scrollTo)
+    }
 }

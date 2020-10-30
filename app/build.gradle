@@ -147,4 +147,7 @@ dependencies {
     implementation "com.zing.zalo.zalosdk:core:+"
     implementation "com.zing.zalo.zalosdk:auth:+"
     implementation "com.zing.zalo.zalosdk:openapi:+"
+
+    //zoom image
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 }

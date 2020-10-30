@@ -22,7 +22,6 @@ class DetailProductViewModel (
 ) : ViewModel() {
     var detailListener : DetailListener? = null
     private val detail = MutableLiveData<DetailProduct>()
-    private val addComment = MutableLiveData<AddCommentResponse>()
 
     suspend fun getDetail(id: String): LiveData<DetailProduct> {
         return withContext(Dispatchers.Main) {
@@ -53,9 +52,9 @@ class DetailProductViewModel (
         }
     }
 
-    suspend fun getPopular(pageindex : Int): List<Product>? {
+    suspend fun getRelatedProduct(productid : Int): List<Product>? {
         try {
-            return repository.getPopular(pageindex)
+            return repository.getRelatedProduct(productid)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -90,33 +89,19 @@ class DetailProductViewModel (
     }
 
     suspend fun addComment(productid: String, userid: String, email: String,
-                           reviewer: String, rating: Int, comment: String, agent: String): LiveData<AddCommentResponse> {
-        return withContext(Dispatchers.Main) {
-            fetchAddComment(productid, userid, email, reviewer, rating, comment, agent)
-            addComment
-        }
-    }
-
-    private suspend fun fetchAddComment(productid: String, userid: String, email: String,
-                                        reviewer: String, rating: Int, comment: String, agent: String) {
+                           reviewer: String, rating: Int, comment: String, agent: String): AddCommentResponse? {
         detailListener?.onStarted()
-        Coroutines.main {
-            try {
-                val response = repository.addComment(productid, userid, email, reviewer, rating, comment, agent)
-                response.let {
-                    addComment.postValue(response)
-                    detailListener?.onSuccess()
-                    return@main
-                }
-                detailListener?.onFailure(response.message!!)
-            } catch (e: ApiException) {
-                detailListener?.onFailure(Constant.API_ERROR)
-            } catch (e: NoInternetException) {
-                detailListener?.onFailure(Constant.NO_INTERNET)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                detailListener?.onFailure(Constant.API_ERROR)
-            }
+        try {
+           return repository.addComment(productid, userid, email, reviewer, rating, comment, agent)
+
+        } catch (e: ApiException) {
+            detailListener?.onFailure(Constant.API_ERROR)
+        } catch (e: NoInternetException) {
+            detailListener?.onFailure(Constant.NO_INTERNET)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            detailListener?.onFailure(Constant.API_ERROR)
         }
+        return null
     }
 }

@@ -171,8 +171,9 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_95"
-                        android:background="@mipmap/category1"/>
+                        android:layout_height="@dimen/dp_90"
+                        android:src="@mipmap/category1"
+                        android:scaleType="centerCrop"/>
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -189,8 +190,9 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_95"
-                        android:background="@mipmap/category2"/>
+                        android:layout_height="@dimen/dp_90"
+                        android:src="@mipmap/category2"
+                        android:scaleType="centerCrop"/>
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -207,8 +209,9 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_95"
-                        android:background="@mipmap/category3"/>
+                        android:layout_height="@dimen/dp_90"
+                        android:src="@mipmap/category3"
+                        android:scaleType="centerCrop"/>
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -264,6 +267,7 @@
             android:background="?actionBarItemBackground"
             android:src="@drawable/ic_top_alignment"
             android:layout_alignParentBottom="true"
+            app:elevation="@dimen/dp_2"
             app:tint="@color/colorPrimary"
             android:outlineSpotShadowColor="@color/colorPrimary"
             android:layout_above="@+id/cv_bottom"

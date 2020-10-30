@@ -18,8 +18,8 @@ class DetailProductRepository (
         return apiRequest { api.getDetailProduct(id) }
     }
 
-    suspend fun getPopular(pageindex : Int): List<Product> {
-        val response = apiRequest { api.getPopular(pageindex,4) }
+    suspend fun getRelatedProduct(productid : Int): List<Product> {
+        val response = apiRequest { api.getRelatedProduct(productid,15) }
         return response.data
     }
 

@@ -131,6 +131,7 @@
     <string name="rating_name_hint">Tên hiển thị của bạn (bắt buộc)</string>
     <string name="rating">Đánh giá</string>
     <string name="hints_for_you">Gợi ý cho bạn</string>
+    <string name="rating_title">Cảm ơn đánh giá của bạn!</string>
 
     <!-- Cart-->
     <string name="cart">Giỏ hàng</string>
