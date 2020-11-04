@@ -2,6 +2,7 @@ package herbs.n.more.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import herbs.n.more.data.db.entities.Category
 import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.db.entities.SlideImage
 import herbs.n.more.data.repositories.BestSellingRepository
@@ -51,4 +52,8 @@ class BestSellingViewModel(
     }
 
     val countCart = repository.getCountCart()
+
+    suspend fun categorys(): LiveData<List<Category>>? {
+        return  repository.getCategory()
+    }
 }

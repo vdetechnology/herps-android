@@ -102,6 +102,9 @@ interface MyApi {
         @Query("pagesize") pagesize : Int
     ) : Response<PopularSearchesResponse>
 
+    @GET("product/categories")
+    suspend fun getCategories() : Response<CategoryResponse>
+
     companion object{
         operator fun invoke(
             networkConnectionInterceptor: NetworkConnectionInterceptor

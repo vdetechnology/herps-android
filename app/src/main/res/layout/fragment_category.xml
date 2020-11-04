@@ -157,63 +157,14 @@
                     android:layout_marginLeft="@dimen/dp_20"
                     android:text="@string/product_category"/>
 
-                <com.google.android.material.card.MaterialCardView
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/dp_10"
-                    app:cardElevation="@dimen/dp_0"
-                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_20"
                     android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_marginBottom="@dimen/dp_15"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:onClick="@{()->fragment.goToResult(String.valueOf(1))}"
-                    app:cardBackgroundColor="@color/colorItemClick">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_90"
-                        android:src="@mipmap/category1"
-                        android:scaleType="centerCrop"/>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/dp_10"
-                    app:cardElevation="@dimen/dp_0"
                     android:layout_marginRight="@dimen/dp_20"
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_marginBottom="@dimen/dp_15"
-                    android:onClick="@{()->fragment.goToResult(String.valueOf(2))}"
-                    app:cardBackgroundColor="@color/colorItemClick">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_90"
-                        android:src="@mipmap/category2"
-                        android:scaleType="centerCrop"/>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/dp_10"
-                    app:cardElevation="@dimen/dp_0"
-                    android:layout_marginRight="@dimen/dp_20"
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:layout_marginBottom="@dimen/dp_20"
-                    android:onClick="@{()->fragment.goToResult(String.valueOf(3))}"
-                    app:cardBackgroundColor="@color/colorItemClick">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_90"
-                        android:src="@mipmap/category3"
-                        android:scaleType="centerCrop"/>
-
-                </com.google.android.material.card.MaterialCardView>
+                    android:layout_marginBottom="@dimen/dp_5"/>
 
                 <TextView
                     style="@style/ColorMainTextRegular15"

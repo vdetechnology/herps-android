@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import herbs.n.more.R
+import herbs.n.more.data.db.entities.Category
 import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.db.entities.User
 import herbs.n.more.databinding.FragmentCategoryBinding
@@ -44,9 +45,8 @@ class CategoryFragment : BaseFragment(), KodeinAware, BestSellingListener, Produ
 
     private var user : User? = null
     private var mSuggestedAdapter = GroupAdapter<GroupieViewHolder>()
+    private var mCategoryAdapter = GroupAdapter<GroupieViewHolder>()
     private var pageindex : Int = 1
-    private var loadmore : Boolean = false
-    private var loadmoreDisable : Boolean = false
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
@@ -74,6 +74,7 @@ class CategoryFragment : BaseFragment(), KodeinAware, BestSellingListener, Produ
 
     private fun initData(){
         GlobalScope.async{bindCountCart()}
+        GlobalScope.async{bindCategory()}
         GlobalScope.async{bindDataPopular()}
     }
 
@@ -88,49 +89,60 @@ class CategoryFragment : BaseFragment(), KodeinAware, BestSellingListener, Produ
         })
     }
 
+    private fun bindCategory() = Coroutines.main {
+        viewModel.categorys()?.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            mCategoryAdapter = GroupAdapter<GroupieViewHolder>().apply {
+                if (it.isNotEmpty()) {
+                    addAll(it.toCategoryItem())
+                }
+            }
+            binding.rvCategory.apply {
+                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+                adapter = mCategoryAdapter
+            }
+        })
+    }
+
+    private fun List<Category>.toCategoryItem() : List<CategoryItem>{
+        return this.map {
+            CategoryItem(this@CategoryFragment, it)
+        }
+    }
+
     @SuppressLint("FragmentLiveDataObserve")
     private fun bindDataPopular() = Coroutines.main {
         viewModel.getPopular(pageindex)?.let {
-            if (!loadmore) {
-                mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
-                    if (it.isNotEmpty()) {
-                        addAll(it.toProductItem())
-                    }
+            mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
+                if (it.isNotEmpty()) {
+                    addAll(it.toProductItem())
                 }
-                binding.rvProduct.apply {
-                    layoutManager = GridLayoutManager(activity, 2, LinearLayoutManager.VERTICAL, false)
-                    adapter = mSuggestedAdapter
-                }
-                binding.svCategory.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-                    if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
-                        if (!loadmoreDisable) {
-                            pageindex += 1
-                            loadmore = true
-                            binding.pbLoadMore.visibility = View.VISIBLE
-                            loadMorePopular()
-                        }
-                    }
-                    if(scrollY > 5000){
-                        binding.fbTop.visibility = View.VISIBLE
-                    }else{
-                        binding.fbTop.visibility = View.GONE
-                    }
-                })
             }
+            binding.rvProduct.apply {
+                layoutManager = GridLayoutManager(activity, 2, LinearLayoutManager.VERTICAL, false)
+                adapter = mSuggestedAdapter
+            }
+            binding.svCategory.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                    pageindex += 1
+                    binding.pbLoadMore.visibility = View.VISIBLE
+                    loadMorePopular()
+                }
+                if(scrollY > 5000){
+                    binding.fbTop.visibility = View.VISIBLE
+                }else{
+                    binding.fbTop.visibility = View.GONE
+                }
+            })
         }
     }
 
     @SuppressLint("FragmentLiveDataObserve")
     private fun loadMorePopular() = Coroutines.main {
         viewModel.getPopular(pageindex)?.let {
-            if (loadmore) {
-                if (it.isNotEmpty()) {
-                    mSuggestedAdapter.addAll(it.toProductItem())
-                } else {
-                    loadmoreDisable = true
-                }
-                binding.pbLoadMore.visibility = View.GONE
+            if (it.isNotEmpty()) {
+                mSuggestedAdapter.addAll(it.toProductItem())
             }
+            binding.pbLoadMore.visibility = View.GONE
         }
     }
 

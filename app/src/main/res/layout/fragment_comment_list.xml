@@ -39,28 +39,36 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:layout_toRightOf="@+id/ib_back"
-                android:text="@string/rating_product"/>
+                android:text="@string/rating_product" />
         </RelativeLayout>
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/sv_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/header"
-            android:onClick="@{() -> fragment.closeKeyBoard()}"
-            android:orientation="vertical">
+            android:layout_below="@id/header">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_comment"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/dp_20" />
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> fragment.closeKeyBoard()}"
+                android:orientation="vertical">
 
-            <ProgressBar
-                android:id="@+id/pb_load_more"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_30"
-                android:visibility="gone" />
-        </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_20"
+                    android:nestedScrollingEnabled="false"
+                    android:scrollbars="none" />
+
+                <ProgressBar
+                    android:id="@+id/pb_load_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_30"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <RelativeLayout
             android:id="@+id/rl_loading"

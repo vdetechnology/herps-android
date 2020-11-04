@@ -725,6 +725,7 @@
                             android:layout_marginTop="@dimen/dp_15"
                             android:background="@drawable/border_bottom_primary"
                             android:text="@string/see_all"
+                            android:onClick="@{()->activity.seeAllClick()}"
                             android:textSize="@dimen/sp_12"/>
                     </LinearLayout>
 

@@ -76,15 +76,15 @@ class FilterActivity : AppCompatActivity() {
 
         for (string in listCategory){
             when(string){
-                "1" -> {
+                "20" -> {
                     bind.tbFunctionalFoods.isChecked = true
                     bind.tbFunctionalFoods.setTextColor(resources.getColor(R.color.colorWhite))
                 }
-                "2" -> {
+                "16" -> {
                     bind.tbAmericanGinseng.isChecked = true
                     bind.tbAmericanGinseng.setTextColor(resources.getColor(R.color.colorWhite))
                 }
-                "3" -> {
+                "25" -> {
                     bind.tbGiftSet.isChecked = true
                     bind.tbGiftSet.setTextColor(resources.getColor(R.color.colorWhite))
                 }
@@ -94,28 +94,28 @@ class FilterActivity : AppCompatActivity() {
         bind.tbFunctionalFoods.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 buttonView.setTextColor(resources.getColor(R.color.colorWhite))
-                listCategory.add("1")
+                listCategory.add("20")
             }else{
                 buttonView.setTextColor(resources.getColor(R.color.text_color_hint))
-                listCategory.remove("1")
+                listCategory.remove("20")
             }
         }
         bind.tbAmericanGinseng.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 buttonView.setTextColor(resources.getColor(R.color.colorWhite))
-                listCategory.add("2")
+                listCategory.add("16")
             }else{
                 buttonView.setTextColor(resources.getColor(R.color.text_color_hint))
-                listCategory.remove("2")
+                listCategory.remove("16")
             }
         }
         bind.tbGiftSet.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                listCategory.add("3")
+                listCategory.add("25")
                 buttonView.setTextColor(resources.getColor(R.color.colorWhite))
             }else{
                 buttonView.setTextColor(resources.getColor(R.color.text_color_hint))
-                listCategory.remove("3")
+                listCategory.remove("25")
             }
         }
     }

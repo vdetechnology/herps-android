@@ -54,8 +54,6 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
     private var mSuggestedAdapter = GroupAdapter<GroupieViewHolder>()
     private var mCommentAdapter = GroupAdapter<GroupieViewHolder>()
     private var pageindex : Int = 1
-    private var loadmore : Boolean = false
-    private var loadmoreDisable : Boolean = false
     private var mViewPager: BannerViewPager<String, BaseViewHolder<String>>? = null
     var user : User? = null
     var product: DetailProduct? = null
@@ -103,8 +101,6 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
         binding.swipeRefresh.setColorSchemeColors(resources.getColor(R.color.colorPrimary))
         binding.swipeRefresh.setOnRefreshListener {
             mSuggestedAdapter.clear()
-            loadmoreDisable = false
-            loadmore = false
             pageindex = 1
             initData()
             binding.swipeRefresh.isRefreshing = false
@@ -246,30 +242,24 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
 
     private fun bindDataRelatedProduct() = Coroutines.main {
         viewModel.getRelatedProduct(activity?.intent?.getStringExtra("id")?.toInt()!!)?.let{
-            if (!loadmore) {
-                mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
-                    if (it.isNotEmpty()) {
-                        addAll(it.toProductItem())
-                    }
+            mSuggestedAdapter = GroupAdapter<GroupieViewHolder>().apply {
+                if (it.isNotEmpty()) {
+                    addAll(it.toProductItem())
                 }
-                binding.rvSuggested.apply {
-                    layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
-                    adapter = mSuggestedAdapter
-                }
+            }
+            binding.rvSuggested.apply {
+                layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
+                adapter = mSuggestedAdapter
             }
         }
     }
 
     private fun loadMorePopular() = Coroutines.main {
         viewModel.getRelatedProduct(pageindex)?.let{
-            if (loadmore) {
-                if (it.isNotEmpty()) {
-                    mSuggestedAdapter.addAll(it.toProductItem())
-                } else {
-                    loadmoreDisable = true
-                }
-                binding.pbLoadMore.visibility = View.GONE
-            }
+        if (it.isNotEmpty()) {
+            mSuggestedAdapter.addAll(it.toProductItem())
+        }
+        binding.pbLoadMore.visibility = View.GONE
         }
     }
 
@@ -528,5 +518,11 @@ class DetailFragment : BaseFragment() , KodeinAware, DetailListener, ProductItem
         val scrollTo: Int =
             (binding.llComment.parent as View).top + binding.llComment.top
         binding.svHome.smoothScrollTo(0, scrollTo)
+    }
+
+    fun seeAllClick(){
+        val bundle = bundleOf("id" to product?.id)
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.action_detailFragment_to_commentListFragment, bundle)
     }
 }

@@ -17,10 +17,23 @@
             app:popEnterAnim="@anim/anim_slide_in_left"
             app:popExitAnim="@anim/anim_slide_out_right"
             app:popUpTo="@id/detailFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_commentListFragment"
+            app:destination="@id/commentListFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"
+            app:popUpTo="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewImageFragment"
         android:name="herbs.n.more.ui.detail.ViewImageFragment"
         android:label="fragment_view_image"
         tools:layout="@layout/fragment_view_image" />
+    <fragment
+        android:id="@+id/commentListFragment"
+        android:name="herbs.n.more.ui.detail.CommentListFragment"
+        android:label="fragment_comment_list"
+        tools:layout="@layout/fragment_comment_list" />
 </navigation>

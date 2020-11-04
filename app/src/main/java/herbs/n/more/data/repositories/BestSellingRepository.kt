@@ -3,6 +3,7 @@ package herbs.n.more.data.repositories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import herbs.n.more.data.db.AppDatabase
+import herbs.n.more.data.db.entities.Category
 import herbs.n.more.data.db.entities.Product
 import herbs.n.more.data.db.entities.SlideImage
 import herbs.n.more.data.network.MyApi
@@ -25,6 +26,7 @@ class BestSellingRepository(
     private val bestSellingAll = MutableLiveData<List<Product>>()
     private val banners = MutableLiveData<List<SlideImage>>()
     private val campaigns = MutableLiveData<List<SlideImage>>()
+    private val category = MutableLiveData<List<Category>>()
 
     fun getUser() = db.getUserDao().getuser()
 
@@ -123,4 +125,20 @@ class BestSellingRepository(
     }
 
     fun getCountCart() = db.getCartDao().getCount()
+
+    suspend fun getCategory(): LiveData<List<Category>> {
+        return withContext(Dispatchers.IO) {
+            fetchCategory()
+            category
+        }
+    }
+
+    private suspend fun fetchCategory() {
+        try {
+            val response = apiRequest { api.getCategories() }
+            category.postValue(response.data)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 }

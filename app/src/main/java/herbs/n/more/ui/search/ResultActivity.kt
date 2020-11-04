@@ -62,16 +62,16 @@ class ResultActivity : BaseActivity(), KodeinAware, BestSellingListener, Product
             if (listCategory?.size!! > 1) {
                 for (title in listCategory!!) {
                     when (title) {
-                        "1" -> lable += (resources.getString(R.string.functional_foods) + ", ")
-                        "2" -> lable += (resources.getString(R.string.american_ginseng) + ", ")
-                        "3" -> lable += resources.getString(R.string.gift_set)
+                        "20" -> lable += (resources.getString(R.string.functional_foods) + ", ")
+                        "16" -> lable += (resources.getString(R.string.american_ginseng) + ", ")
+                        "25" -> lable += resources.getString(R.string.gift_set)
                     }
                 }
             }else{
                 when (listCategory!![0].toString()) {
-                    "1" -> lable += resources.getString(R.string.functional_foods)
-                    "2" -> lable += resources.getString(R.string.american_ginseng)
-                    "3" -> lable += resources.getString(R.string.gift_set)
+                    "20" -> lable += resources.getString(R.string.functional_foods)
+                    "16" -> lable += resources.getString(R.string.american_ginseng)
+                    "25" -> lable += resources.getString(R.string.gift_set)
                 }
             }
             bind.tvTitle.text = lable
